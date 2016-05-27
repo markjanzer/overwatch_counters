@@ -1,5 +1,7 @@
-Hero.destroy_all
-Hero.reset_matchups
+OverwatchState.destroy_all
+
+ows = OverwatchState.create()
+ows.initialize_matchups
 
 Hero.create(name: "Bastion", alpha_id:0 )
 Hero.create(name: "D.Va", alpha_id:1 )
@@ -23,6 +25,10 @@ Hero.create(name: "Winston", alpha_id:18 )
 Hero.create(name: "Zarya", alpha_id:19 )
 Hero.create(name: "Zenyatta", alpha_id:20 )
 
+Hero.all.each do |hero|
+  ows.heroes << hero
+end
+
 agent = Mechanize.new
 page = agent.get('http://www.owfire.com/overwatch/counters')
 
@@ -39,8 +45,9 @@ page.links_with(:href => /\/overwatch\/wiki\/heroes\/.*\/counters\z/ ).each_with
     opponent_alpha_id = Hero.find_by(name: opponent_name).alpha_id
     points_for_hero = element.search('span[data-action="+"]').children.first.text.to_i
     points_for_opponent = element.search('span[data-action="-"]').children.first.text.to_i
-    Hero.matchups[alpha_id][opponent_alpha_id][0] += points_for_hero
-    Hero.matchups[alpha_id][opponent_alpha_id][1] += points_for_opponent
+    ows.matchups[alpha_id][opponent_alpha_id][0] += points_for_hero
+    ows.matchups[alpha_id][opponent_alpha_id][1] += points_for_opponent
+    ows.matchups[alpha_id][opponent_alpha_id][2] += (points_for_hero + points_for_opponent)
   end
 
   # Iterates through weak against column, and adds - to hero in matchup and + to opponent in matchup
@@ -49,10 +56,10 @@ page.links_with(:href => /\/overwatch\/wiki\/heroes\/.*\/counters\z/ ).each_with
     opponent_alpha_id = Hero.find_by(name: opponent_name).alpha_id
     points_for_hero = element.search('span[data-action="+"]').children.first.text.to_i
     points_for_opponent = element.search('span[data-action="-"]').children.first.text.to_i
-    Hero.matchups[alpha_id][opponent_alpha_id][1] += points_for_hero
-    Hero.matchups[alpha_id][opponent_alpha_id][0] += points_for_opponent
+    ows.matchups[alpha_id][opponent_alpha_id][1] += points_for_hero
+    ows.matchups[alpha_id][opponent_alpha_id][0] += points_for_opponent
+    ows.matchups[alpha_id][opponent_alpha_id][2] += (points_for_hero + points_for_opponent)
   end
 end
-
-
-
+ows.save
+p ows.matchups

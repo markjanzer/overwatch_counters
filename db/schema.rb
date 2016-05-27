@@ -11,17 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160526165725) do
+ActiveRecord::Schema.define(version: 20160527165047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "heros", force: :cascade do |t|
+  create_table "heroes", force: :cascade do |t|
     t.string   "name"
     t.integer  "alpha_id"
-    t.integer  "matchups",   default: [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],              array: true
-    t.datetime "created_at",                                                                                                                                                                                                                                                   null: false
-    t.datetime "updated_at",                                                                                                                                                                                                                                                   null: false
+    t.integer  "overwatch_state_id"
+    t.integer  "matchups",           default: [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],              array: true
+    t.datetime "created_at",                                                                                                                                                                                                                                                           null: false
+    t.datetime "updated_at",                                                                                                                                                                                                                                                           null: false
+  end
+
+  create_table "overwatch_states", force: :cascade do |t|
+    t.text     "matchups"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
