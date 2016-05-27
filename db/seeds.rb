@@ -61,5 +61,7 @@ page.links_with(:href => /\/overwatch\/wiki\/heroes\/.*\/counters\z/ ).each_with
     ows.matchups[alpha_id][opponent_alpha_id][2] += (points_for_hero + points_for_opponent)
   end
 end
+ows.create_matchups_showing_counters
 ows.save
 p ows.matchups
+p ows.matchups_showing_counters

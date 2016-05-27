@@ -20,15 +20,15 @@ ActiveRecord::Schema.define(version: 20160527165047) do
     t.string   "name"
     t.integer  "alpha_id"
     t.integer  "overwatch_state_id"
-    t.integer  "matchups",           default: [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],              array: true
-    t.datetime "created_at",                                                                                                                                                                                                                                                           null: false
-    t.datetime "updated_at",                                                                                                                                                                                                                                                           null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "overwatch_states", force: :cascade do |t|
     t.text     "matchups"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "matchups_showing_counters"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
 end
