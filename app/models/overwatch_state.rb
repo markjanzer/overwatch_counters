@@ -32,9 +32,17 @@ class OverwatchState < ActiveRecord::Base
     output = ""
     counters.each do |counter|
       hero_name = Hero.where(alpha_id: counter[1]).first.name
-      output += "#{hero_name} :: #{counter[0]}" + "\n"
+      output += "#{hero_name} :: #{counter[0].round(3)}" + "\n"
     end
     puts output
+  end
+
+  def indexed_heroes
+    ordered_heroes = self.heroes.sort { |x,y| x.alpha_id<=>y.alpha_id }
+    ordered_heroes.each do |hero|
+      puts "#{hero.alpha_id} :: #{hero.name}"
+    end
+    return "dope"
   end
 
   private
