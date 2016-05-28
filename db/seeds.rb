@@ -65,3 +65,7 @@ ows.create_matchups_showing_counters
 ows.save
 p ows.matchups
 p ows.matchups_showing_counters
+
+# Tools for use
+o = OverwatchState.first
+
