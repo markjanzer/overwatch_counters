@@ -11,8 +11,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
-/tmp
-=======
 *.rbc
 capybara-*.html
 .rspec
@@ -26,6 +24,7 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+.byebug_history
 
 # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
@@ -49,3 +48,5 @@ bower.json
 # Ignore pow environment settings
 .powenv
 >>>>>>> 7ce89d152fd108a2247844e742edfe58f442e582
+
+

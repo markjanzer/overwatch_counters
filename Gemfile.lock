@@ -51,6 +51,7 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
+    deep_enumerable (0.1.4)
     domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
@@ -163,6 +164,7 @@ DEPENDENCIES
   awesome_print
   byebug
   coffee-rails (~> 4.1.0)
+  deep_enumerable
   jbuilder (~> 2.0)
   jquery-rails
   mechanize
