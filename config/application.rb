@@ -22,5 +22,8 @@ module OverwatchCounters
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # I want this to run every time I run command line
+    require "./lib/command_line_tools"
   end
 end

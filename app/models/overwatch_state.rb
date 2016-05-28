@@ -37,7 +37,7 @@ class OverwatchState < ActiveRecord::Base
       output += "#{hero_name} :: #{counter[0].round(3)}" + "\n"
     end
     puts output
-    ":D"
+    "------------OVERWATCH--COUNTERS------------"
   end
 
 
@@ -46,7 +46,7 @@ class OverwatchState < ActiveRecord::Base
     ordered_heroes.each do |hero|
       puts "#{hero.alpha_id} :: #{hero.name}"
     end
-    ":D"
+    "------------OVERWATCH--COUNTERS------------"
   end
 
   # xi = x index
