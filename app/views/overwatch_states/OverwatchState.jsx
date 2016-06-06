@@ -3,9 +3,9 @@ class OverwatchState extends React.Component {
 		super(props, context);
 
 		this.heroes = this.props.data.heroes;
-		
-		this.state = {
 
+		this.state = {
+			overwatchState = this.props.data.overwatchState
 		}
 	}
 }
