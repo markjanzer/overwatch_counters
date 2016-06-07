@@ -5,6 +5,7 @@ class OverwatchState extends React.Component {
 		this.selectOpponent = this.selectOpponent.bind(this);
 		this.addOpponent = this.addOpponent.bind(this);
 		this.selectNextOpponent = this.selectNextOpponent.bind(this);
+		this.getCounters = this.getCounters.bind(this);
 
 		let initialCounters = [];
 		for (let i = 0; i <= 20; i++) {
@@ -32,7 +33,30 @@ class OverwatchState extends React.Component {
 	addOpponent(hero) {
 		const opponents = React.addons.update(this.state.opponents, {$splice: [[this.state.selectedOpponent, 1, hero]]})
 		this.setState({opponents: opponents});
+		this.getCounters(opponents);
 		this.selectNextOpponent();
+	}
+
+	getCounters(opponents) {
+		let filteredOpponents = opponents.filter((opponent) => opponent !== null);
+		if (filteredOpponents.length) {
+			const opponentAlphaIds = filteredOpponents.map((opponent) => opponent.alpha_id);
+			const data = {
+				opponentAlphaIds: opponentAlphaIds
+			};
+
+			$.ajax({
+				url: '/counters',
+				data: data,
+				success: (result) => {
+					console.log(result);
+					this.setState({counters: result});
+				}
+			});
+		} else {
+			// Break out of method
+			return null;
+		}
 	}
 
 	renderHeroes() {
