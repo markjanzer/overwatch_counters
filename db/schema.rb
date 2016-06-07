@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20160527165047) do
   create_table "overwatch_states", force: :cascade do |t|
     t.text     "matchups"
     t.text     "matchups_showing_counters"
-    t.text     "adjustments_for_heroes"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end

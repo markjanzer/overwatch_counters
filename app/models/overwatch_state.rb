@@ -3,7 +3,6 @@ class OverwatchState < ActiveRecord::Base
 
   serialize :matchups, Array
   serialize :matchups_showing_counters, Array
-  serialize :adjustments_for_heroes, Array
 
   def initialize_matchups
     self.matchups = Array.new(21){ Array.new(21){ [0,0,0]}}
@@ -24,29 +23,18 @@ class OverwatchState < ActiveRecord::Base
     normalize_all_hero_matchups
   end
 
-  def determine_counters(arr_of_hero_alpha_ids)
+  def counters(arr_of_hero_alpha_ids)
     hero_matchups = arr_of_hero_alpha_ids.map { |alpha_id| self.matchups_showing_counters[alpha_id]}
     counters = OverwatchState.combine_arrays(hero_matchups)
     counters = counters.each_with_index.map do |counter_score, index|
-      [counter_score, index]
+      [index, counter_score]
     end
-    counters.sort! { |x,y| y[0]<=>x[0] }
-    output = ""
-    counters.each do |counter|
-      hero_name = Hero.where(alpha_id: counter[1]).first.name
-      output += "#{hero_name} :: #{counter[0].round(3)}" + "\n"
-    end
-    puts output
-    "------------OVERWATCH--COUNTERS------------"
+    counters.sort! { |x,y| y[1]<=>x[1] }
   end
 
 
-  def indexed_heroes
+  def ordered_heroes
     ordered_heroes = self.heroes.sort { |x,y| x.alpha_id<=>y.alpha_id }
-    ordered_heroes.each do |hero|
-      puts "#{hero.alpha_id} :: #{hero.name}"
-    end
-    "------------OVERWATCH--COUNTERS------------"
   end
 
   # xi = x index
