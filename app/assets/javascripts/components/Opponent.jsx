@@ -9,7 +9,6 @@ class Opponent extends React.Component {
 	}
 
 	handleClick() {
-
 		this.props.handleClick(this.props.index);
 	}
 

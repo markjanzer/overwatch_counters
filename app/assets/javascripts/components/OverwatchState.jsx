@@ -3,6 +3,8 @@ class OverwatchState extends React.Component {
 		super(props, context);
 
 		this.selectOpponent = this.selectOpponent.bind(this);
+		this.addOpponent = this.addOpponent.bind(this);
+		this.selectNextOpponent = this.selectNextOpponent.bind(this);
 
 		let initialCounters = [];
 		for (let i = 0; i <= 20; i++) {
@@ -19,7 +21,18 @@ class OverwatchState extends React.Component {
 	}
 
 	selectOpponent(opponentIndex) {
-		this.setState({selectedOpponent: opponentIndex})
+		this.setState({selectedOpponent: opponentIndex});
+	}
+
+	selectNextOpponent() {
+		let selectedOpponent = this.state.selectedOpponent === 5 ? 5 : this.state.selectedOpponent + 1
+		this.setState({selectedOpponent: selectedOpponent});
+	}
+
+	addOpponent(hero) {
+		const opponents = React.addons.update(this.state.opponents, {$splice: [[this.state.selectedOpponent, 1, hero]]})
+		this.setState({opponents: opponents});
+		this.selectNextOpponent();
 	}
 
 	renderHeroes() {
@@ -27,10 +40,11 @@ class OverwatchState extends React.Component {
 			<div className="heroes">	
 				{this.props.orderedHeroes.map((hero) => {
 					return (
-						<button 
+						<Hero 
 							key={hero.id}
-							value={hero.alpha_id}>{hero.name}
-						</button>
+							hero={hero}
+							handleClick={this.addOpponent}
+						/>
 					); 
 				})}
 			</div>
