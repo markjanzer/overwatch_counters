@@ -11,21 +11,20 @@ class OverwatchState extends React.Component {
 
 		this.state = {
 			// overwatchState: this.props.overwatchState
-			selectedOpponents: [null, null, null, null, null, null],
+			opponents: [null, null, null, null, null, null],
 			selectedOpponent: 0,
 			selectedCounter: null,
 			counters: initialCounters
 		}
 	}
 
-	selectOpponent(alpha_id, opponent_slot) {
-		this.setState({selectedOpponentSlot: opponent_slot})
-		debugger
+	selectOpponent(opponentIndex) {
+		this.setState({selectedOpponent: opponentIndex})
 	}
 
 	renderHeroes() {
 		return (
-			<div className="heroes">
+			<div className="heroes">	
 				{this.props.orderedHeroes.map((hero) => {
 					return (
 						<button 
@@ -40,25 +39,11 @@ class OverwatchState extends React.Component {
 
 	renderOpponents() {
 		return (
-			<div className="opponents">
-				{this.state.selectedOpponents.map((alpha_id, index) => {
-					let 
-					if (alpha_id !== null) {
-						return (
-							<button 
-								key={index}
-								onClick={this.selectOpponent(alpha_id, index)}
-							>
-								{this.orderedHeroes[alpha_id].name}
-							</button>
-						);
-					} else {
-						return (
-							<button key={index}>None Selected</button>
-						);
-					}	
-				})}
-			</div>
+			<Opponents
+				opponents={this.state.opponents}
+				selectedOpponent={this.state.selectedOpponent}
+				handleChange={this.selectOpponent}
+			/>
 		);
 	}
 
