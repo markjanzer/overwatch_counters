@@ -3,6 +3,7 @@ class OverwatchState < ActiveRecord::Base
 
   serialize :matchups, Array
   serialize :matchups_showing_counters, Array
+  serialize :scaled_matchups_showing_counters, Array
 
   def initialize_matchups
     self.matchups = Array.new(21){ Array.new(21){ [0,0,0]}}
@@ -23,12 +24,26 @@ class OverwatchState < ActiveRecord::Base
     normalize_all_hero_matchups
   end
 
+  def create_scaled_matchups_showing_counters
+    self.update(min_counter_score: self.matchups_showing_counters.flatten.min)
+    self.update(max_counter_score: self.matchups_showing_counters.flatten.max)
+    self.save
+    scaled_matchups_showing_counters = self.matchups_showing_counters.map do |hero_matchups|
+      hero_matchups.map do |counter_score|
+        ((counter_score - self.min_counter_score) / (self.max_counter_score - self.min_counter_score)) * 100
+      end
+    end
+    self.update(scaled_matchups_showing_counters: scaled_matchups_showing_counters)
+    self.save
+  end
+
   def counters(arr_of_hero_alpha_ids)
-    arr_of_hero_alpha_ids.map! { |alpha_id| alpha_id.to_i }
-    hero_matchups = arr_of_hero_alpha_ids.map { |alpha_id| self.matchups_showing_counters[alpha_id]}
+    alpha_ids = arr_of_hero_alpha_ids.map { |alpha_id| alpha_id.to_i }
+    hero_matchups = arr_of_hero_alpha_ids.map { |alpha_id| self.scaled_matchups_showing_counters[alpha_id]}
     counters = OverwatchState.combine_arrays(hero_matchups)
     counters = counters.each_with_index.map do |counter_score, index|
-      [index, counter_score]
+      new_counter_score = counter_score / arr_of_hero_alpha_ids.length
+      [index, new_counter_score]
     end
     counters.sort! { |x,y| y[1]<=>x[1] }
   end
@@ -116,4 +131,5 @@ class OverwatchState < ActiveRecord::Base
       [sum, arr].transpose.map {|x| x.reduce(:+)}
     end
   end
+
 end
