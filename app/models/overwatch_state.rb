@@ -39,7 +39,7 @@ class OverwatchState < ActiveRecord::Base
 
   def counters(arr_of_hero_alpha_ids)
     alpha_ids = arr_of_hero_alpha_ids.map { |alpha_id| alpha_id.to_i }
-    hero_matchups = arr_of_hero_alpha_ids.map { |alpha_id| self.scaled_matchups_showing_counters[alpha_id]}
+    hero_matchups = alpha_ids.map { |alpha_id| self.scaled_matchups_showing_counters[alpha_id]}
     counters = OverwatchState.combine_arrays(hero_matchups)
     counters = counters.each_with_index.map do |counter_score, index|
       new_counter_score = counter_score / arr_of_hero_alpha_ids.length
