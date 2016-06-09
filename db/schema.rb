@@ -17,9 +17,10 @@ ActiveRecord::Schema.define(version: 20160527165047) do
   enable_extension "plpgsql"
 
   create_table "heroes", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "alpha_id"
     t.integer  "overwatch_state_id"
+    t.integer  "alpha_id"
+    t.string   "name"
+    t.string   "image_path"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
