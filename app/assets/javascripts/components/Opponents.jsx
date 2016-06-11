@@ -14,7 +14,7 @@ class Opponents extends React.Component {
 						<Opponent 
 							key={index}
 							index={index}
-							name={opponentName}	
+							hero={opponent}	
 							selected={this.props.selectedOpponent === index}
 							handleClick={this.props.handleChange}
 						/>
