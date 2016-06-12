@@ -14,25 +14,37 @@ class OverwatchState extends React.Component {
 		}
 
 		this.state = {
-			// overwatchState: this.props.overwatchState
 			opponents: [null, null, null, null, null, null],
 			selectedOpponent: 0,
-			selectedCounter: null,
-			counters: initialCounters
+			counters: initialCounters,
+			selectedCounter: null
 		}
 	}
 
-	selectOpponent(opponentIndex) {
-		this.setState({selectedOpponent: opponentIndex});
-	}
-
-	selectNextOpponent() {
-		let selectedOpponent = this.state.selectedOpponent === 5 ? 0 : this.state.selectedOpponent + 1
-		this.setState({selectedOpponent: selectedOpponent});
-	}
-
-	selectCounter() {
-
+	getCounters(opponents) {
+		// Remove null from opponents array and only continue function if opponent exists
+		let filteredOpponents = opponents.filter((opponent) => opponent );
+		if (!opponents.length) {
+			return null;
+		}
+		let arrOfOpponentAlphaIds = filteredOpponents.map((opponent) => opponent.alpha_id);
+		let heroMatchups = arrOfOpponentAlphaIds.map((alpha_id) => {
+			return this.props.heroMatchups[alpha_id];
+		});
+		counters = heroMatchups.reduce((previousArray, currentArray) => {
+			currentArray.forEach((counterScore, index) => {
+				previousArray[index] = ((previousArray[index] + currentArray[index]) / 2.0)
+			});
+			return previousArray;
+		});
+		counters = counters.map((counterScore, alpha_id) => {
+			return [alpha_id, counterScore];
+		});
+		counters.sort((a, b) => {
+			return b[1] - a[1];
+		})
+		this.setState({counters: counters});
+		return counters;
 	}
 
 	addOpponent(hero) {
@@ -42,28 +54,21 @@ class OverwatchState extends React.Component {
 		this.selectNextOpponent();
 	}
 
-	getCounters(opponents) {
-		let filteredOpponents = opponents.filter((opponent) => opponent !== null);
-		if (filteredOpponents.length) {
-			const opponentAlphaIds = filteredOpponents.map((opponent) => opponent.alpha_id);
-			const data = {
-				opponentAlphaIds: opponentAlphaIds
-			};
-
-			$.ajax({
-				url: '/counters',
-				data: data,
-				success: (result) => {
-					console.log(result);
-					this.setState({counters: result});
-				}
-			});
-		} else {
-			// Break out of method
-			return null;
-		}
+	selectNextOpponent() {
+		let selectedOpponent = this.state.selectedOpponent === 5 ? 0 : this.state.selectedOpponent + 1;
+		this.setState({selectedOpponent: selectedOpponent});
 	}
 
+	selectOpponent(opponentIndex) {
+		this.setState({selectedOpponent: opponentIndex});
+	}
+
+	selectCounter() {
+
+	}
+
+
+  // passing hero object to each Hero component
 	renderHeroes() {
 		return (
 			<div className="heroes">	
@@ -80,6 +85,7 @@ class OverwatchState extends React.Component {
 		);
 	}
 
+	// 
 	renderOpponents() {
 		return (
 			<Opponents
@@ -106,13 +112,15 @@ class OverwatchState extends React.Component {
 		return (
 			<ol className="counters">
 				{this.state.counters.map((counter) => {
-					<li key={counter[0]}>
-						<Counter
-							hero={this.props.orderedHeroes[counter[0]]}
-							counterScore={counter[1]}
-							handleClick={this.selectCounter}
-						/>
-					</li>
+					return (
+						<li key={counter[0]}>
+							<Counter
+								hero={this.props.orderedHeroes[counter[0]]}
+								counterScore={counter[1]}
+								handleClick={this.selectCounter}
+							/>
+						</li>
+					);
 				})}
 			</ol>
 		);

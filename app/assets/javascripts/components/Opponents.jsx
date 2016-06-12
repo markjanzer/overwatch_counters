@@ -9,12 +9,11 @@ class Opponents extends React.Component {
 		return (
 			<div className="opponents">
 				{this.props.opponents.map((opponent, index) => {
-					let opponentName = (opponent ? opponent.name : "No Opponent Chosen");
 					return (
 						<Opponent 
 							key={index}
 							index={index}
-							hero={opponent}	
+							opponent={opponent}	
 							selected={this.props.selectedOpponent === index}
 							handleClick={this.props.handleChange}
 						/>

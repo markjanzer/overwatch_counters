@@ -25,14 +25,18 @@ class OverwatchState < ActiveRecord::Base
   end
 
   def create_scaled_matchups_showing_counters
-    self.update(min_counter_score: self.matchups_showing_counters.flatten.min)
-    self.update(max_counter_score: self.matchups_showing_counters.flatten.max)
-    self.save
+    # turn counter scores from 0 -> 1 to -100 -> 100
+    min_counter_score = self.matchups_showing_counters.flatten.min
+    max_counter_score = self.matchups_showing_counters.flatten.max
     scaled_matchups_showing_counters = self.matchups_showing_counters.map do |hero_matchups|
       hero_matchups.map do |counter_score|
-        ((counter_score - self.min_counter_score) / (self.max_counter_score - self.min_counter_score)) * 100
+        ((((counter_score - min_counter_score) / (max_counter_score - min_counter_score)) * 200.0) - 100).round(2)
       end
     end
+    # I added to make horizontal rows show how other people match up into that hero instead of how that 
+    # hero matches up into others. Horizontal rows are used to determine counters.
+    scaled_matchups_showing_counters = scaled_matchups_showing_counters.transpose
+    scaled_matchups_showing_counters = self.set_mirror_matchups_to_zero(scaled_matchups_showing_counters)
     self.update(scaled_matchups_showing_counters: scaled_matchups_showing_counters)
     self.save
   end
@@ -110,6 +114,17 @@ class OverwatchState < ActiveRecord::Base
     bool = hero_matchups_horizontally_average?
     self.matchups_showing_counters = self.matchups_showing_counters.transpose
     bool
+  end
+
+  def set_mirror_matchups_to_zero(two_dimensional_array)
+    two_dimensional_array.each_with_index do |hero_matchups, row_index| 
+      hero_matchups.each_with_index do |matchup, column_index| 
+        if row_index == column_index 
+          two_dimensional_array[row_index][column_index] = 0
+        end
+      end
+    end
+    two_dimensional_array
   end
 
   # Get mean of array. Skip nil

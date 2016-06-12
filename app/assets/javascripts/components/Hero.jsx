@@ -23,7 +23,7 @@ class Hero extends React.Component {
 					onClick={this.handleClick}
 				>	
 					<div className="image-wrapper">
-						<Img src={this.imagePath(this.props.hero.image_path)} />
+						<Img src={this.imagePath(this.props.hero.image_path)} className="image"/>
 					</div>
 					{this.props.hero.name}
 				</button>

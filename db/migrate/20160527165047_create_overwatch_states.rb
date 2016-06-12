@@ -4,8 +4,7 @@ class CreateOverwatchStates < ActiveRecord::Migration
       t.text :matchups
       t.text :matchups_showing_counters
       t.text :scaled_matchups_showing_counters
-      t.float :min_counter_score
-      t.float :max_counter_score
+      t.integer :number_of_votes
 
       t.timestamps null: false
     end

@@ -17,12 +17,17 @@ class Opponent extends React.Component {
 
 	renderOpponent() {
 		if (this.props.opponent) {
-			<div className="image-wrapper">
-				<Img src={this.imagePath(this.props.hero.image_path)} />
-			</div>
-			{this.props.hero.name}
+			return (
+				<div className="image-wrapper">
+					<Img src={this.imagePath(this.props.opponent.image_path)} className="image" />
+					<span>{this.props.opponent.name}</span>			
+				</div>
+			);
+		} else {
+			return <span>No Opponent Chosen</span>
 		}
 	}
+
 	selected() {
 		if (this.props.selected) {
 			return "selected";

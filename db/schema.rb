@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20160527165047) do
     t.integer  "alpha_id"
     t.string   "name"
     t.string   "image_path"
+    t.string   "category"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
@@ -29,8 +30,7 @@ ActiveRecord::Schema.define(version: 20160527165047) do
     t.text     "matchups"
     t.text     "matchups_showing_counters"
     t.text     "scaled_matchups_showing_counters"
-    t.float    "min_counter_score"
-    t.float    "max_counter_score"
+    t.integer  "number_of_votes"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
