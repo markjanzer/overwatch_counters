@@ -5,6 +5,7 @@ class OverwatchState extends React.Component {
 		this.selectOpponent = this.selectOpponent.bind(this);
 		this.addOpponent = this.addOpponent.bind(this);
 		this.selectNextOpponent = this.selectNextOpponent.bind(this);
+		this.selectCounter = this.selectCounter.bind(this);
 		this.getCounters = this.getCounters.bind(this);
 		this.renderCounters = this.renderCounters.bind(this);
 
@@ -63,8 +64,8 @@ class OverwatchState extends React.Component {
 		this.setState({selectedOpponent: opponentIndex});
 	}
 
-	selectCounter() {
-
+	selectCounter(selectedOpponentAlphaId) {
+		this.setState({selectedCounter: selectedOpponentAlphaId});
 	}
 
 
@@ -96,26 +97,46 @@ class OverwatchState extends React.Component {
 		);
 	}
 
+	flatten(arr) {
+		let newArr = arr.reduce((a,b) => {
+				return a.concat(b);
+			}, []);
+		return newArr
+	}
+
+
+
 	renderSelectedCounter() {
-		let selectedCounter
+		console.log("renderSelectedCounter");
+		console.log(this.flatten(this.state.counters).reduce((p, c) => p + c) - 210);
 		if (this.state.selectedCounter !== null) {
-			selectedCounter = this.props.orderedHeroes[this.state.selectedCounter].name;
+			return(
+				<div className="selectedCounter">
+					<div>{this.props.orderedHeroes[this.state.selectedCounter].name}</div>
+					<div>{this.state.counters[this.state.selectedCounter][1]}</div>
+				</div>
+			);
+		} else {
+			return (
+				<div className="selectedCounter">
+					<span>No Counter Selected</span>
+				</div>
+			);
 		}
-		return (
-			<div className="selectedCounter">
-				<span>{selectedCounter || "No Counter Selected"}</span>
-			</div>
-		);
 	}
 
 	renderCounters() {
+		console.log("renderCounters");
+		console.log(this.flatten(this.state.counters).reduce((p, c) => p + c) - 210);		
+		// debugger
 		return (
 			<ol className="counters">
 				{this.state.counters.map((counter) => {
 					return (
 						<li key={counter[0]}>
 							<Counter
-								hero={this.props.orderedHeroes[counter[0]]}
+								orderedHeroes={this.props.orderedHeroes}
+								heroAlphaId={counter[0]}
 								counterScore={counter[1]}
 								handleClick={this.selectCounter}
 							/>
