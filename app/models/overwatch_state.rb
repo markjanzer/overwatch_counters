@@ -30,13 +30,13 @@ class OverwatchState < ActiveRecord::Base
     max_counter_score = self.matchups_showing_counters.flatten.max
     scaled_matchups_showing_counters = self.matchups_showing_counters.map do |hero_matchups|
       hero_matchups.map do |counter_score|
-        ((((counter_score - min_counter_score) / (max_counter_score - min_counter_score)) * 200.0) - 100).round(2)
+        (((((counter_score - min_counter_score) / (max_counter_score - min_counter_score)) * 200.0) - 100) * -1)
       end
     end
     # I added to make horizontal rows show how other people match up into that hero instead of how that 
     # hero matches up into others. Horizontal rows are used to determine counters.
     scaled_matchups_showing_counters = scaled_matchups_showing_counters.transpose
-    scaled_matchups_showing_counters = self.set_mirror_matchups_to_zero(scaled_matchups_showing_counters)
+    scaled_matchups_showing_counters = set_mirror_matchups_to_zero(scaled_matchups_showing_counters)
     self.update(scaled_matchups_showing_counters: scaled_matchups_showing_counters)
     self.save
   end

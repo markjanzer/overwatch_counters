@@ -18,11 +18,13 @@ class OverwatchState extends React.Component {
 			opponents: [null, null, null, null, null, null],
 			selectedOpponent: 0,
 			counters: initialCounters,
-			selectedCounter: null
+			selectedCounter: null,
+			orderedHeroes: this.props.orderedHeroes
 		}
 	}
 
 	getCounters(opponents) {
+		console.log("opponents", opponents);
 		// Remove null from opponents array and only continue function if opponent exists
 		let filteredOpponents = opponents.filter((opponent) => opponent );
 		if (!opponents.length) {
@@ -43,7 +45,8 @@ class OverwatchState extends React.Component {
 		});
 		counters.sort((a, b) => {
 			return b[1] - a[1];
-		})
+		});
+		console.log("counters", counters);
 		this.setState({counters: counters});
 		return counters;
 	}
@@ -107,8 +110,8 @@ class OverwatchState extends React.Component {
 
 
 	renderSelectedCounter() {
-		console.log("renderSelectedCounter");
-		console.log(this.flatten(this.state.counters).reduce((p, c) => p + c) - 210);
+		// console.log("renderSelectedCounter");
+		// console.log(this.flatten(this.state.counters).reduce((p, c) => p + c) - 210);
 		if (this.state.selectedCounter !== null) {
 			return(
 				<div className="selectedCounter">
@@ -126,17 +129,18 @@ class OverwatchState extends React.Component {
 	}
 
 	renderCounters() {
-		console.log("renderCounters");
-		console.log(this.flatten(this.state.counters).reduce((p, c) => p + c) - 210);		
+		// console.log("renderCounters");
+		// console.log(this.flatten(this.state.counters).reduce((p, c) => p + c) - 210);		
 		// debugger
+		console.log("renderCounters");
+		console.log(this.state.counters.map((counter) => this.props.orderedHeroes[counter[0]].name));
 		return (
 			<ol className="counters">
 				{this.state.counters.map((counter) => {
 					return (
 						<li key={counter[0]}>
 							<Counter
-								orderedHeroes={this.props.orderedHeroes}
-								heroAlphaId={counter[0]}
+								hero={this.state.orderedHeroes[counter[0]]}
 								counterScore={counter[1]}
 								handleClick={this.selectCounter}
 							/>

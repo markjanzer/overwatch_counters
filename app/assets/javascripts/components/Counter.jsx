@@ -4,10 +4,6 @@ class Counter extends React.Component {
 
 		this.handleClick = this.handleClick.bind(this); 
 		this.imagePath = this.imagePath.bind(this); 
-
-		this.state = {
-			hero: this.props.orderedHeroes[this.props.heroAlphaId]
-		}
 	}
 
 	handleClick() {
