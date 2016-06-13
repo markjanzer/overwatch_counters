@@ -24,29 +24,31 @@ class OverwatchState extends React.Component {
 	}
 
 	getCounters(opponents) {
-		console.log("opponents", opponents);
+		// console.log("opponents", opponents);
 		// Remove null from opponents array and only continue function if opponent exists
 		let filteredOpponents = opponents.filter((opponent) => opponent );
-		if (!opponents.length) {
+		if (!filteredOpponents.length) {
 			return null;
 		}
 		let arrOfOpponentAlphaIds = filteredOpponents.map((opponent) => opponent.alpha_id);
 		let heroMatchups = arrOfOpponentAlphaIds.map((alpha_id) => {
-			return this.props.heroMatchups[alpha_id];
+			return this.props.heroMatchups[alpha_id].slice();
 		});
-		counters = heroMatchups.reduce((previousArray, currentArray) => {
+		let counters = heroMatchups.reduce((previousArray, currentArray) => {
 			currentArray.forEach((counterScore, index) => {
-				previousArray[index] = ((previousArray[index] + currentArray[index]) / 2.0)
+				previousArray[index] = (previousArray[index] + currentArray[index]);
 			});
 			return previousArray;
 		});
 		counters = counters.map((counterScore, alpha_id) => {
-			return [alpha_id, counterScore];
+			return [alpha_id, (counterScore / filteredOpponents.length)];
 		});
 		counters.sort((a, b) => {
 			return b[1] - a[1];
 		});
-		console.log("counters", counters);
+		// console.log("filteredOpponents",filteredOpponents );
+		// console.log("arrOfOpponentAlphaIds", arrOfOpponentAlphaIds);
+		// console.log("heroMatchups", heroMatchups);
 		this.setState({counters: counters});
 		return counters;
 	}
@@ -132,8 +134,8 @@ class OverwatchState extends React.Component {
 		// console.log("renderCounters");
 		// console.log(this.flatten(this.state.counters).reduce((p, c) => p + c) - 210);		
 		// debugger
-		console.log("renderCounters");
-		console.log(this.state.counters.map((counter) => this.props.orderedHeroes[counter[0]].name));
+		// console.log("renderCounters");
+		// console.log(this.state.counters.map((counter) => this.props.orderedHeroes[counter[0]].name));
 		return (
 			<ol className="counters">
 				{this.state.counters.map((counter) => {
