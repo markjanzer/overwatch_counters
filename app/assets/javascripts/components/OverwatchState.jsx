@@ -8,6 +8,8 @@ class OverwatchState extends React.Component {
 		this.selectCounter = this.selectCounter.bind(this);
 		this.getCounters = this.getCounters.bind(this);
 		this.renderCounters = this.renderCounters.bind(this);
+		this.getHero = this.getHero.bind(this);
+		this.getCounterScore = this.getCounterScore.bind(this);
 
 		let initialCounters = [];
 		for (let i = 0; i <= 20; i++) {
@@ -24,7 +26,6 @@ class OverwatchState extends React.Component {
 	}
 
 	getCounters(opponents) {
-		// console.log("opponents", opponents);
 		// Remove null from opponents array and only continue function if opponent exists
 		let filteredOpponents = opponents.filter((opponent) => opponent );
 		if (!filteredOpponents.length) {
@@ -46,9 +47,6 @@ class OverwatchState extends React.Component {
 		counters.sort((a, b) => {
 			return b[1] - a[1];
 		});
-		// console.log("filteredOpponents",filteredOpponents );
-		// console.log("arrOfOpponentAlphaIds", arrOfOpponentAlphaIds);
-		// console.log("heroMatchups", heroMatchups);
 		this.setState({counters: counters});
 		return counters;
 	}
@@ -69,10 +67,21 @@ class OverwatchState extends React.Component {
 		this.setState({selectedOpponent: opponentIndex});
 	}
 
-	selectCounter(selectedOpponentAlphaId) {
-		this.setState({selectedCounter: selectedOpponentAlphaId});
+	selectCounter(selectedCounterAlphaId) {
+		this.setState({selectedCounter: selectedCounterAlphaId});
 	}
 
+	getHero(alpha_id) {
+		return this.props.orderedHeroes[alpha_id];
+	}
+
+	getCounterScore(alpha_id) {
+		for (let i = 0; i < this.state.counters.length; i++) {
+			if (alpha_id === this.state.counters[i][0]) {
+				return this.state.counters[i][1];
+			}
+		}
+	}
 
   // passing hero object to each Hero component
 	renderHeroes() {
@@ -112,13 +121,11 @@ class OverwatchState extends React.Component {
 
 
 	renderSelectedCounter() {
-		// console.log("renderSelectedCounter");
-		// console.log(this.flatten(this.state.counters).reduce((p, c) => p + c) - 210);
 		if (this.state.selectedCounter !== null) {
 			return(
 				<div className="selectedCounter">
-					<div>{this.props.orderedHeroes[this.state.selectedCounter].name}</div>
-					<div>{this.state.counters[this.state.selectedCounter][1]}</div>
+					<div>{this.getHero(this.state.selectedCounter).name}</div>
+					<div>{this.getCounterScore(this.state.selectedCounter)}</div>
 				</div>
 			);
 		} else {
@@ -131,18 +138,13 @@ class OverwatchState extends React.Component {
 	}
 
 	renderCounters() {
-		// console.log("renderCounters");
-		// console.log(this.flatten(this.state.counters).reduce((p, c) => p + c) - 210);		
-		// debugger
-		// console.log("renderCounters");
-		// console.log(this.state.counters.map((counter) => this.props.orderedHeroes[counter[0]].name));
 		return (
 			<ol className="counters">
 				{this.state.counters.map((counter) => {
 					return (
 						<li key={counter[0]}>
 							<Counter
-								hero={this.state.orderedHeroes[counter[0]]}
+								hero={this.getHero(counter[0])}
 								counterScore={counter[1]}
 								handleClick={this.selectCounter}
 							/>
