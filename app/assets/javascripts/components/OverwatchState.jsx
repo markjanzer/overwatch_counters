@@ -10,16 +10,12 @@ class OverwatchState extends React.Component {
 		this.renderCounters = this.renderCounters.bind(this);
 		this.getHero = this.getHero.bind(this);
 		this.getCounterScore = this.getCounterScore.bind(this);
-
-		let initialCounters = [];
-		for (let i = 0; i <= 20; i++) {
-			initialCounters.push([i,0]);
-		}
+		this.clearOpponents = this.clearOpponents.bind(this);
 
 		this.state = {
 			opponents: [null, null, null, null, null, null],
 			selectedOpponent: 0,
-			counters: initialCounters,
+			counters: this.props.initialCounters,
 			selectedCounter: null,
 			orderedHeroes: this.props.orderedHeroes
 		}
@@ -29,7 +25,8 @@ class OverwatchState extends React.Component {
 		// Remove null from opponents array and only continue function if opponent exists
 		let filteredOpponents = opponents.filter((opponent) => opponent );
 		if (!filteredOpponents.length) {
-			return null;
+			this.setState({counters: this.props.initialCounters});
+			return this.props.initialCounters;
 		}
 		let arrOfOpponentAlphaIds = filteredOpponents.map((opponent) => opponent.alpha_id);
 		let heroMatchups = arrOfOpponentAlphaIds.map((alpha_id) => {
@@ -42,7 +39,7 @@ class OverwatchState extends React.Component {
 			return previousArray;
 		});
 		counters = counters.map((counterScore, alpha_id) => {
-			return [alpha_id, (counterScore / filteredOpponents.length)];
+			return [alpha_id, Math.round((counterScore / filteredOpponents.length) * 100) / 100];
 		});
 		counters.sort((a, b) => {
 			return b[1] - a[1];
@@ -51,7 +48,8 @@ class OverwatchState extends React.Component {
 		return counters;
 	}
 
-	addOpponent(hero) {
+	// this default parameter doesn't seem to be working
+	addOpponent(hero=null) {
 		const opponents = React.addons.update(this.state.opponents, {$splice: [[this.state.selectedOpponent, 1, hero]]})
 		this.setState({opponents: opponents});
 		this.getCounters(opponents);
@@ -83,6 +81,12 @@ class OverwatchState extends React.Component {
 		}
 	}
 
+	clearOpponents() {
+		const opponents = [null, null, null, null, null, null];
+		this.setState({opponents: opponents});
+		this.getCounters(opponents);
+	}
+
   // passing hero object to each Hero component
 	renderHeroes() {
 		return (
@@ -96,6 +100,9 @@ class OverwatchState extends React.Component {
 						/>
 					); 
 				})}
+				<button
+					onClick={this.addOpponent}
+				>No Hero</button>
 			</div>
 		);
 	}
@@ -107,6 +114,7 @@ class OverwatchState extends React.Component {
 				opponents={this.state.opponents}
 				selectedOpponent={this.state.selectedOpponent}
 				handleChange={this.selectOpponent}
+				clearOpponents={this.clearOpponents}
 			/>
 		);
 	}
@@ -126,6 +134,18 @@ class OverwatchState extends React.Component {
 				<div className="selectedCounter">
 					<div>{this.getHero(this.state.selectedCounter).name}</div>
 					<div>{this.getCounterScore(this.state.selectedCounter)}</div>
+					<div>
+						<h3>Individual Mathchups</h3>
+						{this.state.opponents.filter((opponent) => opponent).map((opponent) => {
+							return (
+								<div
+									key={opponent.id}
+								>
+									<span>{opponent.name} :: {Math.round(this.props.heroMatchups[opponent.alpha_id][this.state.selectedCounter] * 100) / 100}</span>
+								</div>
+							);
+						})}
+					</div>
 				</div>
 			);
 		} else {
@@ -166,3 +186,5 @@ class OverwatchState extends React.Component {
 		);
 	}
 }
+
+OverwatchState.defaultProps = { initialCounters: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0], [10, 0], [11, 0], [12, 0], [13, 0], [14, 0], [15, 0], [16, 0], [17, 0], [18, 0], [19, 0], [20, 0]]}
