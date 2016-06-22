@@ -41,9 +41,10 @@ class OverwatchState extends React.Component {
 		counters = counters.map((counterScore, alpha_id) => {
 			return [alpha_id, Math.round((counterScore / filteredOpponents.length) * 100) / 100];
 		});
-		counters.sort((a, b) => {
-			return b[1] - a[1];
-		});
+		// Isotope handling this
+		// counters.sort((a, b) => {
+		// 	return b[1] - a[1];
+		// });
 		this.setState({counters: counters});
 		return counters;
 	}
