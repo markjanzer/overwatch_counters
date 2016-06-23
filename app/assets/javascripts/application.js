@@ -4,7 +4,6 @@
 //= require react
 //= require react_ujs
 //= require react_rails_img
-//= require components
 //= require isotope
 //= require_tree .
 

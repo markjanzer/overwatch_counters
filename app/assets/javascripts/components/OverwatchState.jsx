@@ -21,6 +21,15 @@ class OverwatchState extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+	  let isotope = $grid.isotope({
+	  	getSortData: {
+	  		counterScore: '.counterScore'
+	  	}
+	  }); 
+	  this.setState({isotope: isotope});
+	}
+
 	getCounters(opponents) {
 		// Remove null from opponents array and only continue function if opponent exists
 		let filteredOpponents = opponents.filter((opponent) => opponent );
@@ -46,6 +55,7 @@ class OverwatchState extends React.Component {
 		// 	return b[1] - a[1];
 		// });
 		this.setState({counters: counters});
+		this.state.isotope.isotope({ sortBy: 'counterScore' });
 		return counters;
 	}
 
@@ -160,19 +170,19 @@ class OverwatchState extends React.Component {
 
 	renderCounters() {
 		return (
-			<ol className="counters">
+			<div className="counters">
 				{this.state.counters.map((counter) => {
 					return (
-						<li key={counter[0]}>
+						<div key={counter[0]}>
 							<Counter
 								hero={this.getHero(counter[0])}
 								counterScore={counter[1]}
 								handleClick={this.selectCounter}
 							/>
-						</li>
+						</div>
 					);
 				})}
-			</ol>
+			</div>
 		);
 	}
 
