@@ -22,12 +22,21 @@ class OverwatchState extends React.Component {
 	}
 
 	componentDidMount() {
-	  let isotope = $grid.isotope({
-	  	getSortData: {
-	  		counterScore: '.counterScore'
-	  	}
-	  }); 
-	  this.setState({isotope: isotope});
+		this.iso = new Isotope( '.counters', {
+			itemSelector: '.counter',
+			layoutMode: 'vertical',
+			getSortData: {
+				counterScore: '.counterScore parseFloat',
+				name: '.name'
+			}
+		});
+		this.iso.arrange({
+			sortAscending: {
+				name: true,
+				counterScore: false
+			},
+			sortBy: ['counterScore', 'name']
+		});
 	}
 
 	getCounters(opponents) {
@@ -50,13 +59,13 @@ class OverwatchState extends React.Component {
 		counters = counters.map((counterScore, alpha_id) => {
 			return [alpha_id, Math.round((counterScore / filteredOpponents.length) * 100) / 100];
 		});
-		// Isotope handling this
-		// counters.sort((a, b) => {
-		// 	return b[1] - a[1];
-		// });
 		this.setState({counters: counters});
-		this.state.isotope.isotope({ sortBy: 'counterScore' });
 		return counters;
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		this.iso.reloadItems();
+		this.iso.arrange();
 	}
 
 	// this default parameter doesn't seem to be working

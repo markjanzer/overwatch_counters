@@ -17,15 +17,14 @@ class Counter extends React.Component {
 	render() {
 		return (
 			<div className="counter">
-				<input type="hidden" className="counterScore" data-counterScore={this.props.counterScore} />
 		    <button 
 					onClick={this.handleClick}
 				>	
 					<div className="image-wrapper">
 						<Img src={this.imagePath(this.props.hero.image_path)} className="image"/>
 					</div>
-					<span>{this.props.hero.name}</span>
-					<span className="counterScoreTwo">{this.props.counterScore}</span>
+					<div className="counterName">{this.props.hero.name}</div>
+					<div className="counterScore">{this.props.counterScore}</div>
 				</button>
 			</div>
 		);	
