@@ -15,6 +15,7 @@ gem 'mechanize'
 gem 'awesome_print'
 gem 'deep_enumerable'
 gem 'react-rails'
+gem 'rails_12factor', group: :production
 
 group :development, :test do
   gem 'byebug'

@@ -25,7 +25,7 @@ module OverwatchCounters
     config.active_record.raise_in_transactional_callbacks = true
 
     config.react.addons = true
-
+    
     # I want this for console (for CLI and development)
     # require "./lib/command_line_tools"
   end
