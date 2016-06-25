@@ -19,7 +19,7 @@ class Opponents extends React.Component {
 				})}
 				<button
 					onClick={this.props.clearOpponents}
-				>Clear</button>
+				>Clear All</button>
 			</div>
 		);
 	}

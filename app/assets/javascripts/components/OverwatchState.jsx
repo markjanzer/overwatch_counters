@@ -121,7 +121,7 @@ class OverwatchState extends React.Component {
 					); 
 				})}
 				<button
-					onClick={this.addOpponent}
+					onClick={this.addOpponent.bind(this, null)}
 				>No Hero</button>
 			</div>
 		);
@@ -145,8 +145,6 @@ class OverwatchState extends React.Component {
 			}, []);
 		return newArr
 	}
-
-
 
 	renderSelectedCounter() {
 		if (this.state.selectedCounter !== null) {
