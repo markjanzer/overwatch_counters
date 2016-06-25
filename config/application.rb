@@ -27,6 +27,6 @@ module OverwatchCounters
     config.react.addons = true
 
     # I want this for console (for CLI and development)
-    require "./lib/command_line_tools"
+    # require "./lib/command_line_tools"
   end
 end
