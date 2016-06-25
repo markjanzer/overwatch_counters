@@ -3,7 +3,7 @@ class OverwatchState < ActiveRecord::Base
 
   serialize :matchups, Array
   serialize :matchups_showing_counters, Array
-  serialize :adjustments_for_heroes, Array
+  serialize :scaled_matchups_showing_counters, Array
 
   def initialize_matchups
     self.matchups = Array.new(21){ Array.new(21){ [0,0,0]}}
@@ -24,29 +24,37 @@ class OverwatchState < ActiveRecord::Base
     normalize_all_hero_matchups
   end
 
-  def determine_counters(arr_of_hero_alpha_ids)
-    hero_matchups = arr_of_hero_alpha_ids.map { |alpha_id| self.matchups_showing_counters[alpha_id]}
+  def create_scaled_matchups_showing_counters
+    # turn counter scores from 0 -> 1 to -100 -> 100
+    min_counter_score = self.matchups_showing_counters.flatten.min
+    max_counter_score = self.matchups_showing_counters.flatten.max
+    scaled_matchups_showing_counters = self.matchups_showing_counters.map do |hero_matchups|
+      hero_matchups.map do |counter_score|
+        (((((counter_score - min_counter_score) / (max_counter_score - min_counter_score)) * 200.0) - 100) * -1)
+      end
+    end
+    # I added to make horizontal rows show how other people match up into that hero instead of how that 
+    # hero matches up into others. Horizontal rows are used to determine counters.
+    scaled_matchups_showing_counters = scaled_matchups_showing_counters.transpose
+    scaled_matchups_showing_counters = set_mirror_matchups_to_zero(scaled_matchups_showing_counters)
+    self.update(scaled_matchups_showing_counters: scaled_matchups_showing_counters)
+    self.save
+  end
+
+  def counters(arr_of_hero_alpha_ids)
+    alpha_ids = arr_of_hero_alpha_ids.map { |alpha_id| alpha_id.to_i }
+    hero_matchups = alpha_ids.map { |alpha_id| self.scaled_matchups_showing_counters[alpha_id]}
     counters = OverwatchState.combine_arrays(hero_matchups)
     counters = counters.each_with_index.map do |counter_score, index|
-      [counter_score, index]
+      new_counter_score = counter_score / arr_of_hero_alpha_ids.length
+      [index, new_counter_score]
     end
-    counters.sort! { |x,y| y[0]<=>x[0] }
-    output = ""
-    counters.each do |counter|
-      hero_name = Hero.where(alpha_id: counter[1]).first.name
-      output += "#{hero_name} :: #{counter[0].round(3)}" + "\n"
-    end
-    puts output
-    ":D"
+    counters.sort! { |x,y| y[1]<=>x[1] }
   end
 
 
-  def indexed_heroes
+  def ordered_heroes
     ordered_heroes = self.heroes.sort { |x,y| x.alpha_id<=>y.alpha_id }
-    ordered_heroes.each do |hero|
-      puts "#{hero.alpha_id} :: #{hero.name}"
-    end
-    ":D"
   end
 
   # xi = x index
@@ -108,6 +116,17 @@ class OverwatchState < ActiveRecord::Base
     bool
   end
 
+  def set_mirror_matchups_to_zero(two_dimensional_array)
+    two_dimensional_array.each_with_index do |hero_matchups, row_index| 
+      hero_matchups.each_with_index do |matchup, column_index| 
+        if row_index == column_index 
+          two_dimensional_array[row_index][column_index] = 0
+        end
+      end
+    end
+    two_dimensional_array
+  end
+
   # Get mean of array. Skip nil
   def array_mean(array_of_nums)
     nil_counter = 0
@@ -127,4 +146,5 @@ class OverwatchState < ActiveRecord::Base
       [sum, arr].transpose.map {|x| x.reduce(:+)}
     end
   end
+
 end

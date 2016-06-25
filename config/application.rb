@@ -22,5 +22,10 @@ module OverwatchCounters
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.react.addons = true
+
+    # I want this for console (for CLI and development)
+    require "./lib/command_line_tools"
   end
 end
