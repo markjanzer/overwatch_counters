@@ -21,7 +21,7 @@ class Counter extends React.Component {
 					onClick={this.handleClick}
 				>	
 					<div className="image-wrapper">
-						<Img src={this.imagePath(this.props.hero.image_path)} className="image"/>
+						<img src={this.imagePath(this.props.hero.image_path)} className="image"/>
 					</div>
 					<div className="counterName">{this.props.hero.name}</div>
 					<div className="counterScore">{this.props.counterScore}</div>
