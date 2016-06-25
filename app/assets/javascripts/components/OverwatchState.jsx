@@ -68,7 +68,6 @@ class OverwatchState extends React.Component {
 		this.iso.arrange();
 	}
 
-	// this default parameter doesn't seem to be working
 	addOpponent(hero=null) {
 		const opponents = React.addons.update(this.state.opponents, {$splice: [[this.state.selectedOpponent, 1, hero]]})
 		this.setState({opponents: opponents});
@@ -107,7 +106,6 @@ class OverwatchState extends React.Component {
 		this.getCounters(opponents);
 	}
 
-  // passing hero object to each Hero component
 	renderHeroes() {
 		return (
 			<div className="heroes">	
@@ -121,13 +119,12 @@ class OverwatchState extends React.Component {
 					); 
 				})}
 				<button
-					onClick={this.addOpponent}
+					onClick={this.addOpponent.bind(this, null)}
 				>No Hero</button>
 			</div>
 		);
 	}
 
-	// 
 	renderOpponents() {
 		return (
 			<Opponents
@@ -145,8 +142,6 @@ class OverwatchState extends React.Component {
 			}, []);
 		return newArr
 	}
-
-
 
 	renderSelectedCounter() {
 		if (this.state.selectedCounter !== null) {
