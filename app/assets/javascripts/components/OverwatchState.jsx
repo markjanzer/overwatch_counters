@@ -8,6 +8,7 @@ class OverwatchState extends React.Component {
 		this.selectCounter = this.selectCounter.bind(this);
 		this.getCounters = this.getCounters.bind(this);
 		this.renderCounters = this.renderCounters.bind(this);
+		this.renderHeroCategory = this.renderHeroCategory.bind(this);
 		this.getHero = this.getHero.bind(this);
 		this.getCounterScore = this.getCounterScore.bind(this);
 		this.clearOpponents = this.clearOpponents.bind(this);
@@ -106,21 +107,39 @@ class OverwatchState extends React.Component {
 		this.getCounters(opponents);
 	}
 
+	renderHeroCategory(category) {
+		const categoryHeroes = this.props.orderedHeroes.filter(hero => hero.category === category);
+		return (
+			<div className="small-12 medium-6 large-3 column">
+				<img src={`/assets/category-icons/${category}`} className="category-icon" />
+				<div>
+					{categoryHeroes.map((hero) => {
+						return (
+							<Hero 
+								key={hero.id}
+								hero={hero}
+								handleClick={this.addOpponent}
+							/>
+						); 
+					})}
+				</div>
+			</div>
+		);
+	}
+
 	renderHeroes() {
 		return (
-			<div className="heroes">	
-				{this.props.orderedHeroes.map((hero) => {
-					return (
-						<Hero 
-							key={hero.id}
-							hero={hero}
-							handleClick={this.addOpponent}
-						/>
-					); 
-				})}
-				<button
-					onClick={this.addOpponent.bind(this, null)}
-				>No Hero</button>
+			<div className="expanded row heroes">	
+				{this.renderHeroCategory("offense")}
+				{this.renderHeroCategory("defense")}
+				{this.renderHeroCategory("tank")}
+				{this.renderHeroCategory("support")}
+				<div className="small-12 columns no-hero-container">
+					<button
+						className="secondary hollow button"
+						onClick={this.addOpponent.bind(this, null)}
+					>No Hero</button>
+				</div>
 			</div>
 		);
 	}

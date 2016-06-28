@@ -20,6 +20,7 @@ class Hero extends React.Component {
 		return (
 			<div className="button-wrapper">
 		    <button 
+		    	className="label-font"
 					onClick={this.handleClick}
 				>	
 					<div className="image-wrapper">

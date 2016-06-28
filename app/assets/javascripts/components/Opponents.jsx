@@ -6,6 +6,7 @@ class Opponents extends React.Component {
 	render() {
 		return (
 			<div className="opponents">
+				<hr></hr>
 				{this.props.opponents.map((opponent, index) => {
 					return (
 						<Opponent 
@@ -18,8 +19,10 @@ class Opponents extends React.Component {
 					);	
 				})}
 				<button
+					className="secondary hollow button"
 					onClick={this.props.clearOpponents}
 				>Clear All</button>
+				<hr></hr>
 			</div>
 		);
 	}

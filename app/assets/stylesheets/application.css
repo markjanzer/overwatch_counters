@@ -27,3 +27,34 @@
 .top-bar-title-wrapper {
 	display: inline-block;
 }
+
+.category-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.image {
+	height: 3em;
+}
+
+.overwatch-font {
+	font-family: Big Noodle Too, impact, sans-serif;
+}
+
+.label-font {
+  font-family: Futura,century gothic, arial, sans-serif;
+  font-size: 0.8em;
+}
+
+.no-hero-container {
+	text-align: center;
+}
+
+.opponents {
+	text-align: center;
+}
+
+.center-text {
+	text-align: center;
+}
+
