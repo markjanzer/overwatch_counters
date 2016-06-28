@@ -19,3 +19,11 @@
 .selected {
 	background-color: red;
 }
+
+.top-bar {
+	text-align: center;
+}
+
+.top-bar-title-wrapper {
+	display: inline-block;
+}

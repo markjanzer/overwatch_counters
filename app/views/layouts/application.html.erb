@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>OverwatchCounters></title>
+    <title>OverwatchCounters</title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
@@ -12,6 +12,22 @@
   </head>
 
   <body>
+
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <a href="https://github.com/markjanzer/overwatch_counters">
+          <img src="/assets/GitHub-Mark-32px.png">
+        </a>
+      </div>
+      <div class="top-bar-title-wrapper">
+        <div class="top-bar-title">
+          Overwatch Counters
+        </div>
+      </div>
+<!--         <div class="top-bar-right">
+        Overwatch Counters
+      </div> -->
+    </div>
 
     <%= yield %>
 
