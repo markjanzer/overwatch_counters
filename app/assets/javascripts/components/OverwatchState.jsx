@@ -38,6 +38,9 @@ class OverwatchState extends React.Component {
 			},
 			sortBy: ['counterScore', 'name']
 		});
+
+		$('.hero-text').fitText(1.0, { minFontSize: '10em' });
+		$("#fittext3").fitText(1.1, { minFontSize: '50px', maxFontSize: '75px' });
 	}
 
 	getCounters(opponents) {
@@ -110,7 +113,7 @@ class OverwatchState extends React.Component {
 	renderHeroCategory(category) {
 		const categoryHeroes = this.props.orderedHeroes.filter(hero => hero.category === category);
 		return (
-			<div className="small-12 medium-6 large-3 column">
+			<div className={`${category}-block`}>
 				<img src={`/assets/category-icons/${category}`} className="category-icon" />
 				<div>
 					{categoryHeroes.map((hero) => {

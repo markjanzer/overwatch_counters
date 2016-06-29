@@ -5,6 +5,7 @@
 //= require react
 //= require react_ujs
 //= require isotope.pkgd.min.js
+//= require jquery.fittext.js
 //= require_tree .
 
 

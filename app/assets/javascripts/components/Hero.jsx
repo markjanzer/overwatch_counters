@@ -18,15 +18,15 @@ class Hero extends React.Component {
 
 	render() {
 		return (
-			<div className="button-wrapper">
+			<div className={`button-wrapper ${this.props.hero.category}-hero`}>
 		    <button 
 		    	className="label-font"
 					onClick={this.handleClick}
 				>	
-					<div className="image-wrapper">
+					<div className={`image-wrapper`}>
 						<img src={this.imagePath(this.props.hero.image_path)} className="image"/>
 					</div>
-					{this.props.hero.name}
+					<p className="hero-text">{this.props.hero.name}</p>
 				</button>
 			</div>
 		);	
