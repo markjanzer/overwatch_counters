@@ -149,12 +149,14 @@ class OverwatchState extends React.Component {
 
 	renderOpponents() {
 		return (
-			<Opponents
-				opponents={this.state.opponents}
-				selectedOpponent={this.state.selectedOpponent}
-				handleChange={this.selectOpponent}
-				clearOpponents={this.clearOpponents}
-			/>
+			<div className="row">
+				<Opponents
+					opponents={this.state.opponents}
+					selectedOpponent={this.state.selectedOpponent}
+					handleChange={this.selectOpponent}
+					clearOpponents={this.clearOpponents}
+				/>
+			</div>
 		);
 	}
 

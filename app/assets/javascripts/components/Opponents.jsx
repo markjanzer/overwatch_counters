@@ -5,7 +5,7 @@ class Opponents extends React.Component {
 
 	render() {
 		return (
-			<div className="opponents">
+			<div className="small-12 medium-8 small-6 small-centered columns opponents">
 				<hr></hr>
 				{this.props.opponents.map((opponent, index) => {
 					return (
