@@ -5,8 +5,11 @@ class Opponents extends React.Component {
 
 	render() {
 		return (
-			<div className="small-12 medium-8 small-6 small-centered columns opponents">
+			<div className="small-12 small-centered columns opponents">
 				<hr></hr>
+				<div>
+					<h3 className="overwatch-font">Opponents</h3>
+				</div>
 				{this.props.opponents.map((opponent, index) => {
 					return (
 						<Opponent 
@@ -18,10 +21,12 @@ class Opponents extends React.Component {
 						/>
 					);	
 				})}
-				<button
-					className="secondary hollow button"
-					onClick={this.props.clearOpponents}
-				>Clear All</button>
+				<div>
+					<button
+						className="secondary hollow button"
+						onClick={this.props.clearOpponents}
+					>Clear All</button>
+				</div>
 				<hr></hr>
 			</div>
 		);

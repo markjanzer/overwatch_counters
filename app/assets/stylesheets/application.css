@@ -63,9 +63,6 @@
 	display: inline-block;
 }
 
-.button-wrapper {
-	width: 4.75%;
-}
 
 /* Rendering Heroes */
 
@@ -107,4 +104,17 @@
 
 .support-hero {
 	width: calc(1% * 100 / 4);
+}
+
+
+/* Render Opponents */
+
+.opponent-wrapper {
+	width: ;
+}
+
+/* Render Counters */
+
+.counter  {
+	position: relative;
 }

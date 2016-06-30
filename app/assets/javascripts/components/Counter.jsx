@@ -14,16 +14,16 @@ class Counter extends React.Component {
 		return `/assets/portraits/${hero_image_path}.png`
 	}
 
+	// <div className="counterName">{this.props.hero.name}</div>
 	render() {
 		return (
 			<div className="counter">
 		    <button 
 					onClick={this.handleClick}
 				>	
-					<div className="image-wrapper">
-						<img src={this.imagePath(this.props.hero.image_path)} className="image"/>
+					<div className="counter-image">
+						<img src={this.imagePath(	this.props.hero.image_path)} className=""/>
 					</div>
-					<div className="counterName">{this.props.hero.name}</div>
 					<div className="counterScore">{this.props.counterScore}</div>
 				</button>
 			</div>
