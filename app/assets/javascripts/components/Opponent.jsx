@@ -20,11 +20,15 @@ class Opponent extends React.Component {
 			return (
 				<div className="image-wrapper">
 					<img src={this.imagePath(this.props.opponent.image_path)} className="image" />
-					<span>{this.props.opponent.name}</span>			
+					<p className="opponent-text">{this.props.opponent.name}</p>			
 				</div>
 			);
 		} else {
-			return <span>No Opponent Chosen</span>
+			return (
+				<div className="image-wrapper">
+					<img src="/assets/empty-opponent" className="image" />
+				</div>
+			);
 		}
 	}
 
@@ -38,7 +42,7 @@ class Opponent extends React.Component {
 
 	render() {
 		return (
-			<div className="button-wrapper">
+			<div className="opponent-wrapper">
 		    <button 
 					onClick={this.handleClick}
 					className={`${this.selected()}`}

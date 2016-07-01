@@ -6,8 +6,10 @@ class OverwatchState extends React.Component {
 		this.addOpponent = this.addOpponent.bind(this);
 		this.selectNextOpponent = this.selectNextOpponent.bind(this);
 		this.selectCounter = this.selectCounter.bind(this);
+		this.removeSelectedCounter = this.removeSelectedCounter.bind(this);
 		this.getCounters = this.getCounters.bind(this);
 		this.renderCounters = this.renderCounters.bind(this);
+		this.renderHeroCategory = this.renderHeroCategory.bind(this);
 		this.getHero = this.getHero.bind(this);
 		this.getCounterScore = this.getCounterScore.bind(this);
 		this.clearOpponents = this.clearOpponents.bind(this);
@@ -37,6 +39,9 @@ class OverwatchState extends React.Component {
 			},
 			sortBy: ['counterScore', 'name']
 		});
+
+		$('.hero-text').fitText(10, { minFontSize: '10em' });
+		$('.opponent-text').fitText(0.5, { minFontSize: '0.5em', maxFontSize: '0.5em' });
 	}
 
 	getCounters(opponents) {
@@ -88,6 +93,10 @@ class OverwatchState extends React.Component {
 		this.setState({selectedCounter: selectedCounterAlphaId});
 	}
 
+	removeSelectedCounter() {
+		this.setState({selectedCounter: null});
+	}
+
 	getHero(alpha_id) {
 		return this.props.orderedHeroes[alpha_id];
 	}
@@ -106,33 +115,53 @@ class OverwatchState extends React.Component {
 		this.getCounters(opponents);
 	}
 
+	renderHeroCategory(category) {
+		const categoryHeroes = this.props.orderedHeroes.filter(hero => hero.category === category);
+		return (
+			<div className={`${category}-block`}>
+				<img src={`/assets/category-icons/${category}`} className="category-icon" />
+				<div>
+					{categoryHeroes.map((hero) => {
+						return (
+							<Hero 
+								key={hero.id}
+								hero={hero}
+								handleClick={this.addOpponent}
+							/>
+						); 
+					})}
+				</div>
+			</div>
+		);
+	}
+
 	renderHeroes() {
 		return (
-			<div className="heroes">	
-				{this.props.orderedHeroes.map((hero) => {
-					return (
-						<Hero 
-							key={hero.id}
-							hero={hero}
-							handleClick={this.addOpponent}
-						/>
-					); 
-				})}
-				<button
-					onClick={this.addOpponent.bind(this, null)}
-				>No Hero</button>
+			<div className="expanded row heroes">	
+				{this.renderHeroCategory("offense")}
+				{this.renderHeroCategory("defense")}
+				{this.renderHeroCategory("tank")}
+				{this.renderHeroCategory("support")}
+				<div className="small-12 columns no-hero-container">
+					<button
+						className="secondary hollow button"
+						onClick={this.addOpponent.bind(this, null)}
+					>No Hero</button>
+				</div>
 			</div>
 		);
 	}
 
 	renderOpponents() {
 		return (
-			<Opponents
-				opponents={this.state.opponents}
-				selectedOpponent={this.state.selectedOpponent}
-				handleChange={this.selectOpponent}
-				clearOpponents={this.clearOpponents}
-			/>
+			<div className="row">
+				<Opponents
+					opponents={this.state.opponents}
+					selectedOpponent={this.state.selectedOpponent}
+					handleChange={this.selectOpponent}
+					clearOpponents={this.clearOpponents}
+				/>
+			</div>
 		);
 	}
 
@@ -146,27 +175,35 @@ class OverwatchState extends React.Component {
 	renderSelectedCounter() {
 		if (this.state.selectedCounter !== null) {
 			return(
-				<div className="selectedCounter">
-					<div>{this.getHero(this.state.selectedCounter).name}</div>
-					<div>{this.getCounterScore(this.state.selectedCounter)}</div>
-					<div>
-						<h3>Individual Mathchups</h3>
-						{this.state.opponents.filter((opponent) => opponent).map((opponent) => {
-							return (
-								<div
-									key={opponent.id}
-								>
-									<span>{opponent.name} :: {Math.round(this.props.heroMatchups[opponent.alpha_id][this.state.selectedCounter] * 100) / 100}</span>
-								</div>
-							);
-						})}
+				<div className="row">
+					<div className="small-12 columns selected-counter">
+						<h5 className="overwatch-font">{this.getHero(this.state.selectedCounter).name}</h5>
+						<h5 className="overwatch-font">{this.getCounterScore(this.state.selectedCounter)}</h5>
+						<div>
+							<h5 className="label-font">Individual Mathchups</h5>
+							{this.state.opponents.filter((opponent) => opponent).map((opponent) => {
+								return (
+									<div
+										key={opponent.id}
+									>
+										<span>{opponent.name} :: {Math.round(this.props.heroMatchups[opponent.alpha_id][this.state.selectedCounter] * 100) / 100}</span>
+									</div>
+								);
+							})}
+						</div>
+						<button 
+							className="secondary hollow button tiny"
+							onClick={this.removeSelectedCounter}
+						>
+							Deselect Counter
+						</button>
 					</div>
 				</div>
 			);
 		} else {
 			return (
-				<div className="selectedCounter">
-					<span>No Counter Selected</span>
+				<div className="row selected-counter">
+					<span className="label-font">No Counter Selected</span>
 				</div>
 			);
 		}
@@ -174,7 +211,7 @@ class OverwatchState extends React.Component {
 
 	renderCounters() {
 		return (
-			<div className="counters">
+			<div className="row counters">
 				{this.state.counters.map((counter) => {
 					return (
 						<div key={counter[0]}>

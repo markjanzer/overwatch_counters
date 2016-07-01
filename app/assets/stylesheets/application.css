@@ -12,8 +12,185 @@
  *
  *= require_tree .
  *= require_self
+ *= require foundation_and_overrides
+
  */
 
+ body {
+ 	background-color: #FFFCF7;
+ }
+
 .selected {
-	background-color: red;
+  background: blue; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(blue, white); /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(blue, white); /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(blue, white); /* For Firefox 3.6 to 15 */
+  background: radial-gradient(blue, white)
+}
+
+.top-bar {
+	text-align: center;
+}
+
+.top-bar-title-wrapper {
+	display: inline-block;
+}
+
+.category-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.image {
+	width: 100%;
+}
+
+.overwatch-font {
+	font-family: Big Noodle Too, impact, sans-serif;
+}
+
+.overwatch-header {
+	font-family: Big Noodle Too, impact, sans-serif;
+	font-style: italic;
+	font-size: 2em;
+}
+
+.label-font {
+  font-family: Futura,century gothic, arial, sans-serif;
+  font-size: 0.8em;
+}
+
+.no-hero-container {
+	text-align: center;
+}
+
+.opponents {
+	text-align: center;
+}
+
+.center-text {
+	text-align: center;
+}
+
+
+.inline {
+	display: inline-block;
+}
+
+.top-bar {
+	padding: 0.5em 0.5em 0em 0.5em;
+}
+
+
+/* Rendering Heroes */
+
+.heroes {
+	height: 0em;
+}
+
+.offense-block {
+	width: calc((6% * 100 / 21) - 3%);
+	display: inline-block;
+	margin: 0% 1.5%;
+}
+
+.defense-block {
+	width: calc((6% * 100 / 21) - 3%);
+	display: inline-block;
+	margin: 0% 1.5%;
+}
+
+.tank-block {
+	width: calc((5% * 100 / 21) - 3%);
+	display: inline-block;
+	margin: 0% 1.5%;
+}
+
+.support-block {
+	width: calc((4% * 100 / 21) - 3%);
+	display: inline-block;
+	margin: 0% 1.5%;
+}
+
+.offense-hero {
+	width: calc(1% * 100 / 6);
+}
+
+.defense-hero {
+	width: calc(1% * 100 / 6);
+}
+
+.tank-hero {
+	width: calc(1% * 100 / 5);
+}
+
+.support-hero {
+	width: calc(1% * 100 / 4);
+}
+
+
+/* Render Opponents */
+
+.opponent-wrapper {
+	width: 6%;
+	display: inline-block;
+	margin: 0em 3em;
+}
+
+.opponent-text {
+	font-size: 0.8em;
+}
+
+/* Render Counters */
+
+.selected-counter {
+	text-align: center;
+}
+
+.counter-button {
+	width: 3em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.counter  {
+	width: 100%;
+	padding: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+
+.positive-counter-score-container {
+	display: block;
+	background: #ffa800;
+	position: absolute;
+	left: 50%;
+	top: 1em;
+	bottom: 1em;
+	z-index: -1;
+	font-size: 1.5em;
+}
+
+.positive-counter-score {
+	position: absolute;
+	left: 1.5em;
+}
+
+.negative-counter-score-container {
+	display: block;
+	background: #0057FF;
+	position: absolute;
+	right: 50%;
+	top: 1em;
+	bottom: 1em;
+	z-index: -1;
+	font-size: 1.5em;
+}
+
+.negative-counter-score {
+	position: absolute;
+	right: 1.5em;
 }
