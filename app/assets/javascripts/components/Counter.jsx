@@ -4,6 +4,7 @@ class Counter extends React.Component {
 
 		this.handleClick = this.handleClick.bind(this); 
 		this.imagePath = this.imagePath.bind(this); 
+		this.renderCounterScore = this.renderCounterScore.bind(this);
 	}
 
 	handleClick() {
@@ -14,17 +15,35 @@ class Counter extends React.Component {
 		return `/assets/portraits/${hero_image_path}.png`
 	}
 
+	renderCounterScore() {
+		const counterScore = this.props.counterScore;
+		const counterScoreWidth = counterScore > 0 ? counterScore/2 : (counterScore/2) * -1
+		const widthStyle = {
+			width: `${counterScoreWidth}%`
+		}
+		if (counterScore > 0) {
+			return (
+				<span className="positive-counter-score counterScore label-font" style={widthStyle}>{this.props.counterScore}</span>
+			);
+		} else if (counterScore < 0) {
+			return (
+				<span className="negative-counter-score counterScore label-font"  style={widthStyle}>{this.props.counterScore}</span>
+			);
+		}
+	}
+
 	// <div className="counterName">{this.props.hero.name}</div>
 	render() {
 		return (
 			<div className="counter">
+				{this.renderCounterScore()}
 		    <button 
+		    	className="counter-button"
 					onClick={this.handleClick}
 				>	
 					<div className="counter-image">
 						<img src={this.imagePath(	this.props.hero.image_path)} className=""/>
 					</div>
-					<div className="counterScore">{this.props.counterScore}</div>
 				</button>
 			</div>
 		);	
