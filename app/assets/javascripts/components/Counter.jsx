@@ -33,6 +33,12 @@ class Counter extends React.Component {
 					<span className="negative-counter-score counterScore label-font">{this.props.counterScore}</span>
 				</div>
 			);
+		} else {
+			return (
+				<div className="positive-counter-score-container" style={widthStyle}>
+					<span className="positive-counter-score counterScore label-font">{this.props.counterScore}</span>
+				</div>
+			);
 		}
 	}
 

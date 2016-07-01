@@ -16,6 +16,7 @@ gem 'awesome_print'
 gem 'deep_enumerable'
 gem 'react-rails'
 gem 'foundation-rails'
+gem 'dalli'
 
 gem 'rails_12factor', group: :production
 

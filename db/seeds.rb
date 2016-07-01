@@ -39,3 +39,5 @@ ows.create_matchups_showing_counters
 ows.create_scaled_matchups_showing_counters
 ows.save
 
+Rails.cache.write('hero_matchups', OverwatchState.last.scaled_matchups_showing_counters)
+
