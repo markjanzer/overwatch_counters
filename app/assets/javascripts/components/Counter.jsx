@@ -23,11 +23,15 @@ class Counter extends React.Component {
 		}
 		if (counterScore > 0) {
 			return (
-				<span className="positive-counter-score counterScore label-font" style={widthStyle}>{this.props.counterScore}</span>
+				<div className="positive-counter-score-container" style={widthStyle}>
+					<span className="positive-counter-score counterScore label-font">{this.props.counterScore}</span>
+				</div>
 			);
 		} else if (counterScore < 0) {
 			return (
-				<span className="negative-counter-score counterScore label-font"  style={widthStyle}>{this.props.counterScore}</span>
+				<div className="negative-counter-score-container" style={widthStyle}>
+					<span className="negative-counter-score counterScore label-font">{this.props.counterScore}</span>
+				</div>
 			);
 		}
 	}

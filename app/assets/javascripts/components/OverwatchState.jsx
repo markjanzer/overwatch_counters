@@ -6,6 +6,7 @@ class OverwatchState extends React.Component {
 		this.addOpponent = this.addOpponent.bind(this);
 		this.selectNextOpponent = this.selectNextOpponent.bind(this);
 		this.selectCounter = this.selectCounter.bind(this);
+		this.removeSelectedCounter = this.removeSelectedCounter.bind(this);
 		this.getCounters = this.getCounters.bind(this);
 		this.renderCounters = this.renderCounters.bind(this);
 		this.renderHeroCategory = this.renderHeroCategory.bind(this);
@@ -90,6 +91,10 @@ class OverwatchState extends React.Component {
 
 	selectCounter(selectedCounterAlphaId) {
 		this.setState({selectedCounter: selectedCounterAlphaId});
+	}
+
+	removeSelectedCounter() {
+		this.setState({selectedCounter: null});
 	}
 
 	getHero(alpha_id) {
@@ -186,6 +191,12 @@ class OverwatchState extends React.Component {
 								);
 							})}
 						</div>
+						<button 
+							className="secondary hollow button tiny"
+							onClick={this.removeSelectedCounter}
+						>
+							Deselect Counter
+						</button>
 					</div>
 				</div>
 			);

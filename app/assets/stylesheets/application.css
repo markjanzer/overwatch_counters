@@ -163,7 +163,7 @@
 	text-align: center;
 }
 
-.positive-counter-score {
+.positive-counter-score-container {
 	display: block;
 	background: #ffa800;
 	position: absolute;
@@ -174,7 +174,12 @@
 	font-size: 1.5em;
 }
 
-.negative-counter-score {
+.positive-counter-score {
+	position: absolute;
+	left: 1.5em;
+}
+
+.negative-counter-score-container {
 	display: block;
 	background: #0057FF;
 	position: absolute;
@@ -183,4 +188,9 @@
 	bottom: 1em;
 	z-index: -1;
 	font-size: 1.5em;
+}
+
+.negative-counter-score {
+	position: absolute;
+	right: 1.5em;
 }
