@@ -17,9 +17,11 @@ ActiveRecord::Schema.define(version: 20160527165047) do
   enable_extension "plpgsql"
 
   create_table "heroes", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "alpha_id"
     t.integer  "overwatch_state_id"
+    t.integer  "alpha_id"
+    t.string   "name"
+    t.string   "image_path"
+    t.string   "category"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
@@ -27,9 +29,10 @@ ActiveRecord::Schema.define(version: 20160527165047) do
   create_table "overwatch_states", force: :cascade do |t|
     t.text     "matchups"
     t.text     "matchups_showing_counters"
-    t.text     "adjustments_for_heroes"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.text     "scaled_matchups_showing_counters"
+    t.integer  "number_of_votes"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
 end

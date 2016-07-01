@@ -16,6 +16,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'mechanize'
 gem 'awesome_print'
 gem 'deep_enumerable'
+gem 'react-rails'
+gem 'foundation-rails'
+gem 'dalli'
+
+gem 'rails_12factor', group: :production
 
 group :development, :test do
   gem 'byebug'
