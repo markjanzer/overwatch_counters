@@ -20,18 +20,6 @@
  	background-color: #FFFCF7;
  }
 
-.selected {
-  background: blue; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(blue, white); /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(blue, white); /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(blue, white); /* For Firefox 3.6 to 15 */
-  background: radial-gradient(blue, white)
-}
-
-.counter-sizer {
-/*	padding: 1em;
-*/}
-
 .top-bar {
 	text-align: center;
 	background: #C8DBFF;
@@ -39,11 +27,6 @@
 
 .top-bar-title-wrapper {
 	display: inline-block;
-}
-
-.category-icon {
-	width: 1em;
-	height: 1em;
 }
 
 .image {
@@ -69,36 +52,23 @@
   color: #38342f;
 }
 
-.no-hero-container {
-	text-align: center;
-}
-
-.opponents {
-	text-align: center;
-}
-
 .center-text {
 	text-align: center;
-}
-
-
-.inline {
-	display: inline-block;
 }
 
 .top-bar {
 	padding: 0.5em 0.5em 0em 0.5em;
 }
 
-.clear-button {
-	margin: 0em;
+.inline {
+	display: inline-block;
 }
 
-.no-hero-button {
-	margin: 0.5em;
+.button-wrapper {
+	display: inline-block;
 }
 
-/* Rendering Heroes */
+/* Render Heroes */
 
 .heroes {
 	height: 0em;
@@ -148,8 +118,20 @@
 	width: calc(1% * 100 / 4);
 }
 
+.no-hero-button {
+	margin: 0.5em;
+}
+
+.category-icon {
+	width: 1em;
+	height: 1em;
+}
 
 /* Render Opponents */
+
+.opponents {
+	text-align: center;
+}
 
 .opponent-wrapper {
 	width: 6%;
@@ -159,6 +141,22 @@
 
 .opponent-text {
 	font-size: 0.8em;
+}
+
+.clear-button {
+	margin: 0em;
+}
+
+.no-hero-container {
+	text-align: center;
+}
+
+.selected {
+  background: blue; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(blue, white); /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(blue, white); /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(blue, white); /* For Firefox 3.6 to 15 */
+  background: radial-gradient(blue, white)
 }
 
 /* Render Counters */

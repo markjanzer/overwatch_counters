@@ -1,9 +1,14 @@
-# overwatch_counters
+# [Overwatch Counters](www.overwatchcounters.io)
 
-Ruby version 2.2.3
-Rails version 4.2.5.1
+Overwatch Counters helps you pick the best heroes to play against an enemy team. When you select your opponents, a list of counters with their counter score will render below. Click on the icon of a counter for the individual matchups between that counter and every member of the enemy team.
+
+All the data is scraped from [OverwatchFire](http://www.owfire.com/overwatch/counters). Votes for each matchup are added and then numbers are normalized so that every hero has a 50% winrate, and counter scores render on a scale from -100 to 100).
+
+You can see it live at [www.overwatchcounters.io](http://www.overwatchcounters.io).
 
 ### Setting up development environment
+Ruby version 2.2.3
+Rails version 4.2.5.1
 
 1. Clone the repository
   ```bash
@@ -19,15 +24,6 @@ Rails version 4.2.5.1
   ```bash
   bundle install
   ```
-
-  **Note:** Will not work if ruby version is not 2.3.1
-
-  If using rbenv:
-  ```bash
-  rbenv local 2.3.1
-  ```
-
-  If using rvm:
 
 4. Create the database
   ```bash
@@ -49,4 +45,5 @@ Rails version 4.2.5.1
   rails s
   ```
 
-8. Win games
+### License
+Overwatch Counters is released under the [MIT License](https://opensource.org/licenses/MIT)
