@@ -45,5 +45,7 @@ Rails version 4.2.5.1
   rails s
   ```
 
+8. Go to localhost:3000
+
 ### License
 Overwatch Counters is released under the [MIT License](https://opensource.org/licenses/MIT)
