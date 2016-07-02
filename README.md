@@ -12,7 +12,7 @@ Rails version 4.2.5.1
 
 1. Clone the repository
   ```bash
-  https://github.com/markjanzer/overwatch_counters.git
+  git clone https://github.com/markjanzer/overwatch_counters.git
   ```
 
 2. Navigate to the overwatch_counters directory
