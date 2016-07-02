@@ -13,13 +13,14 @@ class OverwatchState extends React.Component {
 		this.getHero = this.getHero.bind(this);
 		this.getCounterScore = this.getCounterScore.bind(this);
 		this.clearOpponents = this.clearOpponents.bind(this);
+		this.renderSelectedCounter = this.renderSelectedCounter.bind(this);
 
 		this.state = {
 			opponents: [null, null, null, null, null, null],
 			selectedOpponent: 0,
 			counters: this.props.initialCounters,
 			selectedCounter: null,
-			orderedHeroes: this.props.orderedHeroes
+			orderedHeroes: this.props.orderedHeroes,
 		}
 	}
 
@@ -144,7 +145,7 @@ class OverwatchState extends React.Component {
 				{this.renderHeroCategory("support")}
 				<div className="small-12 columns no-hero-container">
 					<button
-						className="secondary hollow button"
+						className="secondary hollow button no-hero-button"
 						onClick={this.addOpponent.bind(this, null)}
 					>No Hero</button>
 				</div>
@@ -184,7 +185,7 @@ class OverwatchState extends React.Component {
 							{this.state.opponents.filter((opponent) => opponent).map((opponent) => {
 								return (
 									<div
-										key={opponent.id}
+										key={opponent.id * 100}
 									>
 										<span>{opponent.name} :: {Math.round(this.props.heroMatchups[opponent.alpha_id][this.state.selectedCounter] * 100) / 100}</span>
 									</div>
