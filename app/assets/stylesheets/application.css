@@ -28,8 +28,13 @@
   background: radial-gradient(blue, white)
 }
 
+.counter-sizer {
+/*	padding: 1em;
+*/}
+
 .top-bar {
 	text-align: center;
+	background: #C8DBFF;
 }
 
 .top-bar-title-wrapper {
@@ -47,17 +52,21 @@
 
 .overwatch-font {
 	font-family: Big Noodle Too, impact, sans-serif;
+	color: #38342f;
 }
 
 .overwatch-header {
 	font-family: Big Noodle Too, impact, sans-serif;
 	font-style: italic;
 	font-size: 2em;
+	margin-bottom: 0em;
+	color: #38342f;
 }
 
 .label-font {
   font-family: Futura,century gothic, arial, sans-serif;
   font-size: 0.8em;
+  color: #38342f;
 }
 
 .no-hero-container {
@@ -81,11 +90,22 @@
 	padding: 0.5em 0.5em 0em 0.5em;
 }
 
+.clear-button {
+	margin: 0em;
+}
+
+.no-hero-button {
+	margin: 0.5em;
+}
 
 /* Rendering Heroes */
 
 .heroes {
 	height: 0em;
+}
+
+.hero-text {
+	margin: 0em;
 }
 
 .offense-block {
@@ -155,7 +175,6 @@
 
 .counter  {
 	width: 100%;
-	padding: 1em;
 	margin-left: auto;
 	margin-right: auto;
 	left: 0;
@@ -168,8 +187,8 @@
 	background: #ffa800;
 	position: absolute;
 	left: 50%;
-	top: 1em;
-	bottom: 1em;
+	top: 20%;
+	bottom: 20%;
 	z-index: -1;
 	font-size: 1.5em;
 }
@@ -184,8 +203,8 @@
 	background: #0057FF;
 	position: absolute;
 	right: 50%;
-	top: 1em;
-	bottom: 1em;
+	top: 20%;
+	bottom: 20%;
 	z-index: -1;
 	font-size: 1.5em;
 }

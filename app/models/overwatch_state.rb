@@ -101,7 +101,6 @@ class OverwatchState < ActiveRecord::Base
   def hero_matchups_horizontally_average?
     horizontally_average = true
     self.matchups_showing_counters.each_with_index do |matchup, yi|
-      p "#{yi} :: #{array_mean(matchup).round(3)}"
       if array_mean(matchup).round(2) != 0.500
         horizontally_average = false
       end
