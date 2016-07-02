@@ -12,7 +12,7 @@ Rails version 4.2.5.1
 
 1. Clone the repository
   ```bash
-  https://github.com/markjanzer/overwatch_counters.git
+  git clone https://github.com/markjanzer/overwatch_counters.git
   ```
 
 2. Navigate to the overwatch_counters directory
@@ -44,6 +44,8 @@ Rails version 4.2.5.1
   ```bash
   rails s
   ```
+
+8. Go to localhost:3000
 
 ### License
 Overwatch Counters is released under the [MIT License](https://opensource.org/licenses/MIT)
