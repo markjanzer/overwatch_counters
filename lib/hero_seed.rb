@@ -1,3 +1,7 @@
+if Hero.all.count
+	Hero.destroy_all
+end
+
 Hero.create(name: "Bastion", alpha_id:0, image_path: "bastion", category: "defense")
 Hero.create(name: "D.Va", alpha_id:1, image_path: "dva", category: "tank")
 Hero.create(name: "Genji", alpha_id:2, image_path: "genji", category: "offense")
@@ -19,3 +23,5 @@ Hero.create(name: "Widowmaker", alpha_id:17, image_path: "widowmaker", category:
 Hero.create(name: "Winston", alpha_id:18, image_path: "winston", category: "tank")
 Hero.create(name: "Zarya", alpha_id:19, image_path: "zarya", category: "tank")
 Hero.create(name: "Zenyatta", alpha_id:20, image_path: "zenyatta", category: "support")
+
+Rails.cache.write('ordered_heroes', Hero.order('alpha_id'))
