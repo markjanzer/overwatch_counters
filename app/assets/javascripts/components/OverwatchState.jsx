@@ -116,10 +116,30 @@ class OverwatchState extends React.Component {
 		this.getCounters(opponents);
 	}
 
+	renderHeroes() {
+		return (
+			<div className="expanded row heroes">	
+				<div className="small-12 centered columns">
+					<h3 className="centered select-opponents-font">Select Your Opponents</h3>
+				</div>
+				{this.renderHeroCategory("offense")}
+				{this.renderHeroCategory("defense")}
+				{this.renderHeroCategory("tank")}
+				{this.renderHeroCategory("support")}
+				<div className="small-12 columns no-hero-container">
+					<button
+						className="secondary hollow button no-hero-button"
+						onClick={this.addOpponent.bind(this, null)}
+					>No Hero</button>
+				</div>
+			</div>
+		);
+	}
+
 	renderHeroCategory(category) {
 		const categoryHeroes = this.props.orderedHeroes.filter(hero => hero.category === category);
 		return (
-			<div className={`${category}-block`}>
+			<div className="small-12 medium-6 large-3 columns">
 				<div className="icon-wrapper">
 					{categoryIcon(category)}
 				</div>
@@ -138,33 +158,14 @@ class OverwatchState extends React.Component {
 		);
 	}
 
-	renderHeroes() {
-		return (
-			<div className="expanded row heroes">	
-				{this.renderHeroCategory("offense")}
-				{this.renderHeroCategory("defense")}
-				{this.renderHeroCategory("tank")}
-				{this.renderHeroCategory("support")}
-				<div className="small-12 columns no-hero-container">
-					<button
-						className="secondary hollow button no-hero-button"
-						onClick={this.addOpponent.bind(this, null)}
-					>No Hero</button>
-				</div>
-			</div>
-		);
-	}
-
 	renderOpponents() {
 		return (
-			<div className="row">
-				<Opponents
-					opponents={this.state.opponents}
-					selectedOpponent={this.state.selectedOpponent}
-					handleChange={this.selectOpponent}
-					clearOpponents={this.clearOpponents}
-				/>
-			</div>
+			<Opponents
+				opponents={this.state.opponents}
+				selectedOpponent={this.state.selectedOpponent}
+				handleChange={this.selectOpponent}
+				clearOpponents={this.clearOpponents}
+			/>
 		);
 	}
 
