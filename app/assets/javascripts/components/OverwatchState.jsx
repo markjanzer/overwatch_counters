@@ -120,7 +120,9 @@ class OverwatchState extends React.Component {
 		const categoryHeroes = this.props.orderedHeroes.filter(hero => hero.category === category);
 		return (
 			<div className={`${category}-block`}>
-				<img src={`/assets/category-icons/${category}`} className="category-icon" />
+				<div className="icon-wrapper">
+					{categoryIcon(category)}
+				</div>
 				<div>
 					{categoryHeroes.map((hero) => {
 						return (
