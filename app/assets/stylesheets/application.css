@@ -167,9 +167,9 @@
 }
 
 .opponent-wrapper {
-	width: 12%;
-/*	display: inline-block;
-	margin: 0em 3em;*/
+	width: 45%;
+	margin: auto;
+	padding: 0.5em 0em;
 }
 
 .opponent-text {
