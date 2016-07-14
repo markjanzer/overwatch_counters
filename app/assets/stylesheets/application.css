@@ -33,6 +33,10 @@
 	width: 100%;
 }
 
+.github-favicon {
+	width: 1.5em;
+}
+
 .overwatch-font {
 	font-family: Big Noodle Too, impact, sans-serif;
 	color: #38342f;
@@ -70,6 +74,13 @@
 
 /* Render Heroes */
 
+.select-opponents-font {
+  font-family: Futura,century gothic, arial, sans-serif;
+  font-size: 1.2em;
+  color: #38342f;
+  text-align: center;
+}
+
 .heroes {
 	height: 0em;
 }
@@ -78,7 +89,11 @@
 	margin: 0em;
 }
 
-.offense-block {
+.icon-wrapper {
+	width: 1em;
+}
+
+/*.offense-block {
 	width: calc((6% * 100 / 21) - 3%);
 	display: inline-block;
 	margin: 0% 1.5%;
@@ -100,9 +115,9 @@
 	width: calc((4% * 100 / 21) - 3%);
 	display: inline-block;
 	margin: 0% 1.5%;
-}
+}*/
 
-.offense-hero {
+/*.offense-hero {
 	width: calc(1% * 100 / 6);
 }
 
@@ -116,6 +131,24 @@
 
 .support-hero {
 	width: calc(1% * 100 / 4);
+}*/
+
+.offense-hero {
+	width: 16.50%;
+}
+
+.defense-hero {
+	width: 16.50%;
+}
+
+.tank-hero {
+	width: 16.50%;
+	margin: 0% 1.75%;
+}
+
+.support-hero {
+	width: 16.50%;
+	margin: 0% 4.25%;
 }
 
 .no-hero-button {
@@ -134,9 +167,9 @@
 }
 
 .opponent-wrapper {
-	width: 6%;
-	display: inline-block;
-	margin: 0em 3em;
+	width: 45%;
+	margin: auto;
+	padding: 0.5em 0em;
 }
 
 .opponent-text {

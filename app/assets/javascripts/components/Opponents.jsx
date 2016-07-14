@@ -5,20 +5,19 @@ class Opponents extends React.Component {
 
 	render() {
 		return (
-			<div className="small-12 small-centered columns opponents">
+			<div className="row opponents">
 				<hr></hr>
-				<div>
-					<h3 className="overwatch-font">Opponents</h3>
-				</div>
 				{this.props.opponents.map((opponent, index) => {
 					return (
-						<Opponent 
-							key={index}
-							index={index}
-							opponent={opponent}	
-							selected={this.props.selectedOpponent === index}
-							handleClick={this.props.handleChange}
-						/>
+						<div className="small-4 medium-2 columns">
+							<Opponent 
+								key={index}
+								index={index}
+								opponent={opponent}	
+								selected={this.props.selectedOpponent === index}
+								handleClick={this.props.handleChange}
+							/>
+						</div>
 					);	
 				})}
 				<div>

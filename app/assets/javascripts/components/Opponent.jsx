@@ -7,8 +7,6 @@ class Opponent extends React.Component {
 		this.selected = this.selected.bind(this); 
 	}
 
-
-
 	handleClick() {
 		this.props.handleClick(this.props.index);
 	}
