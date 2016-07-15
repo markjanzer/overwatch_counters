@@ -14,6 +14,7 @@ class OverwatchState extends React.Component {
 		this.getCounterScore = this.getCounterScore.bind(this);
 		this.clearOpponents = this.clearOpponents.bind(this);
 		this.renderSelectedCounter = this.renderSelectedCounter.bind(this);
+		this.switchCounterRender = this.switchCounterRender.bind(this);
 
 		this.state = {
 			opponents: [null, null, null, null, null, null],
@@ -21,28 +22,8 @@ class OverwatchState extends React.Component {
 			counters: this.props.initialCounters,
 			selectedCounter: null,
 			orderedHeroes: this.props.orderedHeroes,
+			countersByCategory: false
 		}
-	}
-
-	componentDidMount() {
-		this.iso = new Isotope( '.counters', {
-			itemSelector: '.counter',
-			layoutMode: 'vertical',
-			getSortData: {
-				counterScore: '.counterScore parseFloat',
-				name: '.name'
-			}
-		});
-		this.iso.arrange({
-			sortAscending: {
-				name: true,
-				counterScore: false
-			},
-			sortBy: ['counterScore', 'name']
-		});
-
-		$('.hero-text').fitText(10, { minFontSize: '10em' });
-		$('.opponent-text').fitText(0.5, { minFontSize: '0.5em', maxFontSize: '0.5em' });
 	}
 
 	getCounters(opponents) {
@@ -67,11 +48,6 @@ class OverwatchState extends React.Component {
 		});
 		this.setState({counters: counters});
 		return counters;
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		this.iso.reloadItems();
-		this.iso.arrange();
 	}
 
 	addOpponent(hero=null) {
@@ -114,6 +90,10 @@ class OverwatchState extends React.Component {
 		const opponents = [null, null, null, null, null, null];
 		this.setState({opponents: opponents});
 		this.getCounters(opponents);
+	}
+
+	switchCounterRender() {
+		this.setState({countersByCategory: !this.state.countersByCategory});
 	}
 
 	renderHeroes() {
@@ -214,21 +194,25 @@ class OverwatchState extends React.Component {
 	}
 
 	renderCounters() {
-		return (
-			<div className="row counters">
-				{this.state.counters.map((counter) => {
-					return (
-						<div key={counter[0]}>
-							<Counter
-								hero={this.getHero(counter[0])}
-								counterScore={counter[1]}
-								handleClick={this.selectCounter}
-							/>
-						</div>
-					);
-				})}
-			</div>
-		);
+		if (this.state.countersByCategory) {
+			return (
+				<div className="row counters">
+					<CategorizedCounters 
+						counters={this.state.counters}
+						orderedHeroes={this.props.orderedHeroes}
+					/>
+				</div>
+			);
+		} else {
+			return (
+				<div className="row counters">
+					<CompiledCounters 
+						counters={this.state.counters}
+						orderedHeroes={this.props.orderedHeroes}
+					/>
+				</div>
+			);
+		}
 	}
 
 	render() {
@@ -237,6 +221,9 @@ class OverwatchState extends React.Component {
 				{this.renderHeroes()}
 				{this.renderOpponents()}
 				{this.renderSelectedCounter()}
+				<button
+					onClick={this.switchCounterRender}
+				>Change Counter Render</button>
 				{this.renderCounters()}
 			</div>
 		);

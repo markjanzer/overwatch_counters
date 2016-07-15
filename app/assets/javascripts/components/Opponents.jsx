@@ -9,9 +9,11 @@ class Opponents extends React.Component {
 				<hr></hr>
 				{this.props.opponents.map((opponent, index) => {
 					return (
-						<div className="small-4 medium-2 columns">
+						<div 
+							className="small-4 medium-2 columns"
+							key={index}
+						>
 							<Opponent 
-								key={index}
 								index={index}
 								opponent={opponent}	
 								selected={this.props.selectedOpponent === index}
