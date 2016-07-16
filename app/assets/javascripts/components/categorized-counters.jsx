@@ -6,10 +6,10 @@ class CategorizedCounters extends React.Component {
 		this.getCategoryHeroIds = this.getCategoryHeroIds.bind(this);
 
 		this.state = {
-			offense: [],
-			defense: [],
-			tank: [],
-			support: []
+			offense: this.getCategoryHeroIds("offense"),
+			defense: this.getCategoryHeroIds("defense"),
+			tank: this.getCategoryHeroIds("tank"),
+			support: this.getCategoryHeroIds("support"),
 		}
 	}
 
@@ -20,12 +20,6 @@ class CategorizedCounters extends React.Component {
 	}
 
 	componentDidMount() {
-		this.setState({
-			offense: this.getCategoryHeroIds("offense"),
-			defense: this.getCategoryHeroIds("defense"),
-			tank: this.getCategoryHeroIds("tank"),
-			support: this.getCategoryHeroIds("support"),
-		});
 
 		this.offenseIso = new Isotope( '.offense-counters', {
 			itemSelector: '.counter',
@@ -118,19 +112,24 @@ class CategorizedCounters extends React.Component {
 	}
 
 	renderCategory(category) {
-		const categoryCounters = this.props.counters.filter((counter) => this.state[category].includes(counter.id))
+		console.log("category")
+		const categoryIds = this.state[category].map((counter) => counter.alpha_id );
+		const categoryCounters = this.props.counters.filter((counter) => categoryIds.includes(counter[0]))
 		return (
-			<div className="small-3 columns">
+			<div className={`small-12 medium-6 large-3 columns ${category}-counters`}>
+				<div className="icon-wrapper">
+					{categoryIcon(category)}
+				</div>
 				{categoryCounters.map((counter) => {
+					console.log(counter[0])
 					return (
 						<div 
 							key={counter[0]}
-							className={`${category}-counters`}
 						>
 							<Counter
 								hero={this.getHero(counter[0])}
 								counterScore={counter[1]}
-								handleClick={this.selectCounter}
+								handleClick={this.props.selectCounter}
 							/>
 						</div>
 					);

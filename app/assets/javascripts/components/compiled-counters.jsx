@@ -14,7 +14,7 @@ class CompiledCounters extends React.Component {
 				name: '.name'
 			}
 		});
-		
+
 		this.iso.arrange({
 			sortAscending: {
 				name: true,
@@ -45,7 +45,7 @@ class CompiledCounters extends React.Component {
 							<Counter
 								hero={this.getHero(counter[0])}
 								counterScore={counter[1]}
-								handleClick={this.selectCounter}
+								handleClick={this.props.selectCounter}
 							/>
 						</div>
 					);

@@ -200,6 +200,7 @@ class OverwatchState extends React.Component {
 					<CategorizedCounters 
 						counters={this.state.counters}
 						orderedHeroes={this.props.orderedHeroes}
+						selectCounter={this.selectCounter}
 					/>
 				</div>
 			);
@@ -209,6 +210,7 @@ class OverwatchState extends React.Component {
 					<CompiledCounters 
 						counters={this.state.counters}
 						orderedHeroes={this.props.orderedHeroes}
+						selectCounter={this.selectCounter}
 					/>
 				</div>
 			);
