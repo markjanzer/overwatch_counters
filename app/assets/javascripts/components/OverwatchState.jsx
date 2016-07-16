@@ -15,6 +15,7 @@ class OverwatchState extends React.Component {
 		this.clearOpponents = this.clearOpponents.bind(this);
 		this.renderSelectedCounter = this.renderSelectedCounter.bind(this);
 		this.switchCounterRender = this.switchCounterRender.bind(this);
+		this.renderSwitchCounterRenderButton = this.renderSwitchCounterRenderButton.bind(this);
 
 		this.state = {
 			opponents: [null, null, null, null, null, null],
@@ -108,7 +109,7 @@ class OverwatchState extends React.Component {
 				{this.renderHeroCategory("support")}
 				<div className="small-12 columns no-hero-container">
 					<button
-						className="secondary hollow button no-hero-button"
+						className="secondary hollow button no-hero-button small"
 						onClick={this.addOpponent.bind(this, null)}
 					>No Hero</button>
 				</div>
@@ -156,10 +157,25 @@ class OverwatchState extends React.Component {
 		return newArr
 	}
 
+	renderSwitchCounterRenderButton () {
+		let buttonText
+		if (this.state.countersByCategory) {
+			buttonText = "Sort as List";
+		} else {
+			buttonText = "Sort by Category";
+		}
+		return (
+			<button
+				className="switch-counter-render-button hollow button small"
+				onClick={this.switchCounterRender}
+			>{buttonText}</button>
+		);
+	}
+
 	renderSelectedCounter() {
 		if (this.state.selectedCounter !== null) {
 			return(
-				<div className="row">
+				<div className="row relative">
 					<div className="small-12 columns selected-counter">
 						<h5 className="overwatch-font">{this.getHero(this.state.selectedCounter).name}</h5>
 						<h5 className="overwatch-font">{this.getCounterScore(this.state.selectedCounter)}</h5>
@@ -182,12 +198,14 @@ class OverwatchState extends React.Component {
 							Deselect Counter
 						</button>
 					</div>
+					{this.renderSwitchCounterRenderButton()}
 				</div>
 			);
 		} else {
 			return (
-				<div className="row selected-counter">
+				<div className="row selected-counter relative">
 					<span className="label-font">No Counter Selected</span>
+					{this.renderSwitchCounterRenderButton()}
 				</div>
 			);
 		}
@@ -223,9 +241,6 @@ class OverwatchState extends React.Component {
 				{this.renderHeroes()}
 				{this.renderOpponents()}
 				{this.renderSelectedCounter()}
-				<button
-					onClick={this.switchCounterRender}
-				>Change Counter Render</button>
 				{this.renderCounters()}
 			</div>
 		);

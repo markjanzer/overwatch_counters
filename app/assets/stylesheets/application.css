@@ -68,6 +68,10 @@
 	display: inline-block;
 }
 
+.relative {
+	position: relative;
+}
+
 .button-wrapper {
 	display: inline-block;
 }
@@ -196,6 +200,17 @@
 
 .selected-counter {
 	text-align: center;
+}
+
+.switch-counter-render-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.counter-icon {
+	margin: auto;
+	padding-bottom: 0.5em;
 }
 
 .counter-button {

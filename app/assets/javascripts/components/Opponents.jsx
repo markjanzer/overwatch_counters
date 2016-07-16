@@ -24,7 +24,7 @@ class Opponents extends React.Component {
 				})}
 				<div>
 					<button
-						className="secondary hollow button clear-button"
+						className="secondary hollow button clear-button small"
 						onClick={this.props.clearOpponents}
 					>Clear All</button>
 				</div>
