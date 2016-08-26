@@ -238,6 +238,7 @@ class OverwatchState extends React.Component {
 	render() {
 		return (
 			<div>
+				<a href="/createCounters">Create your own matchups</a>
 				{this.renderHeroes()}
 				{this.renderOpponents()}
 				{this.renderSelectedCounter()}

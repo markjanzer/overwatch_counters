@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
   get '/' => 'overwatch_states#index'
   get '/counters' => 'overwatch_states#counters'
+  get '/createCounters' => 'overwatch_states#new'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
