@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527165047) do
+ActiveRecord::Schema.define(version: 20160828005100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,22 @@ ActiveRecord::Schema.define(version: 20160527165047) do
     t.string   "category"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "matchups", force: :cascade do |t|
+    t.string   "hero"
+    t.string   "opponent"
+    t.float    "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "overwatch_counters", force: :cascade do |t|
+    t.text     "url"
+    t.float    "min"
+    t.float    "max"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "overwatch_states", force: :cascade do |t|
