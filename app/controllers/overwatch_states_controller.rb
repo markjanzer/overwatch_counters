@@ -6,7 +6,4 @@ class OverwatchStatesController < ApplicationController
 		# @ordered_heroes = Hero.order('alpha_id')
 		@ordered_heroes = Rails.cache.read('ordered_heroes')
 	end
-
-	def new
-	end
 end

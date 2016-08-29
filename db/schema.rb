@@ -35,11 +35,12 @@ ActiveRecord::Schema.define(version: 20160828005100) do
   end
 
   create_table "matchups", force: :cascade do |t|
+    t.integer  "matchup_chart_id"
     t.string   "hero"
     t.string   "opponent"
     t.float    "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "overwatch_states", force: :cascade do |t|
