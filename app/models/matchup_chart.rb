@@ -14,4 +14,13 @@ class MatchupChart < ActiveRecord::Base
 		self.update(url: hash)
 		self.url
 	end
+
+	def create_matchup_object 
+		matchup_object = {}
+		self.matchups.each do |matchup|
+			matchup_object[matchup.hero] ||= {}
+			matchup_object[matchup.hero][matchup.opponent] = matchup.score 
+		end
+		matchup_object
+	end
 end

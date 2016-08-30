@@ -63,7 +63,8 @@ class MatchupChart extends React.Component {
 		if (this.state.url) {
 			return (
 				<div>
-					<p>Your URL is: {this.state.url}</p>
+					<p>Your URL is: {"overwatchcounters.io./counters/" + this.state.url}</p>
+					<a href={`/counters/${this.state.url}`}>Get Counters</a>
 				</div>
 			);
 		}
@@ -112,7 +113,6 @@ class MatchupChart extends React.Component {
 				{this.renderChart()}
 				{this.renderUrl()}
 				<button onClick={this.saveChart} >Save</button>
-
 			</div>
 		);	
 	}

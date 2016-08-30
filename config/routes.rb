@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   get '/counters' => 'overwatch_states#counters'
   get '/matchup_charts/new' => 'matchup_charts#new'
   put '/matchup_chart' => 'matchup_charts#create'
+  get '/counters/:hash' => 'counters#show'
 end
  
