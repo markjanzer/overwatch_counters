@@ -1,3 +1,3 @@
 class Matchup < ActiveRecord::Base
-	belongs_to :matchup_chart
+	belongs_to :matchup_table
 end

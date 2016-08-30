@@ -1,10 +1,10 @@
-class MatchupChart < ActiveRecord::Base
+class MatchupTable < ActiveRecord::Base
 	has_many :matchups
 
-	def create_matchups(matchup_chart)
-		matchup_chart.keys.each do |hero|
-			matchup_chart[hero].keys.each do |opponent|
-				Matchup.create(matchup_chart_id: self.id, hero: hero, opponent: opponent, score: matchup_chart[hero][opponent])
+	def create_matchups(matchup_table)
+		matchup_table.keys.each do |hero|
+			matchup_table[hero].keys.each do |opponent|
+				Matchup.create(matchup_table_id: self.id, hero: hero, opponent: opponent, score: matchup_table[hero][opponent])
 			end
 		end
 	end

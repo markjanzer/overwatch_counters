@@ -1,6 +1,6 @@
-class CreateMatchupCharts < ActiveRecord::Migration
+class CreateMatchupTables < ActiveRecord::Migration
   def change
-    create_table :matchup_charts do |t|
+    create_table :matchup_tables do |t|
     	t.text :url
     	t.float :min
     	t.float :max

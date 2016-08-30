@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20160828005100) do
     t.datetime "updated_at",         null: false
   end
 
-  create_table "matchup_charts", force: :cascade do |t|
+  create_table "matchup_tables", force: :cascade do |t|
     t.text     "url"
     t.float    "min"
     t.float    "max"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160828005100) do
   end
 
   create_table "matchups", force: :cascade do |t|
-    t.integer  "matchup_chart_id"
+    t.integer  "matchup_table_id"
     t.string   "hero"
     t.string   "opponent"
     t.float    "score"
