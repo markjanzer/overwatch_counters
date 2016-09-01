@@ -22,13 +22,17 @@ class CounterCalculator extends React.Component {
 		this.tank = ["dva", "reinhardt", "roadhog", "winston", "zarya"];
 		this.support = ["ana", "lucio", "mercy", "symmetra", "zenyatta"];
 
+
+		// Yo whatsup mark
+		// this.props.initialCounters is being defined below, but it's commented out because it's old and shitty.
+		// next time, make an initialCounters with the new object. Good luck braj.
 		this.state = {
-			// opponents: [null, null, null, null, null, null],
-			// selectedOpponent: null,
-			// counters: this.props.initialCounters,
+			opponents: [null, null, null, null, null, null],
+			selectedOpponent: null,
+			counters: this.props.initialCounters,
 			// selectedCounter: null,
 			// orderedHeroes: this.props.orderedHeroes,
-			// countersByCategory: false
+			countersByCategory: false,
 			matchups: this.props.matchups
 		}
 	}
@@ -162,16 +166,16 @@ class CounterCalculator extends React.Component {
 		);
 	}
 
-// 	renderOpponents() {
-// 		return (
-// 			<Opponents
-// 				opponents={this.state.opponents}
-// 				selectedOpponent={this.state.selectedOpponent}
-// 				handleChange={this.selectOpponent}
-// 				clearOpponents={this.clearOpponents}
-// 			/>
-// 		);
-// 	}
+	renderOpponents() {
+		return (
+			<Opponents
+				opponents={this.state.opponents}
+				selectedOpponent={this.state.selectedOpponent}
+				handleChange={this.selectOpponent}
+				clearOpponents={this.clearOpponents}
+			/>
+		);
+	}
 
 // 	flatten(arr) {
 // 		let newArr = arr.reduce((a,b) => {
@@ -234,38 +238,38 @@ class CounterCalculator extends React.Component {
 // 		}
 // 	}
 
-// 	renderCounters() {
-// 		if (this.state.countersByCategory) {
-// 			return (
-// 				<div className="row counters">
-// 					<CategorizedCounters 
-// 						counters={this.state.counters}
-// 						orderedHeroes={this.props.orderedHeroes}
-// 						selectCounter={this.selectCounter}
-// 					/>
-// 				</div>
-// 			);
-// 		} else {
-// 			return (
-// 				<div className="row counters">
-// 					<CompiledCounters 
-// 						counters={this.state.counters}
-// 						orderedHeroes={this.props.orderedHeroes}
-// 						selectCounter={this.selectCounter}
-// 					/>
-// 				</div>
-// 			);
-// 		}
-// 	}
+	renderCounters() {
+		if (this.state.countersByCategory) {
+			return (
+				<div className="row counters">
+					<CategorizedCounters 
+						counters={this.state.counters}
+						orderedHeroes={this.props.orderedHeroes}
+						selectCounter={this.selectCounter}
+					/>
+				</div>
+			);
+		} else {
+			return (
+				<div className="row counters">
+					<CompiledCounters 
+						counters={this.state.counters}
+						orderedHeroes={this.props.orderedHeroes}
+						selectCounter={this.selectCounter}
+					/>
+				</div>
+			);
+		}
+	}
 
-				// {this.renderOpponents()}
 				// {this.renderSelectedCounter()}
-				// {this.renderCounters()}
 	render() {
 		return (
 			<div>
 				<a href="/matchup_tables/new">Create your own matchups</a>
 				{this.renderHeroes()}
+				{this.renderOpponents()}
+				{this.renderCounters()}
 			</div>
 		);
 	}

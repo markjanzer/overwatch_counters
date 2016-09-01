@@ -37,6 +37,7 @@ class CompiledCounters extends React.Component {
 	}
 
 	renderAllCounters() {
+		console.log(this.props.counters);
 		return (
 			<div>
 				{this.props.counters.map((counter) => {
