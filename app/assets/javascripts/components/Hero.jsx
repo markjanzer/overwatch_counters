@@ -24,7 +24,7 @@ class Hero extends React.Component {
 					onClick={this.handleClick}
 				>	
 					<div className={`image-wrapper`}>
-						<img src={this.imagePath(this.props.hero.image_path)} className="image"/>
+						<img src={this.imagePath(this.props.hero.name)} className="image"/>
 					</div>
 					<p className="hero-text">{this.props.hero.name}</p>
 				</button>
