@@ -18,18 +18,20 @@ class CounterCalculator extends React.Component {
 		// this.switchCounterRender = this.switchCounterRender.bind(this);
 		// this.renderSwitchCounterRenderButton = this.renderSwitchCounterRenderButton.bind(this);
 
-		this.offense = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer"];
-		this.defense = ["bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker"];
-		this.tank = ["dva", "reinhardt", "roadhog", "winston", "zarya"];
-		this.support = ["ana", "lucio", "mercy", "symmetra", "zenyatta"];
+		// this.offense = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer"];
+		// this.defense = ["bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker"];
+		// this.tank = ["dva", "reinhardt", "roadhog", "winston", "zarya"];
+		// this.support = ["ana", "lucio", "mercy", "symmetra", "zenyatta"];
 
     this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
     // this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
 
+    // this.props.matchups
 		this.state = {
 			opponents: [null, null, null, null, null, null],
 			selectedOpponent: null,
-			counters: this.props.initialCounters,
+      // counters: this.props.initialCounters,
+			counters: null,
 			// selectedCounter: null,
 			// orderedHeroes: this.props.orderedHeroes,
 			countersByCategory: false,
@@ -79,34 +81,38 @@ class CounterCalculator extends React.Component {
     }
   }
 
-	// getCounters(opponents) {
-	// 	// Remove null from opponents array and only continue function if opponent exists
-	// 	let filteredOpponents = opponents.filter((opponent) => opponent );
-	// 	if (!filteredOpponents.length) {
-	// 		this.setState({counters: this.props.initialCounters});
-	// 		return this.props.initialCounters;
-	// 	}
-	// 	let arrOfOpponentAlphaIds = filteredOpponents.map((opponent) => opponent.alpha_id);
-	// 	let heroMatchups = arrOfOpponentAlphaIds.map((alpha_id) => {
-	// 		return this.props.heroMatchups[alpha_id].slice();
-	// 	});
-	// 	let counters = heroMatchups.reduce((previousArray, currentArray) => {
-	// 		currentArray.forEach((counterScore, index) => {
-	// 			previousArray[index] = (previousArray[index] + currentArray[index]);
-	// 		});
-	// 		return previousArray;
-	// 	});
-	// 	counters = counters.map((counterScore, alpha_id) => {
-	// 		return [alpha_id, Math.round((counterScore / filteredOpponents.length) * 100) / 100];
-	// 	});
-	// 	this.setState({counters: counters});
-	// 	return counters;
-	// }
+	getCounters(opponents) {
+		// Remove null from opponents array and only continue function if opponent exists
+		let filteredOpponents = opponents.filter(opponent => opponent);
+		if (!filteredOpponents.length) {
+			this.setState({counters: null});
+			return null
+		}
+		// let arrOfOpponentAlphaIds = filteredOpponents.map((opponent) => opponent.alpha_id);
+		// let heroMatchups = arrOfOpponentAlphaIds.map((alpha_id) => {
+		// 	return this.props.heroMatchups[alpha_id].slice();
+		// });
+    let heroMatchups = filteredOpponents.map(hero => this.props.matchups[hero]);
+    debugger
+    // Assah du
+    // Here we have all of the matchup objects of every opponent. Now we need to iterate through every hero,
+    // and get a composite of the hero score of all of them
+		let counters = heroMatchups.reduce((previousArray, currentArray) => {
+			currentArray.forEach((counterScore, index) => {
+				previousArray[index] = (previousArray[index] + currentArray[index]);
+			});
+			return previousArray;
+		});
+		counters = counters.map((counterScore, alpha_id) => {
+			return [alpha_id, Math.round((counterScore / filteredOpponents.length) * 100) / 100];
+		});
+		this.setState({counters: counters});
+		return counters;
+	}
 
 	addOpponent(hero=null) {
 		const opponents = React.addons.update(this.state.opponents, {$splice: [[this.state.selectedOpponent, 1, hero]]})
 		this.setState({opponents: opponents});
-    debugger
 		this.getCounters(opponents);
 		this.selectNextOpponent();
 	}
