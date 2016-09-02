@@ -97,46 +97,6 @@
 	width: 1em;
 }
 
-/*.offense-block {
-	width: calc((6% * 100 / 21) - 3%);
-	display: inline-block;
-	margin: 0% 1.5%;
-}
-
-.defense-block {
-	width: calc((6% * 100 / 21) - 3%);
-	display: inline-block;
-	margin: 0% 1.5%;
-}
-
-.tank-block {
-	width: calc((5% * 100 / 21) - 3%);
-	display: inline-block;
-	margin: 0% 1.5%;
-}
-
-.support-block {
-	width: calc((4% * 100 / 21) - 3%);
-	display: inline-block;
-	margin: 0% 1.5%;
-}*/
-
-/*.offense-hero {
-	width: calc(1% * 100 / 6);
-}
-
-.defense-hero {
-	width: calc(1% * 100 / 6);
-}
-
-.tank-hero {
-	width: calc(1% * 100 / 5);
-}
-
-.support-hero {
-	width: calc(1% * 100 / 4);
-}*/
-
 .offense-hero {
 	width: 16.50%;
 }
@@ -162,6 +122,10 @@
 .category-icon {
 	width: 1em;
 	height: 1em;
+}
+
+.widowmaker {
+  font-size: 8em;
 }
 
 /* Render Opponents */

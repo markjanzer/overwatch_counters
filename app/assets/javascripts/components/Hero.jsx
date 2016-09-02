@@ -9,8 +9,8 @@ class Hero extends React.Component {
 	}
 
 	handleClick() {
-		this.props.handleClick(this.props.hero);
-	}
+		this.props.handleClick(this.props.hero.slug);
+	}  
 
 	imagePath(hero_image_path) {
 		return `/assets/portraits/${hero_image_path}.png`
@@ -24,11 +24,11 @@ class Hero extends React.Component {
 					onClick={this.handleClick}
 				>	
 					<div className={`image-wrapper`}>
-						<img src={this.imagePath(this.props.hero.name)} className="image"/>
+						<img src={this.imagePath(this.props.hero.slug)} className="image"/>
 					</div>
-					<p className="hero-text">{this.props.hero.name}</p>
+					<p className="hero-text widowmaker">{this.props.hero.name}</p>
 				</button>
 			</div>
 		);	
-	}
+	}  
 }

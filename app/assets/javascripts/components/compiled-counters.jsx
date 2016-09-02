@@ -2,7 +2,9 @@ class CompiledCounters extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 
-		this.getHero = this.getHero.bind(this);
+		// this.getHero = this.getHero.bind(this);
+
+    this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
 	}
 
 	componentDidMount() {
@@ -32,19 +34,24 @@ class CompiledCounters extends React.Component {
 		this.iso.arrange();
 	}
 
-	getHero(alpha_id) {
-		return this.props.orderedHeroes[alpha_id];
-	}
+	// getHero(alpha_id) {
+	// 	return this.props.orderedHeroes[alpha_id];
+	// }
 
 	renderAllCounters() {
-		console.log(this.props.counters);
+    let counters;
+		if (!this.props.counters) {
+      counters = this.heroSlugs.map(slug => [slug, 0]);
+    } else {
+      counters = this.props.counters;
+    }
 		return (
 			<div>
-				{this.props.counters.map((counter) => {
+				{counters.map((counter) => {
 					return (
 						<div key={counter[0]}>
 							<Counter
-								hero={this.getHero(counter[0])}
+								hero={counter[0]}
 								counterScore={counter[1]}
 								handleClick={this.props.selectCounter}
 							/>

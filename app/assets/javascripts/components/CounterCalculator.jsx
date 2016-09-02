@@ -2,8 +2,9 @@ class CounterCalculator extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 
+    this.realName = this.realName.bind(this);
 		// this.selectOpponent = this.selectOpponent.bind(this);
-		// this.addOpponent = this.addOpponent.bind(this);
+		this.addOpponent = this.addOpponent.bind(this);
 		// this.selectNextOpponent = this.selectNextOpponent.bind(this);
 		// this.selectCounter = this.selectCounter.bind(this);
 		// this.removeSelectedCounter = this.removeSelectedCounter.bind(this);
@@ -22,10 +23,9 @@ class CounterCalculator extends React.Component {
 		this.tank = ["dva", "reinhardt", "roadhog", "winston", "zarya"];
 		this.support = ["ana", "lucio", "mercy", "symmetra", "zenyatta"];
 
+    this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
+    // this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
 
-		// Yo whatsup mark
-		// this.props.initialCounters is being defined below, but it's commented out because it's old and shitty.
-		// next time, make an initialCounters with the new object. Good luck braj.
 		this.state = {
 			opponents: [null, null, null, null, null, null],
 			selectedOpponent: null,
@@ -39,19 +39,45 @@ class CounterCalculator extends React.Component {
 
 	componentWillMount() {
 		let heroes = Object.keys(this.props.matchups);
+    this.heroes = {};
 		for (let i = 0; i < heroes.length; i++) {
-			this.props.matchups[heroes[i]].name = heroes[i];
+      this.heroes[heroes[i]] = {};
+      this.heroes[heroes[i]].slug = heroes[i];
+      this.heroes[heroes[i]].name = this.realName(heroes[i]);
+
+			// this.props.matchups[heroes[i]].name = heroes[i];
 			if (i < 6) {
-				this.props.matchups[heroes[i]].category = "offense";
+        this.heroes[heroes[i]].category = "offense";
+				// this.props.matchups[heroes[i]].category = "offense";
 			} else if (i < 12) {
-				this.props.matchups[heroes[i]].category = "defense";
+        this.heroes[heroes[i]].category = "defense";
+				// this.props.matchups[heroes[i]].category = "defense";
 			} else if (i < 17) {
-				this.props.matchups[heroes[i]].category = "tank";
+        this.heroes[heroes[i]].category = "tank";
+				// this.props.matchups[heroes[i]].category = "tank";
 			} else {
-				this.props.matchups[heroes[i]].category = "support";
+        this.heroes[heroes[i]].category = "support";
+				// this.props.matchups[heroes[i]].category = "support";
 			}
 		}
 	}
+
+  realName(slug) {
+    switch(slug) {
+    case "mccree":
+      return "McCree";
+    case "soldier-76":
+      return "Solider: 76";
+    case "dva":
+      return "D.Va";
+    case "torbjorn":
+      return "Torbjörn";
+    case "lucio":
+      return "Lúcio";
+    default:
+      return slug.charAt(0).toUpperCase() + slug.slice(1);
+    }
+  }
 
 	// getCounters(opponents) {
 	// 	// Remove null from opponents array and only continue function if opponent exists
@@ -77,12 +103,13 @@ class CounterCalculator extends React.Component {
 	// 	return counters;
 	// }
 
-	// addOpponent(hero=null) {
-	// 	const opponents = React.addons.update(this.state.opponents, {$splice: [[this.state.selectedOpponent, 1, hero]]})
-	// 	this.setState({opponents: opponents});
-	// 	this.getCounters(opponents);
-	// 	this.selectNextOpponent();
-	// }
+	addOpponent(hero=null) {
+		const opponents = React.addons.update(this.state.opponents, {$splice: [[this.state.selectedOpponent, 1, hero]]})
+		this.setState({opponents: opponents});
+    debugger
+		this.getCounters(opponents);
+		this.selectNextOpponent();
+	}
 
 	// selectNextOpponent() {
 	// 	let selectedOpponent = this.state.selectedOpponent === 5 ? 0 : this.state.selectedOpponent + 1;
@@ -142,10 +169,19 @@ class CounterCalculator extends React.Component {
 		);
 	}
 	// button onClick
-						// onClick={this.addOpponent.bind(this, null)}
+	// onClick={this.addOpponent.bind(this, null)}
 
 	renderHeroCategory(category) {
-		const categoryHeroes = this[category];
+    // const categoryHeroes = this[category].map(hero => {
+    //   return {name: hero.name, category: hero.category}
+    // });
+		// const categoryHeroes = this.heroes.filter(hero => hero.category === category);
+    let categoryHeroes = []; 
+    for (key in this.heroes) {
+      if (this.heroes[key].category === category) {
+        categoryHeroes.push(this.heroes[key]);
+      }
+    }
 		return (
 			<div className="small-12 medium-6 large-3 columns">
 				<div className="icon-wrapper">
@@ -156,7 +192,7 @@ class CounterCalculator extends React.Component {
 						return (
 							<Hero 
 								key={index}
-								hero={this.props.matchups[hero]}
+								hero={hero}
 								handleClick={this.addOpponent}
 							/>
 						); 
