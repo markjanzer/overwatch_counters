@@ -17,7 +17,7 @@ class Counter extends React.Component {
 	}
 
 	handleClick() {
-		this.props.handleClick(this.props.hero.alpha_id);
+		this.props.handleClick(this.props.hero);
 	}
 
 	imagePath(hero_image_path) {
@@ -26,7 +26,7 @@ class Counter extends React.Component {
 
 	renderCounterScore() {
 		let counterScore = this.props.counterScore;
-		let counterScoreWidth = counterScore > 0 ? counterScore/2 : (counterScore/2) * -1
+		let counterScoreWidth = counterScore > 0 ? counterScore/2 : (counterScore/2) * -1;
 		let widthStyle = {
 			width: `${counterScoreWidth}%`
 		}

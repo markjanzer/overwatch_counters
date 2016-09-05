@@ -40,7 +40,6 @@ class CompiledCounters extends React.Component {
 
 	renderAllCounters() {
     let counterKeys = this.heroSlugs;
-    console.log(this.props.counters)
     let counters = this.props.counters || {};
 		return (
 			<div>

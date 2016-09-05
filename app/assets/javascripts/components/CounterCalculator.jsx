@@ -6,17 +6,17 @@ class CounterCalculator extends React.Component {
 		this.selectOpponent = this.selectOpponent.bind(this);
 		this.addOpponent = this.addOpponent.bind(this);
 		this.selectNextOpponent = this.selectNextOpponent.bind(this);
-		// this.selectCounter = this.selectCounter.bind(this);
-		// this.removeSelectedCounter = this.removeSelectedCounter.bind(this);
+		this.selectCounter = this.selectCounter.bind(this);
+		this.removeSelectedCounter = this.removeSelectedCounter.bind(this);
 		// this.getCounters = this.getCounters.bind(this);
-		// this.renderCounters = this.renderCounters.bind(this);
+		this.renderCounters = this.renderCounters.bind(this);
 		// this.renderHeroCategory = this.renderHeroCategory.bind(this);
 		// this.getHero = this.getHero.bind(this);
 		// this.getCounterScore = this.getCounterScore.bind(this);
 		this.clearOpponents = this.clearOpponents.bind(this);
-		// this.renderSelectedCounter = this.renderSelectedCounter.bind(this);
-		// this.switchCounterRender = this.switchCounterRender.bind(this);
-		// this.renderSwitchCounterRenderButton = this.renderSwitchCounterRenderButton.bind(this);
+		this.renderSelectedCounter = this.renderSelectedCounter.bind(this);
+		this.switchCounterRender = this.switchCounterRender.bind(this);
+		this.renderSwitchCounterRenderButton = this.renderSwitchCounterRenderButton.bind(this);
 
 		// this.offense = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer"];
 		// this.defense = ["bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker"];
@@ -32,7 +32,7 @@ class CounterCalculator extends React.Component {
 			selectedOpponent: null,
       // counters: this.props.initialCounters,
 			counters: null,
-			// selectedCounter: null,
+			selectedCounter: null,
 			// orderedHeroes: this.props.orderedHeroes,
 			countersByCategory: false,
 			matchups: this.props.matchups
@@ -119,35 +119,35 @@ class CounterCalculator extends React.Component {
 		this.setState({selectedOpponent: opponentIndex});
 	}
 
-	// selectCounter(selectedCounterAlphaId) {
-	// 	this.setState({selectedCounter: selectedCounterAlphaId});
-	// }
+  clearOpponents() {
+    const opponents = [null, null, null, null, null, null];
+    this.setState({opponents: opponents});
+    this.getCounters(opponents);
+  }
 
-	// removeSelectedCounter() {
-	// 	this.setState({selectedCounter: null});
-	// }
+  selectCounter(selectedCounterSlug) {
+    this.setState({selectedCounter: selectedCounterSlug});
+  }
 
-	// getHero(alpha_id) {
-	// 	return this.props.orderedHeroes[alpha_id];
-	// }
+  removeSelectedCounter() {
+    this.setState({selectedCounter: null});
+  }
 
-	// getCounterScore(alpha_id) {
-	// 	for (let i = 0; i < this.state.counters.length; i++) {
-	// 		if (alpha_id === this.state.counters[i][0]) {
-	// 			return this.state.counters[i][1];
-	// 		}
-	// 	}
-	// }
+  switchCounterRender() {
+   this.setState({countersByCategory: !this.state.countersByCategory});
+  }
+  
+  // getHero(alpha_id) {
+  //  return this.props.orderedHeroes[alpha_id];
+  // }
 
-	clearOpponents() {
-		const opponents = [null, null, null, null, null, null];
-		this.setState({opponents: opponents});
-		this.getCounters(opponents);
-	}
-
-	// switchCounterRender() {
-	// 	this.setState({countersByCategory: !this.state.countersByCategory});
-	// }
+  // getCounterScore(alpha_id) {
+  //  for (let i = 0; i < this.state.counters.length; i++) {
+  //    if (alpha_id === this.state.counters[i][0]) {
+  //      return this.state.counters[i][1];
+  //    }
+  //  }
+  // }
 
 	renderHeroes() {
 		return (
@@ -214,59 +214,60 @@ class CounterCalculator extends React.Component {
 // 		return newArr
 // 	}
 
-// 	renderSwitchCounterRenderButton () {
-// 		let buttonText
-// 		if (this.state.countersByCategory) {
-// 			buttonText = "Sort as List";
-// 		} else {
-// 			buttonText = "Sort by Category";
-// 		}
-// 		return (
-// 			<button
-// 				className="switch-counter-render-button hollow button small"
-// 				onClick={this.switchCounterRender}
-// 			>{buttonText}</button>
-// 		);
-// 	}
+	renderSwitchCounterRenderButton () {
+		let buttonText
+		if (this.state.countersByCategory) {
+			buttonText = "Sort as List";
+		} else {
+			buttonText = "Sort by Category";
+		}
+		return (
+			<button
+				className="switch-counter-render-button hollow button small"
+				onClick={this.switchCounterRender}
+			>{buttonText}</button>
+		);
+	}
 
-	// renderSelectedCounter() {
-	// 	if (this.state.selectedCounter !== null) {
-	// 		return(
-	// 			<div className="row relative">
-	// 				<div className="small-12 columns selected-counter">
-	// 					<h5 className="overwatch-font">{this.getHero(this.state.selectedCounter).name}</h5>
-	// 					<h5 className="overwatch-font">{this.getCounterScore(this.state.selectedCounter)}</h5>
-	// 					<div>
-	// 						<h5 className="label-font">Individual Mathchups</h5>
-	// 						{this.state.opponents.filter((opponent) => opponent).map((opponent) => {
-	// 							return (
-	// 								<div
-	// 									key={opponent.id * 100}
-	// 								>
-	// 									<span>{opponent.name} :: {Math.round(this.props.heroMatchups[opponent.alpha_id][this.state.selectedCounter] * 100) / 100}</span>
-	// 								</div>
-	// 							);
-	// 						})}
-	// 					</div>
-	// 					<button 
-	// 						className="secondary hollow button tiny"
-	// 						onClick={this.removeSelectedCounter}
-	// 					>
-	// 						Deselect Counter
-	// 					</button>
-	// 				</div>
-	// 				{this.renderSwitchCounterRenderButton()}
-	// 			</div>
-	// 		);
-	// 	} else {
-	// 		return (
-	// 			<div className="row selected-counter relative">
-	// 				<span className="label-font">No Counter Selected</span>
-	// 				{this.renderSwitchCounterRenderButton()}
-	// 			</div>
-	// 		);
-	// 	}
-	// }
+	renderSelectedCounter() {
+		if (this.state.selectedCounter !== null) {
+			return(
+				<div className="row relative">
+					<div className="small-12 columns selected-counter">
+						<h5 className="overwatch-font">{this.heroes[this.state.selectedCounter].name}</h5>
+						<h5 className="overwatch-font">{this.state.counters[this.state.selectedCounter]}</h5>
+						<div>
+							<h5 className="label-font">Individual Mathchups</h5>
+							{this.state.opponents.filter((opponent) => opponent).map((opponent, index) => {
+                console.log(opponent);
+								return (
+									<div
+										key={index}
+									>
+										<span>{opponent.name} :: {Math.round(this.props.matchups[opponent.slug][this.state.selectedCounter] * 100) / 2}</span>
+									</div>
+								);
+							})}
+						</div>
+						<button 
+							className="secondary hollow button tiny"
+							onClick={this.removeSelectedCounter}
+						>
+							Deselect Counter
+						</button>
+					</div>
+					{this.renderSwitchCounterRenderButton()}
+				</div>
+			);
+		} else {
+			return (
+				<div className="row selected-counter relative">
+					<span className="label-font">No Counter Selected</span>
+					{this.renderSwitchCounterRenderButton()}
+				</div>
+			);
+		}
+	}
 
 	renderCounters() {
 		if (this.state.countersByCategory) {
@@ -292,17 +293,15 @@ class CounterCalculator extends React.Component {
 		}
 	}
 
-				// {this.renderSelectedCounter()}
-	render() {
-		return (
-			<div>
-				<a href="/matchup_tables/new">Create your own matchups</a>
-				{this.renderHeroes()}
-				{this.renderOpponents()}
+  render() {
+    return (
+      <div>
+        <a href="/matchup_tables/new">Create your own matchups</a>
+        {this.renderHeroes()}
+        {this.renderOpponents()}
+				{this.renderSelectedCounter()}
 				{this.renderCounters()}
 			</div>
 		);
 	}
 }
-
-// OverwatchState.defaultProps = { initialCounters: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0], [10, 0], [11, 0], [12, 0], [13, 0], [14, 0], [15, 0], [16, 0], [17, 0], [18, 0], [19, 0], [20, 0]]}
