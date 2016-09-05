@@ -33,7 +33,6 @@ class CounterCalculator extends React.Component {
       // counters: this.props.initialCounters,
 			counters: null,
 			selectedCounter: null,
-			// orderedHeroes: this.props.orderedHeroes,
 			countersByCategory: false,
 			matchups: this.props.matchups
 		}
@@ -275,7 +274,7 @@ class CounterCalculator extends React.Component {
 				<div className="row counters">
 					<CategorizedCounters 
 						counters={this.state.counters}
-						orderedHeroes={this.props.orderedHeroes}
+						heroes={this.heroes}
 						selectCounter={this.selectCounter}
 					/>
 				</div>
@@ -285,7 +284,6 @@ class CounterCalculator extends React.Component {
 				<div className="row counters">
 					<CompiledCounters 
 						counters={this.state.counters}
-						orderedHeroes={this.props.orderedHeroes}
 						selectCounter={this.selectCounter}
 					/>
 				</div>

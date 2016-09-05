@@ -2,92 +2,29 @@ class CategorizedCounters extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 
-		this.getHero = this.getHero.bind(this);
-		this.getCategoryHeroIds = this.getCategoryHeroIds.bind(this);
-
-		this.state = {
-			offense: this.getCategoryHeroIds("offense"),
-			defense: this.getCategoryHeroIds("defense"),
-			tank: this.getCategoryHeroIds("tank"),
-			support: this.getCategoryHeroIds("support"),
-		}
-	}
-
-	getCategoryHeroIds(category) {
-		const categoryHeroes = this.props.orderedHeroes.filter(hero => hero.category === category);
-		categoryHeroes.map((hero) => hero.id);
-		return categoryHeroes;
+    this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
+    this.categories = ["offense", "defense", "tank", "support"];
 	}
 
 	componentDidMount() {
+    for (let i = 0; i < this.categories.length; i++) {
+      this[`${this.categories[i]}Iso`] = new Isotope( `.${this.categories[i]}-counters`, {
+        itemSelector: '.counter',
+        layoutMode: 'vertical',
+        getSortData: {
+          counterScore: '.counterScore parseFloat',
+          name: '.name'
+        }        
+      });
 
-		this.offenseIso = new Isotope( '.offense-counters', {
-			itemSelector: '.counter',
-			layoutMode: 'vertical',
-			getSortData: {
-				counterScore: '.counterScore parseFloat',
-				name: '.name'
-			}
-		});		
-
-		this.defenseIso = new Isotope( '.defense-counters', {
-			itemSelector: '.counter',
-			layoutMode: 'vertical',
-			getSortData: {
-				counterScore: '.counterScore parseFloat',
-				name: '.name'
-			}
-		});		
-
-		this.tankIso = new Isotope( '.tank-counters', {
-			itemSelector: '.counter',
-			layoutMode: 'vertical',
-			getSortData: {
-				counterScore: '.counterScore parseFloat',
-				name: '.name'
-			}
-		});		
-
-		this.supportIso = new Isotope( '.support-counters', {
-			itemSelector: '.counter',
-			layoutMode: 'vertical',
-			getSortData: {
-				counterScore: '.counterScore parseFloat',
-				name: '.name'
-			}
-		});
-
-		this.offenseIso.arrange({
-			sortAscending: {
-				name: true,
-				counterScore: false
-			},
-			sortBy: ['counterScore', 'name']
-		});
-
-		this.defenseIso.arrange({
-			sortAscending: {
-				name: true,
-				counterScore: false
-			},
-			sortBy: ['counterScore', 'name']
-		});
-
-		this.tankIso.arrange({
-			sortAscending: {
-				name: true,
-				counterScore: false
-			},
-			sortBy: ['counterScore', 'name']
-		});
-
-		this.supportIso.arrange({
-			sortAscending: {
-				name: true,
-				counterScore: false
-			},
-			sortBy: ['counterScore', 'name']
-		});
+      this[`${this.categories[i]}Iso`].arrange({
+        sortAscending: {
+          name: true,
+          counterScore: false
+        },
+        sortBy: ['counterScore', 'name']
+      });
+    }
 
 		$('.hero-text').fitText(10, { minFontSize: '10em' });
 		$('.opponent-text').fitText(0.5, { minFontSize: '0.5em', maxFontSize: '0.5em' });
@@ -107,29 +44,24 @@ class CategorizedCounters extends React.Component {
 		this.supportIso.arrange();
 	}
 
-	getHero(alpha_id) {
-		return this.props.orderedHeroes[alpha_id];
-	}
-
 	renderCategory(category) {
-		console.log("category")
-		const categoryIds = this.state[category].map((counter) => counter.alpha_id );
-		const categoryCounters = this.props.counters.filter((counter) => categoryIds.includes(counter[0]))
+    let categoryCounters = this.heroSlugs.map(hero => this.props.heroes[hero]);
+    categoryCounters = categoryCounters.filter(counter => counter.category === category);
+    let counters = this.props.counters || {};
 		return (
 			<div className="small-12 medium-6 large-3 columns">
 				<div className="icon-wrapper counter-icon">
 					{categoryIcon(category)}
 				</div>
 				<div className={`${category}-counters`}>
-					{categoryCounters.map((counter) => {
-						console.log(counter[0])
+					{categoryCounters.map((counter, index) => {
 						return (
 							<div 
-								key={counter[0]}
+								key={index}
 							>
 								<Counter
-									hero={this.getHero(counter[0])}
-									counterScore={counter[1]}
+									hero={counter.slug}
+									counterScore={counters[counter.slug] || 0}
 									handleClick={this.props.selectCounter}
 								/>
 							</div>
@@ -143,10 +75,9 @@ class CategorizedCounters extends React.Component {
 	render() {
 		return (
 			<div>
-				{this.renderCategory("offense")}
-				{this.renderCategory("defense")}
-				{this.renderCategory("tank")}
-				{this.renderCategory("support")}
+        {this.categories.map(category => {
+          return this.renderCategory(category);
+        })}
 			</div>
 		);
 	}
