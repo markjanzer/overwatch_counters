@@ -39,20 +39,17 @@ class CompiledCounters extends React.Component {
 	// }
 
 	renderAllCounters() {
-    let counters;
-		if (!this.props.counters) {
-      counters = this.heroSlugs.map(slug => [slug, 0]);
-    } else {
-      counters = this.props.counters;
-    }
+    let counterKeys = this.heroSlugs;
+    console.log(this.props.counters)
+    let counters = this.props.counters || {};
 		return (
 			<div>
-				{counters.map((counter) => {
+				{counterKeys.map((hero, index) => {
 					return (
-						<div key={counter[0]}>
+						<div key={index}>
 							<Counter
-								hero={counter[0]}
-								counterScore={counter[1]}
+								hero={hero}
+								counterScore={counters[hero] || 0}
 								handleClick={this.props.selectCounter}
 							/>
 						</div>

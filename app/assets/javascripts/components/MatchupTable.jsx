@@ -17,23 +17,6 @@ class MatchupTable extends React.Component {
 		}
 	}
 
-	// realName(slug) {
-	// 	switch(slug) {
- //    case "mccree":
- //      return "McCree";
- //    case "soldier-76":
- //      return "Solider: 76";
- //    case "dva":
- //      return "D.Va";
- //    case "torbjorn":
- //      return "Torbjörn";
- //    case "lucio":
- //      return "Lúcio";
- //    default:
-	// 		return slug.charAt(0).toUpperCase() + slug.slice(1);
-	// 	}
-	// }
-
 	saveTable() {
 		let matchupInputs = document.getElementsByClassName("matchup");
 		let matchup_table = {};

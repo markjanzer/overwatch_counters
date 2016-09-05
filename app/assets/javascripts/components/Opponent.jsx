@@ -19,7 +19,7 @@ class Opponent extends React.Component {
 		if (this.props.opponent) {
 			return (
 				<div className="image-wrapper">
-					<img src={this.imagePath(this.props.opponent.image_path)} className="image" />
+					<img src={this.imagePath(this.props.opponent.slug)} className="image" />
 					<p className="opponent-text">{this.props.opponent.name}</p>			
 				</div>
 			);
