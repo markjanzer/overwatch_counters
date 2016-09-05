@@ -44,12 +44,12 @@ class CategorizedCounters extends React.Component {
 		this.supportIso.arrange();
 	}
 
-	renderCategory(category) {
+	renderCategory(category, index) {
     let categoryCounters = this.heroSlugs.map(hero => this.props.heroes[hero]);
     categoryCounters = categoryCounters.filter(counter => counter.category === category);
     let counters = this.props.counters || {};
 		return (
-			<div className="small-12 medium-6 large-3 columns">
+			<div className="small-12 medium-6 large-3 columns" key={index}>
 				<div className="icon-wrapper counter-icon">
 					{categoryIcon(category)}
 				</div>
@@ -75,8 +75,8 @@ class CategorizedCounters extends React.Component {
 	render() {
 		return (
 			<div>
-        {this.categories.map(category => {
-          return this.renderCategory(category);
+        {this.categories.map((category, index) => {
+          return this.renderCategory(category, index);
         })}
 			</div>
 		);
