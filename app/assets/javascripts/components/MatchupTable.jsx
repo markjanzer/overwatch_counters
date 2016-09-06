@@ -30,7 +30,6 @@ class MatchupTable extends React.Component {
 			matchup_table[matchupInputs[i].getAttribute('data-hero')] = matchup_table[matchupInputs[i].getAttribute('data-hero')] || {};
 			matchup_table[matchupInputs[i].getAttribute('data-hero')][matchupInputs[i].getAttribute('data-opponent')] = parseFloat(matchupInputs[i].value);
 		}
-    debugger
 		this.putMatchupTable(matchup_table);
 	}
 
