@@ -10,7 +10,7 @@ class CounterCalculatorsController < ApplicationController
 	end
 
 	def show
-		matchup_table = MatchupTable.where(url: params[:hash])
+		matchup_table = MatchupTable.find_by_url(params[:hash])
 		@matchup_object = matchup_table.create_matchup_object
 	end
 end

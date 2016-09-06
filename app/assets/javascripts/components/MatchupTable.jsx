@@ -7,6 +7,7 @@ class MatchupTable extends React.Component {
 		this.saveTable = this.saveTable.bind(this);
 		this.putMatchupTable = this.putMatchupTable.bind(this);
 		this.renderUrl = this.renderUrl.bind(this);
+    this.mirrorInputs = this.mirrorInputs.bind(this);
 
 		this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
 		this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
@@ -17,6 +18,11 @@ class MatchupTable extends React.Component {
 		}
 	}
 
+  mirrorInputs(matchupTable, hero, opponent) {
+    let newValue = parseInt(this.refs[hero + "-" + opponent].value) * -1;
+    this.refs[opponent + "-" + hero].value = newValue.toString();
+  }
+
 	saveTable() {
 		let matchupInputs = document.getElementsByClassName("matchup");
 		let matchup_table = {};
@@ -24,6 +30,7 @@ class MatchupTable extends React.Component {
 			matchup_table[matchupInputs[i].getAttribute('data-hero')] = matchup_table[matchupInputs[i].getAttribute('data-hero')] || {};
 			matchup_table[matchupInputs[i].getAttribute('data-hero')][matchupInputs[i].getAttribute('data-opponent')] = parseFloat(matchupInputs[i].value);
 		}
+    debugger
 		this.putMatchupTable(matchup_table);
 	}
 
@@ -46,7 +53,7 @@ class MatchupTable extends React.Component {
 		if (this.state.url) {
 			return (
 				<div>
-					<p>Your URL is: {"overwatchcounters.io/counters/" + this.state.url}</p>
+					<p>Your URL is: <a href={`/counters/${this.state.url}`}>{"overwatchcounters.io/counters/" + this.state.url}</a></p>
 					<a href={`/counters/${this.state.url}`}>Get Counters</a>
 				</div>
 			);
@@ -73,18 +80,34 @@ class MatchupTable extends React.Component {
 				<td> 
 					<p>{this.heroNames[heroIndex]}</p>
 				</td>
-				{this.heroSlugs.map((opponent) => {
+				{this.heroSlugs.map((opponent, index) => {
 					this.bsKey += 1;
-					return (
-						<td key={this.bsKey}>
-							<input type="number" 
-							className="matchup"
-							data-hero={hero} 
-							data-opponent={opponent} 
-							style={{"width": "3em"}} 
-							defaultValue="0"/>
-						</td>
-					);
+
+          if (index === heroIndex) {
+            return  (
+              <td key={this.bsKey}>
+                <p type="number" 
+                className="matchup"
+                data-hero={hero} 
+                data-opponent={opponent} 
+                style={{"width": "3em"}}
+                value="0">0</p>
+              </td> 
+            );
+          } else {
+  					return (
+  						<td key={this.bsKey}>
+  							<input type="number" 
+  							className="matchup"
+  							data-hero={hero} 
+  							data-opponent={opponent} 
+  							style={{"width": "3em"}} 
+  							defaultValue="0"
+                ref={hero + "-" + opponent}
+                onInput={() => this.mirrorInputs(this, hero, opponent)}/>
+  						</td> 
+  					);
+          }
 				})}
 			</tr>
 		);
