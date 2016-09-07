@@ -8,18 +8,23 @@ class MatchupTable extends React.Component {
 		this.putMatchupTable = this.putMatchupTable.bind(this);
 		this.renderUrl = this.renderUrl.bind(this);
     this.mirrorInputs = this.mirrorInputs.bind(this);
+    this.renderTableSettings = this.renderTableSettings.bind(this);
+    this.changeMax = this.changeMax.bind(this);
+    this.changeIncrementor = this.changeIncrementor.bind(this);
 
 		this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
 		this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
 		this.bsKey = 0;
 
 		this.state = {
-			url: undefined
+			url: undefined,
+      // saveState: "disabled"
 		}
 	}
 
   mirrorInputs(matchupTable, hero, opponent) {
     let newValue = parseInt(this.refs[hero + "-" + opponent].value) * -1;
+    // this.setState({saveState: ""});
     this.refs[opponent + "-" + hero].value = newValue.toString();
   }
 
@@ -31,7 +36,16 @@ class MatchupTable extends React.Component {
 			matchup_table[matchupInputs[i].getAttribute('data-hero')][matchupInputs[i].getAttribute('data-opponent')] = parseFloat(matchupInputs[i].value);
 		}
 		this.putMatchupTable(matchup_table);
+    // this.setState({saveState: "disabled"})
 	}
+
+  changeMax(value) {
+    debugger
+  }
+
+  changeIncrementor(value) {
+    debugger
+  }
 
 	putMatchupTable(matchup_table) {
 		let data = {matchup_table: matchup_table};
@@ -48,16 +62,14 @@ class MatchupTable extends React.Component {
 		})
 	}
 
-	renderUrl() {
-		if (this.state.url) {
-			return (
-				<div>
-					<p>Your URL is: <a href={`/counters/${this.state.url}`}>{"overwatchcounters.io/counters/" + this.state.url}</a></p>
-					<a href={`/counters/${this.state.url}`}>Get Counters</a>
-				</div>
-			);
-		}
-	}
+  renderTableSettings() {
+    return (
+      <div>
+        <input type="number" name="max" defaultValue="2" onInput={() => this.changeMax(this, value)}/>
+        <input type="number" name="incrementor" defaultValue="1" onInput={() => this.changeIncrementor(this, value)}/>
+      </div>
+    );
+  }
 
 	renderTable() {
 		return (
@@ -112,9 +124,21 @@ class MatchupTable extends React.Component {
 		);
 	}
 
+  renderUrl() {
+    if (this.state.url) {
+      return (
+        <div>
+          <p>Your URL is: <a href={`/counters/${this.state.url}`}>{"overwatchcounters.io/counters/" + this.state.url}</a></p>
+          <a href={`/counters/${this.state.url}`}>Get Counters</a>
+        </div>
+      );
+    }
+  }
+
 	render() {
 		return (
 			<div>
+        {this.renderTableSettings()}
 				{this.renderTable()}
 				{this.renderUrl()}
 				<button onClick={this.saveTable} >Save</button>
