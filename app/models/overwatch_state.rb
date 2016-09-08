@@ -1,3 +1,4 @@
+# Removable
 class OverwatchState < ActiveRecord::Base
   has_many :heroes, dependent: :destroy
 

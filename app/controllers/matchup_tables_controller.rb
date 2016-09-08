@@ -1,5 +1,15 @@
 class MatchupTablesController < ApplicationController
 	def new
+    @matchup_table = MatchupTable.new()
+    matchups = {}
+    MatchupTable.heroes.each do |hero|
+      matchups[hero] = {}
+      MatchupTable.heroes.each do |opponent|
+        matchups[hero][opponent] = 0
+      end
+    end
+    @matchup_table.matchups = matchups
+    # @matchup_table.save()
 	end
 	
 	def create

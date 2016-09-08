@@ -23,10 +23,11 @@ class CounterCalculator extends React.Component {
 		// this.tank = ["dva", "reinhardt", "roadhog", "winston", "zarya"];
 		// this.support = ["ana", "lucio", "mercy", "symmetra", "zenyatta"];
 
-    this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
+    // this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
     // this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
+    this.matchups = this.props.matchupTable.matchups
 
-    // this.props.matchups
+    // this.props.matchupTable
 		this.state = {
 			opponents: [null, null, null, null, null, null],
 			selectedOpponent: null,
@@ -34,12 +35,11 @@ class CounterCalculator extends React.Component {
 			counters: null,
 			selectedCounter: null,
 			countersByCategory: false,
-			matchups: this.props.matchups
 		}
 	}
 
 	componentWillMount() {
-		let heroes = Object.keys(this.props.matchups);
+		let heroes = Object.keys(this.matchups);
     this.heroes = {};
 		for (let i = 0; i < heroes.length; i++) {
       this.heroes[heroes[i]] = {};
@@ -83,7 +83,7 @@ class CounterCalculator extends React.Component {
 			return null
 		}
 
-    let heroMatchups = filteredOpponents.map(hero => this.props.matchups[hero.slug]);
+    let heroMatchups = filteredOpponents.map(hero => this.matchups[hero.slug]);
     let counters = {};
     for (let i = 0; i < heroMatchups.length; i++) {
       for (let key in heroMatchups[i]) {
@@ -243,7 +243,7 @@ class CounterCalculator extends React.Component {
 									<div
 										key={index}
 									>
-										<span>{opponent.name} :: {Math.round(this.props.matchups[opponent.slug][this.state.selectedCounter] * 100) / 2}</span>
+										<span>{opponent.name} :: {Math.round(this.matchups[opponent.slug][this.state.selectedCounter] * 100) / 2}</span>
 									</div>
 								);
 							})}

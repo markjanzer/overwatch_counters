@@ -5,12 +5,12 @@ class CounterCalculatorsController < ApplicationController
 
 		# @ordered_heroes = Hero.order('alpha_id')
 		# # @ordered_heroes = Rails.cache.read('ordered_heroes')
-		matchup_table = MatchupTable.last
-		@matchup_object = matchup_table.create_matchup_object
+		@matchup_table = MatchupTable.last
+		# @matchup_object = matchup_table.create_matchup_object
 	end
 
 	def show
-		matchup_table = MatchupTable.find_by_url(params[:hash])
-		@matchup_object = matchup_table.create_matchup_object
+		@matchup_table = MatchupTable.find_by_url(params[:hash])
+		# @matchup_object = matchup_table.create_matchup_object
 	end
 end
