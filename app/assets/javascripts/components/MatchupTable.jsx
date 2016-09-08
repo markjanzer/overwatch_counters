@@ -10,7 +10,7 @@ class MatchupTable extends React.Component {
     this.mirrorInputs = this.mirrorInputs.bind(this);
     this.renderTableSettings = this.renderTableSettings.bind(this);
     this.changeMax = this.changeMax.bind(this);
-    this.changeIncrementor = this.changeIncrementor.bind(this);
+    this.changeIncrement = this.changeIncrement.bind(this);
 
 		this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
 		this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
@@ -18,14 +18,17 @@ class MatchupTable extends React.Component {
 
 		this.state = {
 			url: undefined,
-      // saveState: "disabled"
+      // saveState: "disabled",
+      increment: 1,
 		}
 	}
 
-  mirrorInputs(matchupTable, hero, opponent) {
+  mirrorInputs(e) {
+    let hero = e.target.getAttribute('data-hero');
+    let opponent = e.target.getAttribute('data-opponent');
     let newValue = parseInt(this.refs[hero + "-" + opponent].value) * -1;
-    // this.setState({saveState: ""});
     this.refs[opponent + "-" + hero].value = newValue.toString();
+    // this.setState({saveState: ""});
   }
 
 	saveTable() {
@@ -39,12 +42,14 @@ class MatchupTable extends React.Component {
     // this.setState({saveState: "disabled"})
 	}
 
-  changeMax(value) {
-    debugger
+  changeMax(e) {
+    console.log(event);
+    console.log(e.target);
+    console.log(e.target.value);
   }
 
-  changeIncrementor(value) {
-    debugger
+  changeIncrement(e) {
+    this.setState({increment: e.target.value});
   }
 
 	putMatchupTable(matchup_table) {
@@ -65,8 +70,8 @@ class MatchupTable extends React.Component {
   renderTableSettings() {
     return (
       <div>
-        <input type="number" name="max" defaultValue="2" onInput={() => this.changeMax(this, value)}/>
-        <input type="number" name="incrementor" defaultValue="1" onInput={() => this.changeIncrementor(this, value)}/>
+        <input type="number" name="max" defaultValue="2" onChange={this.changeMax}/>
+        <input type="number" name="incrementor" defaultValue="1" onChange={this.changeIncrement}/>
       </div>
     );
   }
@@ -97,25 +102,30 @@ class MatchupTable extends React.Component {
           if (index === heroIndex) {
             return  (
               <td key={this.bsKey}>
-                <p type="number" 
-                className="matchup"
-                data-hero={hero} 
-                data-opponent={opponent} 
-                style={{"width": "3em"}}
-                value="0">0</p>
+                <p 
+                  type="number" 
+                  className="matchup"
+                  data-hero={hero} 
+                  data-opponent={opponent} 
+                  style={{"width": "3em"}}
+                  value="0">0
+                </p>
               </td> 
             );
           } else {
   					return (
   						<td key={this.bsKey}>
-  							<input type="number" 
-  							className="matchup"
-  							data-hero={hero} 
-  							data-opponent={opponent} 
-  							style={{"width": "3em"}} 
-  							defaultValue="0"
-                ref={hero + "-" + opponent}
-                onInput={() => this.mirrorInputs(this, hero, opponent)}/>
+  							<input 
+                  type="number" 
+    							className="matchup"
+    							data-hero={hero} 
+    							data-opponent={opponent} 
+    							style={{"width": "3em"}} 
+    							defaultValue="0"
+                  step={this.state.increment}
+                  ref={hero + "-" + opponent}
+                  onChange={this.mirrorInputs}
+                />
   						</td> 
   					);
           }
@@ -141,7 +151,7 @@ class MatchupTable extends React.Component {
         {this.renderTableSettings()}
 				{this.renderTable()}
 				{this.renderUrl()}
-				<button onClick={this.saveTable} >Save</button>
+				<button onClick={this.saveTable}>Save</button>
 			</div>
 		);	
 	}
