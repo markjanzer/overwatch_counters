@@ -7,58 +7,70 @@ class MatchupTable extends React.Component {
 		this.saveTable = this.saveTable.bind(this);
 		this.putMatchupTable = this.putMatchupTable.bind(this);
 		this.renderUrl = this.renderUrl.bind(this);
-    this.mirrorInputs = this.mirrorInputs.bind(this);
-    this.renderTableSettings = this.renderTableSettings.bind(this);
-    this.changeMax = this.changeMax.bind(this);
-    this.changeIncrement = this.changeIncrement.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    // this.renderTableSettings = this.renderTableSettings.bind(this);
+    // this.changeMax = this.changeMax.bind(this);
+    // this.changeIncrement = this.changeIncrement.bind(this);
 
 		this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
 		this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
 		this.bsKey = 0;
 
+    // debugger
 		this.state = {
 			url: undefined,
       // saveState: "disabled",
-      increment: 1,
+      // incrementValue: this.props.matchupTable.increment_value,
+      // max: this.props.matchupTable.max,
+      incrementValue: 25,
+      max: 100
+
 		}
 	}
 
-  mirrorInputs(e) {
+  handleInput(e) {
     let hero = e.target.getAttribute('data-hero');
     let opponent = e.target.getAttribute('data-opponent');
-    let newValue = parseInt(this.refs[hero + "-" + opponent].value) * -1;
+    let newValue;
+    if (e.target.value === "") {
+      newValue = "";
+    } else {
+      newValue = parseInt(e.target.value) * -1;
+    }
     this.refs[opponent + "-" + hero].value = newValue.toString();
     // this.setState({saveState: ""});
   }
 
+  // changeMax(e) {
+  //   this.setState({max: e.target.value})
+  // }
+
+  // changeIncrement(e) {
+  //   this.setState({increment: e.target.value});
+  // }
+
 	saveTable() {
 		let matchupInputs = document.getElementsByClassName("matchup");
-		let matchup_table = {};
+		let matchups = {};
 		for (let i = 0; i < matchupInputs.length; i++) {
-			matchup_table[matchupInputs[i].getAttribute('data-hero')] = matchup_table[matchupInputs[i].getAttribute('data-hero')] || {};
-			matchup_table[matchupInputs[i].getAttribute('data-hero')][matchupInputs[i].getAttribute('data-opponent')] = parseFloat(matchupInputs[i].value);
+			matchups[matchupInputs[i].getAttribute('data-hero')] = matchups[matchupInputs[i].getAttribute('data-hero')] || {};
+			matchups[matchupInputs[i].getAttribute('data-hero')][matchupInputs[i].getAttribute('data-opponent')] = parseFloat(matchupInputs[i].value);
 		}
-		this.putMatchupTable(matchup_table);
+
+    let data = {
+      matchups: matchups,
+      increment_value: this.state.incrementValue,
+      max: this.state.max
+    }
+		this.putMatchupTable(data);
     // this.setState({saveState: "disabled"})
 	}
 
-  changeMax(e) {
-    console.log(event);
-    console.log(e.target);
-    console.log(e.target.value);
-  }
-
-  changeIncrement(e) {
-    this.setState({increment: e.target.value});
-  }
-
-	putMatchupTable(matchup_table) {
-		let data = {matchup_table: matchup_table};
-
+	putMatchupTable(data) {
 		$.ajax({
 			method: "PUT", 
 			url: "/matchup_table",
-			data: data,
+			data: {matchup_table: data},
 			datatype: 'json',
 			success: (result) => {
 				console.log(result);
@@ -67,14 +79,14 @@ class MatchupTable extends React.Component {
 		})
 	}
 
-  renderTableSettings() {
-    return (
-      <div>
-        <input type="number" name="max" defaultValue="2" onChange={this.changeMax}/>
-        <input type="number" name="incrementor" defaultValue="1" onChange={this.changeIncrement}/>
-      </div>
-    );
-  }
+  // renderTableSettings() {
+  //   return (
+  //     <div>
+  //       <input type="number" name="max" defaultValue="2" onChange={this.changeMax}/>
+  //       <input type="number" name="incrementor" defaultValue="1" onChange={this.changeIncrement}/>
+  //     </div>
+  //   );
+  // }
 
 	renderTable() {
 		return (
@@ -113,6 +125,7 @@ class MatchupTable extends React.Component {
               </td> 
             );
           } else {
+            let tabIndex = (index < heroIndex) ? -1 : false; 
   					return (
   						<td key={this.bsKey}>
   							<input 
@@ -121,10 +134,13 @@ class MatchupTable extends React.Component {
     							data-hero={hero} 
     							data-opponent={opponent} 
     							style={{"width": "3em"}} 
-    							defaultValue="0"
-                  step={this.state.increment}
+    							defaultValue={this.props.matchupTable.matchups[hero][opponent]}
+                  step={this.state.incrementValue}
+                  min={this.state.max * -1}
+                  max={this.state.max}
                   ref={hero + "-" + opponent}
-                  onChange={this.mirrorInputs}
+                  onChange={this.handleInput}
+                  tabIndex={tabIndex}
                 />
   						</td> 
   					);
@@ -145,10 +161,10 @@ class MatchupTable extends React.Component {
     }
   }
 
-	render() {
-		return (
-			<div>
-        {this.renderTableSettings()}
+  // {this.renderTableSettings()}
+  render() {
+    return (
+      <div>
 				{this.renderTable()}
 				{this.renderUrl()}
 				<button onClick={this.saveTable}>Save</button>
