@@ -18,10 +18,12 @@ class CounterCalculator extends React.Component {
 		this.switchCounterRender = this.switchCounterRender.bind(this);
 		this.renderSwitchCounterRenderButton = this.renderSwitchCounterRenderButton.bind(this);
 
-		// this.offense = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer"];
-		// this.defense = ["bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker"];
-		// this.tank = ["dva", "reinhardt", "roadhog", "winston", "zarya"];
-		// this.support = ["ana", "lucio", "mercy", "symmetra", "zenyatta"];
+    this.categorizedHeroes = {
+  		offense: ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer"],
+  		defense: ["bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker"],
+  		tank: ["dva", "reinhardt", "roadhog", "winston", "zarya"],
+  		support: ["ana", "lucio", "mercy", "symmetra", "zenyatta"],
+    }
 
     // this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
     // this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
@@ -45,21 +47,16 @@ class CounterCalculator extends React.Component {
       this.heroes[heroes[i]] = {};
       this.heroes[heroes[i]].slug = heroes[i];
       this.heroes[heroes[i]].name = this.realName(heroes[i]);
-
-			if (i < 6) {
-        this.heroes[heroes[i]].category = "offense";
-			} else if (i < 12) {
-        this.heroes[heroes[i]].category = "defense";
-			} else if (i < 17) {
-        this.heroes[heroes[i]].category = "tank";
-			} else {
-        this.heroes[heroes[i]].category = "support";
-			}
 		}
+    for (key in this.categorizedHeroes) {
+      for (let i = 0; i < this.categorizedHeroes[key].length; i++) {
+        this.heroes[this.categorizedHeroes[key][i]].category = key;
+      }
+    }
+
 	}
 
   componentDidMount() {
-    console.log("componentDidMount");
     let heroNodes = document.getElementsByClassName('hero-button');
     for (let i = 0; i < heroNodes.length; i++) {
       heroNodes[i].addEventListener('click', function(){
@@ -189,6 +186,7 @@ class CounterCalculator extends React.Component {
         categoryHeroes.push(this.heroes[key]);
       }
     }
+    console.log(categoryHeroes);
 		return (
 			<div className="small-12 medium-6 large-3 columns">
 				<div className="icon-wrapper">
