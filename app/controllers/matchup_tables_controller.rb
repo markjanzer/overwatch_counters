@@ -11,6 +11,11 @@ class MatchupTablesController < ApplicationController
     @matchup_table.matchups = matchups
     # @matchup_table.save()
 	end
+
+  def edit
+    @matchup_table = MatchupTable.where(url: params[:hash])[0]
+    puts @matchup_table
+  end
 	
 	def create
 		@matchup_table = MatchupTable.create(matchup_table_params)

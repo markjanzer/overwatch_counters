@@ -20,9 +20,9 @@ class Hero extends React.Component {
 		return (
 			<div className={`button-wrapper ${this.props.hero.category}-hero`}>
 		    <button 
-		    	className="label-font"
+		    	className="label-font hero-button"
 					onClick={this.handleClick}
-				>	
+				>	 
 					<div className={`image-wrapper`}>
 						<img src={this.imagePath(this.props.hero.slug)} className="image"/>
 					</div>

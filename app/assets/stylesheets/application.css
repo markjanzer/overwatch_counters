@@ -89,6 +89,30 @@
 	height: 0em;
 }
 
+/* Hero animation */
+.hero-animate {
+  animation: pulse 0.25s;
+}
+
+.hero-button {
+  border-radius: 25px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  
+  50% {
+    transform: scale(0.7);
+  }
+  
+  100% {
+    transform: scale(1);
+  }
+}
+/* Hero animation */
+
 .hero-text {
 	margin: 0em;
 }

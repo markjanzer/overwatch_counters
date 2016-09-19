@@ -58,6 +58,20 @@ class CounterCalculator extends React.Component {
 		}
 	}
 
+  componentDidMount() {
+    console.log("componentDidMount");
+    let heroNodes = document.getElementsByClassName('hero-button');
+    for (let i = 0; i < heroNodes.length; i++) {
+      heroNodes[i].addEventListener('click', function(){
+        heroNodes[i].classList.add('hero-animate');
+      })
+
+      heroNodes[i].addEventListener('animationend', function(){
+        heroNodes[i].classList.remove('hero-animate');
+      })
+    }
+  }
+
   realName(slug) {
     switch(slug) {
     case "mccree":
