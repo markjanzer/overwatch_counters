@@ -29,6 +29,7 @@ class CounterCalculator extends React.Component {
     // this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
     this.matchups = this.props.matchupTable.matchups
 
+
     // this.props.matchupTable
 		this.state = {
 			opponents: [null, null, null, null, null, null],
@@ -99,12 +100,11 @@ class CounterCalculator extends React.Component {
     for (let i = 0; i < heroMatchups.length; i++) {
       for (let key in heroMatchups[i]) {
         counters[key] = counters[key] || 0;
-        counters[key] += heroMatchups[i][key];
+        counters[key] += parseFloat(heroMatchups[i][key]);
       }
     }
     for (let key in counters) {
-      // Change the dividing number to be the max
-      counters[key] = Math.round((counters[key] / filteredOpponents.length) * 100) / 2;
+      counters[key] = Math.round(counters[key] / filteredOpponents.length);
     }
 		this.setState({counters: counters});
 		return counters;
@@ -186,7 +186,6 @@ class CounterCalculator extends React.Component {
         categoryHeroes.push(this.heroes[key]);
       }
     }
-    console.log(categoryHeroes);
 		return (
 			<div className="small-12 medium-6 large-3 columns">
 				<div className="icon-wrapper">
@@ -255,7 +254,7 @@ class CounterCalculator extends React.Component {
 									<div
 										key={index}
 									>
-										<span>{opponent.name} :: {Math.round(this.matchups[opponent.slug][this.state.selectedCounter] * 100) / 2}</span>
+										<span>{opponent.name} :: {Math.round(this.matchups[opponent.slug][this.state.selectedCounter])}</span>
 									</div>
 								);
 							})}

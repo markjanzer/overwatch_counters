@@ -12,12 +12,10 @@ class MatchupTable extends React.Component {
     // this.changeMax = this.changeMax.bind(this);
     // this.changeIncrement = this.changeIncrement.bind(this);
 
-    // debugger
 		this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
 		this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
 		this.bsKey = 0;
 
-    // debugger
 		this.state = {
 			url: undefined,
       // saveState: "disabled",
