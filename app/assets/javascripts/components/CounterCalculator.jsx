@@ -305,7 +305,6 @@ class CounterCalculator extends React.Component {
   render() {
     return (
       <div>
-        <a href="/matchup_tables/new">Create your own matchups</a>
         {this.renderHeroes()}
         {this.renderOpponents()}
 				{this.renderSelectedCounter()}

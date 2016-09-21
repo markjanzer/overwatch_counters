@@ -20,22 +20,22 @@
  	background-color: #FFFCF7;
  }
 
-.top-bar {
+/*.top-bar {
 	text-align: center;
 	background: #C8DBFF;
 }
 
 .top-bar-title-wrapper {
 	display: inline-block;
-}
+}*/
 
 .image {
 	width: 100%;
 }
 
-.github-favicon {
+/*.github-favicon {
 	width: 1.5em;
-}
+}*/
 
 .overwatch-font {
 	font-family: Big Noodle Too, impact, sans-serif;
@@ -246,4 +246,24 @@
 .negative-counter-score {
 	position: absolute;
 	right: 1.5em;
+}
+
+.fl-right {
+  float: right;
+}
+
+.matchup {
+  width: 3.5em;
+  height: 3.5em;
+  text-align: center;
+  margin: 0.18em 0.18em;
+}
+
+td > p {
+  margin-bottom: 0;
+  padding-top: 1em;
+}
+
+.opponent-label {
+  text-align: center;
 }

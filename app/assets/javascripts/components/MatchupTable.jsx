@@ -14,6 +14,7 @@ class MatchupTable extends React.Component {
 
 		this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
 		this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
+    this.shortenedHeroNames= ["Genji", "MCree", "Phar", "Reap", "Solider", "Trace", "Bast", "Hanzo", "Junk", "Mei", "Torb", "Widow", "D.Va", "Rein", "Road", "Winst", "Zarya", "Ana", "Lúcio", "Mercy", "Sym", "Zeny"];
 		this.bsKey = 0;
 
 		this.state = {
@@ -92,8 +93,8 @@ class MatchupTable extends React.Component {
 			<table>
 				<tbody>
 					<tr>
-						<td>Heroes v Opponents</td>
-						{this.heroNames.map((heroName, heroIndex) => <td key={heroIndex}>{heroName}</td>)}
+						<td></td>
+						{this.shortenedHeroNames.map((heroName, heroIndex) => <td className="opponent-label" key={heroIndex}>{heroName}</td>)}
 					</tr>
 					{this.heroSlugs.map((heroSlug, heroIndex) => this.renderHeroRow(heroSlug, heroIndex))}
 				</tbody>
@@ -105,7 +106,7 @@ class MatchupTable extends React.Component {
 		return (
 			<tr key={heroIndex}>
 				<td> 
-					<p>{this.heroNames[heroIndex]}</p>
+					<p>{this.shortenedHeroNames[heroIndex]}</p>
 				</td>
 				{this.heroSlugs.map((opponent, index) => {
 					this.bsKey += 1;
@@ -118,7 +119,6 @@ class MatchupTable extends React.Component {
                   className="matchup"
                   data-hero={hero} 
                   data-opponent={opponent} 
-                  style={{"width": "3em"}}
                   value="0">0
                 </p>
               </td> 
@@ -132,7 +132,6 @@ class MatchupTable extends React.Component {
     							className="matchup"
     							data-hero={hero} 
     							data-opponent={opponent} 
-    							style={{"width": "3em"}} 
     							defaultValue={this.props.matchupTable.matchups[hero][opponent]}
                   step={this.state.incrementValue}
                   min={this.state.max * -1}
@@ -154,7 +153,6 @@ class MatchupTable extends React.Component {
       return (
         <div>
           <p>Your URL is: <a href={`/counters/${this.state.url}`}>{"overwatchcounters.io/counters/" + this.state.url}</a></p>
-          <a href={`/counters/${this.state.url}`}>Get Counters</a>
         </div>
       );
     }
@@ -166,7 +164,7 @@ class MatchupTable extends React.Component {
       <div>
 				{this.renderTable()}
 				{this.renderUrl()}
-				<button onClick={this.saveTable}>Save</button>
+				<button class="button" onClick={this.saveTable}>Save</button>
 			</div>
 		);	
 	}
