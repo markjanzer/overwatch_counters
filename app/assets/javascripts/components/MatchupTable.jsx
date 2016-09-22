@@ -93,8 +93,8 @@ class MatchupTable extends React.Component {
 			<table>
 				<tbody>
 					<tr>
-						<td></td>
-						{this.shortenedHeroNames.map((heroName, heroIndex) => <td className="opponent-label" key={heroIndex}>{heroName}</td>)}
+						<td><button className="help-button"><span className="help-button-text">?</span></button></td>
+						{this.shortenedHeroNames.map((heroName, heroIndex) => <td className="opponent-column-label" key={heroIndex}>{heroName}</td>)}
 					</tr>
 					{this.heroSlugs.map((heroSlug, heroIndex) => this.renderHeroRow(heroSlug, heroIndex))}
 				</tbody>
@@ -106,7 +106,7 @@ class MatchupTable extends React.Component {
 		return (
 			<tr key={heroIndex}>
 				<td> 
-					<p>{this.shortenedHeroNames[heroIndex]}</p>
+					<p className="hero-row-label">{this.shortenedHeroNames[heroIndex]}</p>
 				</td>
 				{this.heroSlugs.map((opponent, index) => {
 					this.bsKey += 1;
@@ -152,7 +152,8 @@ class MatchupTable extends React.Component {
     if (this.state.url) {
       return (
         <div>
-          <p>Your URL is: <a href={`/counters/${this.state.url}`}>{"overwatchcounters.io/counters/" + this.state.url}</a></p>
+          <p className="create-matchups-link center-text">Your Counter Calculator:</p> 
+          <p className="create-matchups-link center-text"><a href={`/counters/${this.state.url}`}>{"overwatchcounters.io/counters/" + this.state.url}</a></p>
         </div>
       );
     }
@@ -161,10 +162,12 @@ class MatchupTable extends React.Component {
   // {this.renderTableSettings()}
   render() {
     return (
-      <div>
+      <div className="side-margin">
 				{this.renderTable()}
 				{this.renderUrl()}
-				<button class="button" onClick={this.saveTable}>Save</button>
+        <div className="row">
+  				<a className="expanded button save-button" onClick={this.saveTable}><button>Save</button></a>
+        </div>
 			</div>
 		);	
 	}

@@ -13,17 +13,19 @@
 
   <body>
     <header>
-      <span class="overwatch-font">Overwatch Counters</span>
+      <div class="header">
+        <span class="logo overwatch-font"><a href="/">Overwatch Counters</a></span>
 
-      <% if !request.original_fullpath.include?("matchup_table") %>
-        <span class="fl-right"><a href="/matchup_tables/new">Create matchups</a></span>
-      <% end %>
+        <% if !request.original_fullpath.include?("matchup_table") %>
+          <span class="fl-right"><a class="create-matchups-link" href="/matchup_tables/new">Create matchups</a></span>
+        <% end %>
+      </div>
     </header>
 
     <%= yield %>
 
     <footer>
-      <span class="footer"><a href="https://github.com/markjanzer/overwatch_counters"></a></span>
+      <div class="footer"><a class="footer-link" href="https://github.com/markjanzer/overwatch_counters">Contribute</a></div>
     </footer>
 
   </body>

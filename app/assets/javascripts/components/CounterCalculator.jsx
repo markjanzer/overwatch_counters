@@ -82,6 +82,8 @@ class CounterCalculator extends React.Component {
       return "Torbjörn";
     case "lucio":
       return "Lúcio";
+    case "widowmaker":
+      return "Widow";
     default:
       return slug.charAt(0).toUpperCase() + slug.slice(1);
     }

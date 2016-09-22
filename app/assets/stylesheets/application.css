@@ -20,6 +20,31 @@
  	background-color: #FFFCF7;
  }
 
+.header {
+  margin: 0.25em 1em;
+}
+
+.logo {
+  font-size: 1.5em;
+  color: #0c4d78;
+  font-style: italic;
+}
+
+.create-matchups-link {
+  font-family: Futura,century gothic, arial, sans-serif;
+  font-size: 1.2em;
+}
+
+.footer {
+  /*margin-top: 2em;*/
+  margin-right: 1em;
+}
+
+.footer-link {
+  float: right;
+  margin-right: 0.5em;
+}
+
 /*.top-bar {
 	text-align: center;
 	background: #C8DBFF;
@@ -96,6 +121,7 @@
 
 .hero-button {
   border-radius: 25px;
+  outline: none;
 }
 
 @keyframes pulse {
@@ -259,11 +285,38 @@
   margin: 0.18em 0.18em;
 }
 
-td > p {
+td > p.matchup {
   margin-bottom: 0;
   padding-top: 1em;
 }
 
-.opponent-label {
+.opponent-column-label {
   text-align: center;
+}
+
+.hero-row-label {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.save-button {
+  margin-top: 1em;
+  border-radius: 10px;
+}
+
+.help-button {
+  background-color: #E17030;
+  height: 2.5em;
+  width: 2.5em;
+  border-radius: 10px;
+  color: #FFFFFF;
+}
+
+.help-button-text {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.side-margin {
+  margin: 0em 0.5em;
 }
