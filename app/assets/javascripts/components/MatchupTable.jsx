@@ -5,6 +5,7 @@ class MatchupTable extends React.Component {
 		this.renderHeroRow = this.renderHeroRow.bind(this);
 		this.renderTable = this.renderTable.bind(this);
 		this.saveTable = this.saveTable.bind(this);
+    this.clearTable = this.clearTable.bind(this);
 		this.putMatchupTable = this.putMatchupTable.bind(this);
 		this.renderUrl = this.renderUrl.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -48,6 +49,13 @@ class MatchupTable extends React.Component {
   // changeIncrement(e) {
   //   this.setState({increment: e.target.value});
   // }
+
+  clearTable() {
+    let matchupInputs = document.getElementsByClassName("matchup");
+    for (let i = 0; i < matchupInputs.length; i++) {
+      matchupInputs[i].value = "0";
+    }
+  }
 
 	saveTable() {
 		let matchupInputs = document.getElementsByClassName("matchup");
@@ -166,7 +174,12 @@ class MatchupTable extends React.Component {
 				{this.renderTable()}
 				{this.renderUrl()}
         <div className="row">
-  				<a className="expanded button save-button" onClick={this.saveTable}><button>Save</button></a>
+          <div className="small-10 columns">
+    				<a className="expanded button table-button" onClick={this.saveTable}><button>Save</button></a>
+          </div>
+          <div className="small-2 columns">
+            <a className="expanded button alert table-button" onClick={this.clearTable}><button className="no-outline-button">Clear All Table Data</button></a>
+          </div>
         </div>
 			</div>
 		);	

@@ -299,13 +299,17 @@ td > p.matchup {
   text-align: center;
 }
 
-.save-button {
+.table-button {
   margin-top: 1em;
   border-radius: 10px;
 }
 
+.no-outline-button {
+  outline: none;
+}
+
 .help-button {
-  background-color: #E17030;
+  background-color: #F16211;
   height: 2.5em;
   width: 2.5em;
   border-radius: 10px;
