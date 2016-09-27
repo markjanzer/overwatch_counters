@@ -49,6 +49,7 @@ class CounterCalculator extends React.Component {
       this.heroes[heroes[i]].slug = heroes[i];
       this.heroes[heroes[i]].name = this.realName(heroes[i]);
 		}
+
     for (key in this.categorizedHeroes) {
       for (let i = 0; i < this.categorizedHeroes[key].length; i++) {
         this.heroes[this.categorizedHeroes[key][i]].category = key;
@@ -67,6 +68,11 @@ class CounterCalculator extends React.Component {
       heroNodes[i].addEventListener('animationend', function(){
         heroNodes[i].classList.remove('hero-animate');
       })
+    }
+
+    let matchupTableLink = document.getElementsByClassName('create-matchups-link')[0];
+    if (this.props.matchupTable.url) {
+      matchupTableLink.href = `/matchup_tables/${this.props.matchupTable.url}`;
     }
   }
 
@@ -105,8 +111,11 @@ class CounterCalculator extends React.Component {
         counters[key] += parseFloat(heroMatchups[i][key]);
       }
     }
+    // Grabbing hero matchups in reverse and returning negative value might be faster than
+    // searching through every hero for each of the opponents and preseverving only those values? Not sure,
+    // but it seems dangerous.
     for (let key in counters) {
-      counters[key] = Math.round(counters[key] / filteredOpponents.length);
+      counters[key] = Math.round(counters[key] / filteredOpponents.length) * -1;
     }
 		this.setState({counters: counters});
 		return counters;
@@ -256,7 +265,7 @@ class CounterCalculator extends React.Component {
 									<div
 										key={index}
 									>
-										<span>{opponent.name} :: {Math.round(this.matchups[opponent.slug][this.state.selectedCounter])}</span>
+										<span>{opponent.name} :: {Math.round(this.matchups[opponent.slug][this.state.selectedCounter]) * -1}</span>
 									</div>
 								);
 							})}

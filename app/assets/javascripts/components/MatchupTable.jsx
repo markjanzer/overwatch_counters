@@ -9,6 +9,7 @@ class MatchupTable extends React.Component {
 		this.putMatchupTable = this.putMatchupTable.bind(this);
 		this.renderUrl = this.renderUrl.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.renderOpponentColumnLabel = this.renderOpponentColumnLabel.bind(this);
     // this.renderTableSettings = this.renderTableSettings.bind(this);
     // this.changeMax = this.changeMax.bind(this);
     // this.changeIncrement = this.changeIncrement.bind(this);
@@ -102,22 +103,31 @@ class MatchupTable extends React.Component {
 				<tbody>
 					<tr>
 						<td><button className="help-button"><span className="help-button-text">?</span></button></td>
-						{this.shortenedHeroNames.map((heroName, heroIndex) => <td className="opponent-column-label" key={heroIndex}>{heroName}</td>)}
+						{this.renderOpponentColumnLabel()}
 					</tr>
-					{this.heroSlugs.map((heroSlug, heroIndex) => this.renderHeroRow(heroSlug, heroIndex))}
+					{this.heroSlugs.slice(0, 11).map((heroSlug, heroIndex) => this.renderHeroRow(heroSlug, heroIndex))}
+          <tr>
+            <td></td>
+            {this.renderOpponentColumnLabel()}
+          </tr>
+          {this.heroSlugs.slice(11).map((heroSlug, heroIndex) => this.renderHeroRow(heroSlug, heroIndex + 11))}
 				</tbody>
 			</table>	
 		);
 	}
 
-	renderHeroRow(hero, heroIndex) {
-		return (
-			<tr key={heroIndex}>
-				<td> 
-					<p className="hero-row-label">{this.shortenedHeroNames[heroIndex]}</p>
-				</td>
-				{this.heroSlugs.map((opponent, index) => {
-					this.bsKey += 1;
+  renderOpponentColumnLabel() {
+    return this.shortenedHeroNames.map((heroName, heroIndex) => <td className="opponent-column-label" key={heroIndex}>{heroName}</td>);
+  }
+
+  renderHeroRow(hero, heroIndex) {
+    return (
+      <tr key={heroIndex}>
+        <td> 
+          <p className="hero-row-label">{this.shortenedHeroNames[heroIndex]}</p>
+        </td>
+        {this.heroSlugs.map((opponent, index) => {
+          this.bsKey += 1;
 
           if (index === heroIndex) {
             return  (
@@ -133,14 +143,14 @@ class MatchupTable extends React.Component {
             );
           } else {
             let tabIndex = (index < heroIndex) ? -1 : false; 
-  					return (
-  						<td key={this.bsKey}>
-  							<input 
+            return (
+              <td key={this.bsKey}>
+                <input 
                   type="number" 
-    							className="matchup"
-    							data-hero={hero} 
-    							data-opponent={opponent} 
-    							defaultValue={this.props.matchupTable.matchups[hero][opponent]}
+                  className="matchup"
+                  data-hero={hero} 
+                  data-opponent={opponent} 
+                  defaultValue={this.props.matchupTable.matchups[hero][opponent]}
                   step={this.state.incrementValue}
                   min={this.state.max * -1}
                   max={this.state.max}
@@ -148,20 +158,21 @@ class MatchupTable extends React.Component {
                   onChange={this.handleInput}
                   tabIndex={tabIndex}
                 />
-  						</td> 
-  					);
+              </td> 
+            );
           }
-				})}
-			</tr>
-		);
+        })}
+      </tr>
+    );
 	}
 
+  // Change this before deployment
   renderUrl() {
     if (this.state.url) {
       return (
         <div>
           <p className="create-matchups-link center-text">Your Counter Calculator:</p> 
-          <p className="create-matchups-link center-text"><a href={`/counters/${this.state.url}`}>{"overwatchcounters.io/counters/" + this.state.url}</a></p>
+          <p className="create-matchups-link center-text"><a href={`/${this.state.url}`}>{"overwatchcounters.io/" + this.state.url}</a></p>
         </div>
       );
     }
