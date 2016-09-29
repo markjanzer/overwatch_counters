@@ -18,6 +18,10 @@ class MatchupTablesController < ApplicationController
   end
 	
 	def create
+    if params[:matchup_table][:matchups] == MatchupTable.find_by(url: params[:matchup_table][:originalHash]).matchups
+      puts "*" * 80
+      return "NAH B"
+    end
 		@matchup_table = MatchupTable.create(matchup_table_params)
 		@matchup_table.update(url: @matchup_table.set_url)
 

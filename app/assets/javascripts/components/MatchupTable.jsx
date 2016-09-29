@@ -16,7 +16,7 @@ class MatchupTable extends React.Component {
     // this.changeIncrement = this.changeIncrement.bind(this);
 
 		this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
-		this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
+		// this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
     this.shortenedHeroNames= ["Genji", "MCree", "Phar", "Reap", "Solider", "Trace", "Bast", "Hanzo", "Junk", "Mei", "Torb", "Widow", "D.Va", "Rein", "Road", "Winst", "Zarya", "Ana", "Lúcio", "Mercy", "Sym", "Zeny"];
 		this.bsKey = 0;
 
@@ -40,7 +40,7 @@ class MatchupTable extends React.Component {
     this.setState({windowWidth: window.innerWidth});
   }
 
-  handleInput(e) {
+  handleInput(e) {  
     let hero = e.target.getAttribute('data-hero');
     let opponent = e.target.getAttribute('data-opponent');
     let newValue;
@@ -75,14 +75,17 @@ class MatchupTable extends React.Component {
 			matchups[matchupInputs[i].getAttribute('data-hero')] = matchups[matchupInputs[i].getAttribute('data-hero')] || {};
 			matchups[matchupInputs[i].getAttribute('data-hero')][matchupInputs[i].getAttribute('data-opponent')] = parseFloat(matchupInputs[i].value);
 		}
+    let splitUrl = window.location.href.split("/")
+    let originalHash = splitUrl[splitUrl.length - 1];
 
     let data = {
       matchups: matchups,
       increment_value: this.state.incrementValue,
-      max: this.state.max
+      max: this.state.max,
+      originalHash: originalHash
     }
+    
 		this.putMatchupTable(data);
-    // this.setState({saveState: "disabled"})
 	}
 
 	putMatchupTable(data) {
@@ -207,7 +210,7 @@ class MatchupTable extends React.Component {
 				{this.renderUrl()}
         <div className="row">
           <div className="small-10 columns">
-    				<a className="expanded button table-button" onClick={this.saveTable}><button>Save</button></a>
+    				<a className="expanded button table-button" onClick={this.saveTable}  ><button>Save</button></a>
           </div>
           <div className="small-2 columns">
             <a className="expanded button alert table-button" onClick={this.clearTable}><button className="no-outline-button">Clear All Table Data</button></a>
