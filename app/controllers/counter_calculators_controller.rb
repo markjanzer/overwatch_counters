@@ -1,6 +1,6 @@
 class CounterCalculatorsController < ApplicationController
 	def index
-		@matchup_table = MatchupTable.last
+		@matchup_table = MatchupTable.all.where(default: true).first
     @matchup_table.increment!(:visits)
 	end
 
