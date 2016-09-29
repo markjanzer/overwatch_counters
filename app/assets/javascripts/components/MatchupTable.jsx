@@ -10,6 +10,7 @@ class MatchupTable extends React.Component {
 		this.renderUrl = this.renderUrl.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.renderOpponentColumnLabel = this.renderOpponentColumnLabel.bind(this);
+    this.handleResize = this.handleResize.bind(this);
     // this.renderTableSettings = this.renderTableSettings.bind(this);
     // this.changeMax = this.changeMax.bind(this);
     // this.changeIncrement = this.changeIncrement.bind(this);
@@ -29,6 +30,15 @@ class MatchupTable extends React.Component {
 
 		}
 	}
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize();
+  }
+
+  handleResize() {
+    this.setState({windowWidth: window.innerWidth});
+  }
 
   handleInput(e) {
     let hero = e.target.getAttribute('data-hero');
@@ -96,6 +106,16 @@ class MatchupTable extends React.Component {
   //     </div>
   //   );
   // }
+
+  renderSizeWarning() {
+    if (this.state.windowWidth <= 768) {
+      return (
+        <div className="callout warning">
+          <p>This page is better suited for larger screens</p>
+        </div>
+      );
+    }
+  }
 
 	renderTable() {
 		return (
@@ -182,6 +202,7 @@ class MatchupTable extends React.Component {
   render() {
     return (
       <div className="side-margin">
+        {this.renderSizeWarning()}
 				{this.renderTable()}
 				{this.renderUrl()}
         <div className="row">
