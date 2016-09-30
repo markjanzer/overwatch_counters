@@ -325,3 +325,7 @@ td > p.matchup {
 .side-margin {
   margin: 0em 0.5em;
 }
+
+.save-warning {
+  margin: 1em 0 0 0;
+}

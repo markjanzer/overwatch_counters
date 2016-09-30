@@ -14,19 +14,18 @@ class MatchupTablesController < ApplicationController
 
   def edit
     @matchup_table = MatchupTable.where(url: params[:hash])[0]
-    puts @matchup_table
   end
 	
 	def create
     if params[:matchup_table][:matchups] == MatchupTable.find_by(url: params[:matchup_table][:originalHash]).matchups
-      puts "*" * 80
-      return "NAH B"
-    end
-		@matchup_table = MatchupTable.create(matchup_table_params)
-		@matchup_table.update(url: @matchup_table.set_url)
+      head 406
+    else
+  		@matchup_table = MatchupTable.create(matchup_table_params)
+  		@matchup_table.update(url: @matchup_table.set_url)
 
-		response = {url: @matchup_table.url}
-    render json: response, status: :ok
+  		response = {url: @matchup_table.url}
+      render json: response, status: :ok
+    end
 	end
 
 	private

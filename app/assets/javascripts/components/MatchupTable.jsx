@@ -11,6 +11,7 @@ class MatchupTable extends React.Component {
     this.handleInput = this.handleInput.bind(this);
     this.renderOpponentColumnLabel = this.renderOpponentColumnLabel.bind(this);
     this.handleResize = this.handleResize.bind(this);
+    this.renderFailedSave = this.renderFailedSave.bind(this);
     // this.renderTableSettings = this.renderTableSettings.bind(this);
     // this.changeMax = this.changeMax.bind(this);
     // this.changeIncrement = this.changeIncrement.bind(this);
@@ -26,8 +27,8 @@ class MatchupTable extends React.Component {
       // incrementValue: this.props.matchupTable.increment_value,
       // max: this.props.matchupTable.max,
       incrementValue: 25,
-      max: 100
-
+      max: 100,
+      failedSave: false,
 		}
 	}
 
@@ -96,10 +97,30 @@ class MatchupTable extends React.Component {
 			datatype: 'json',
 			success: (result) => {
 				console.log(result);
-				this.setState({url: result.url})
-			}
+				this.setState({
+          url: result.url,
+          failedSave: false
+        })
+			}, 
+      error: (xhr) => {
+        console.log(xhr)
+        console.log(xhr.status)
+        if (xhr.status === 406) {
+          this.setState({failedSave: true})
+        }
+      }
 		})
 	}
+
+  renderFailedSave() {
+    if (this.state.failedSave) {
+      return (
+        <div className="callout alert save-warning">
+          <p>You have not changed the matchup table!</p>
+        </div>
+      );
+    }
+  }
 
   // renderTableSettings() {
   //   return (
@@ -209,6 +230,7 @@ class MatchupTable extends React.Component {
 				{this.renderTable()}
 				{this.renderUrl()}
         <div className="row">
+          {this.renderFailedSave()}
           <div className="small-10 columns">
     				<a className="expanded button table-button" onClick={this.saveTable}  ><button>Save</button></a>
           </div>
