@@ -31,17 +31,22 @@ class CategorizedCounters extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate");
 		this.offenseIso.reloadItems();
 		this.offenseIso.arrange();		
+    this.offenseIso.layout();
 
 		this.defenseIso.reloadItems();
 		this.defenseIso.arrange();		
+    this.defenseIso.layout();
 
 		this.tankIso.reloadItems();
 		this.tankIso.arrange();		
+    this.tankIso.layout();
 
 		this.supportIso.reloadItems();
 		this.supportIso.arrange();
+    this.supportIso.layout();
 	}
 
 	renderCategory(category, index) {

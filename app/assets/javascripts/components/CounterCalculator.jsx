@@ -112,8 +112,8 @@ class CounterCalculator extends React.Component {
       }
     }
     // Grabbing hero matchups in reverse and returning negative value might be faster than
-    // searching through every hero for each of the opponents and preseverving only those values? Not sure,
-    // but it seems dangerous.
+    // searching through every hero for each of the opponents and preseverving only those values.
+    // Not flexible, but the inverse of a matchup is always negative so it doesn't seem too bad.
     for (let key in counters) {
       counters[key] = Math.round(counters[key] / filteredOpponents.length) * -1;
     }
@@ -155,7 +155,7 @@ class CounterCalculator extends React.Component {
   }
 
   switchCounterRender() {
-   this.setState({countersByCategory: !this.state.countersByCategory});
+    this.setState({countersByCategory: !this.state.countersByCategory});
   }
   
   // getHero(alpha_id) {

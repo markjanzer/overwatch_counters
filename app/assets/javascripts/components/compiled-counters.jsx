@@ -2,8 +2,6 @@ class CompiledCounters extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 
-		// this.getHero = this.getHero.bind(this);
-
     this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
 	}
 
@@ -27,16 +25,21 @@ class CompiledCounters extends React.Component {
 
 		$('.hero-text').fitText(10, { minFontSize: '10em' });
 		$('.opponent-text').fitText(0.5, { minFontSize: '0.5em', maxFontSize: '0.5em' });
+
+    console.log("componentDidMount")
+    this.iso.reloadItems();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate");
 		this.iso.reloadItems();
 		this.iso.arrange();
 	}
 
-	// getHero(alpha_id) {
-	// 	return this.props.orderedHeroes[alpha_id];
-	// }
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+    this.iso.destroy();
+  }
 
 	renderAllCounters() {
     let counterKeys = this.heroSlugs;

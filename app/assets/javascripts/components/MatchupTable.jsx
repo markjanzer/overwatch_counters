@@ -56,7 +56,6 @@ class MatchupTable extends React.Component {
       newValue = parseInt(e.target.value) * -1;
     }
     this.refs[opponent + "-" + hero].value = newValue.toString();
-    // this.setState({saveState: ""});
   }
 
   // changeMax(e) {
