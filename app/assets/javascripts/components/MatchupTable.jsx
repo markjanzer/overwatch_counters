@@ -33,8 +33,13 @@ class MatchupTable extends React.Component {
 	}
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.handleResize);
     this.handleResize();
+  }
+
+  // Not sure why this works in componentDidUpdate and not in componentDidMount
+  componentDidUpdate() {
+    document.getElementsByClassName('matchup')[1].focus();
   }
 
   handleResize() {
