@@ -24,6 +24,7 @@ class CategorizedCounters extends React.Component {
         },
         sortBy: ['counterScore', 'name']
       });
+      this.forceUpdate();
     }
 
 		$('.hero-text').fitText(10, { minFontSize: '10em' });

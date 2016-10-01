@@ -6,15 +6,15 @@ class Counter extends React.Component {
 		this.imagePath = this.imagePath.bind(this); 
 		this.renderCounterScore = this.renderCounterScore.bind(this);
 
-		this.state = {
-			sizing: '1em'
-		}
+		// this.state = {
+		// 	sizing: '1em'
+		// }
 	}
 
 	// This is a janky fix for isotope rendering with different size initially
-	componentWillReceiveProps(nextProps) {
-	  this.setState({sizing: '0em'});
-	}
+	// componentWillReceiveProps(nextProps) {
+	//   this.setState({sizing: '0em'});
+	// }
 
 	handleClick() {
 		this.props.handleClick(this.props.hero);
@@ -46,11 +46,11 @@ class Counter extends React.Component {
 	}
 
 	render() {
-		const counterSizing = {
-			padding: this.state.sizing
-		}
+		// const counterSizing = {
+		// 	padding: this.state.sizing
+		// }
 		return (
-			<div className="counter" style={counterSizing}>
+			<div className="counter">
 				{this.renderCounterScore()}
 		    <button 
 		    	className="counter-button"

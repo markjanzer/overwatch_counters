@@ -26,14 +26,18 @@ class CompiledCounters extends React.Component {
 		$('.hero-text').fitText(10, { minFontSize: '10em' });
 		$('.opponent-text').fitText(0.5, { minFontSize: '0.5em', maxFontSize: '0.5em' });
 
-    console.log("componentDidMount")
-    this.iso.reloadItems();
-	}
+    this.forceUpdate();
+		// this.iso.reloadItems();
+		// this.iso.arrange();
+    // $1 = this;
+  }
 
-	componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     console.log("componentDidUpdate");
-		this.iso.reloadItems();
-		this.iso.arrange();
+    this.iso.reloadItems();
+    this.iso.arrange();
+    this.iso.layout();
+    console.log(this);
 	}
 
   componentWillUnmount() {
