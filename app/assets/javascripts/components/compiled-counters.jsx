@@ -3,45 +3,47 @@ class CompiledCounters extends React.Component {
 		super(props, context);
 
     this.heroSlugs = ["genji", "mccree", "pharah", "reaper", "soldier-76", "tracer", "bastion", "hanzo", "junkrat", "mei", "torbjorn", "widowmaker", "dva", "reinhardt", "roadhog", "winston", "zarya", "ana", "lucio", "mercy", "symmetra", "zenyatta" ];
+    this.incrementLoadedImageCount = this.incrementLoadedImageCount.bind(this);
+
+    this.state = {
+      loadedImageCount: 0
+    }
 	}
 
 	componentDidMount() {
-		this.iso = new Isotope( '.counters', {
-			itemSelector: '.counter',
-			layoutMode: 'vertical',
-			getSortData: {
-				counterScore: '.counterScore parseFloat',
-				name: '.name'
-			}
-		});
+    $('.hero-text').fitText(10, { minFontSize: '10em' });
+    $('.opponent-text').fitText(0.5, { minFontSize: '0.5em', maxFontSize: '0.5em' });
 
-		this.iso.arrange({
-			sortAscending: {
-				name: true,
-				counterScore: false
-			},
-			sortBy: ['counterScore', 'name']
-		});
+    this.iso = new Isotope( '.counters', {
+      itemSelector: '.counter',
+      layoutMode: 'vertical',
+      getSortData: {
+        counterScore: '.counterScore parseFloat',
+        name: '.name'
+      }
+    });
 
-		$('.hero-text').fitText(10, { minFontSize: '10em' });
-		$('.opponent-text').fitText(0.5, { minFontSize: '0.5em', maxFontSize: '0.5em' });
+    this.iso.arrange({
+      sortAscending: {
+        name: true,
+        counterScore: false
+      },
+      sortBy: ['counterScore', 'name']
+    });
+  }
 
-    this.forceUpdate();
-		// this.iso.reloadItems();
-		// this.iso.arrange();
-    // $1 = this;
+  // This state change is doing nothing other than promping isotope to re-render or something. Without it, inital load is broken.
+  incrementLoadedImageCount() {
+    this.setState({loadedImageCount: this.state.loadedImageCount + 1});
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate");
     this.iso.reloadItems();
     this.iso.arrange();
     this.iso.layout();
-    console.log(this);
 	}
 
   componentWillUnmount() {
-    console.log("componentWillUnmount");
     this.iso.destroy();
   }
 
@@ -57,6 +59,7 @@ class CompiledCounters extends React.Component {
 								hero={hero}
 								counterScore={counters[hero] || 0}
 								handleClick={this.props.selectCounter}
+                imageLoaded={this.incrementLoadedImageCount}
 							/>
 						</div>
 					);

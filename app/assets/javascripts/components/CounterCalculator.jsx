@@ -29,7 +29,6 @@ class CounterCalculator extends React.Component {
     // this.heroNames = ["Genji", "McCree", "Pharah", "Reaper", "Solider: 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjörn", "Widowmaker", "D.Va", "Reinhardt", "Roadhog", "Winston", "Zarya", "Ana", "Lúcio", "Mercy", "Symmetra", "Zenyatta"];
     this.matchups = this.props.matchupTable.matchups
 
-
     // this.props.matchupTable
 		this.state = {
 			opponents: [null, null, null, null, null, null],
@@ -251,12 +250,15 @@ class CounterCalculator extends React.Component {
 	}
 
 	renderSelectedCounter() {
+    // Set counterScore value equal to empty string if no counters have been chosen
+    let counterScore = this.state.counters ? this.state.counters[this.state.selectedCounter] : "";
+
 		if (this.state.selectedCounter !== null) {
 			return(
 				<div className="row relative">
 					<div className="small-12 columns selected-counter">
 						<h5 className="overwatch-font">{this.heroes[this.state.selectedCounter].name}</h5>
-						<h5 className="overwatch-font">{this.state.counters[this.state.selectedCounter]}</h5>
+						<h5 className="overwatch-font">{counterScore}</h5>
 						<div>
 							<h5 className="label-font">Individual Mathchups</h5>
 							{this.state.opponents.filter((opponent) => opponent).map((opponent, index) => {

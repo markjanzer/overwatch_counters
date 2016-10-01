@@ -226,6 +226,10 @@ class MatchupTable extends React.Component {
     }
   }
 
+  // renderModal() {
+    
+  // }
+
   // {this.renderTableSettings()}
   render() {
     return (
