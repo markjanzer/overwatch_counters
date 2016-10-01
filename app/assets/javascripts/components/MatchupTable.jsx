@@ -12,6 +12,7 @@ class MatchupTable extends React.Component {
     this.renderOpponentColumnLabel = this.renderOpponentColumnLabel.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.renderFailedSave = this.renderFailedSave.bind(this);
+    this.toggleHelp = this.toggleHelp.bind(this);
     // this.renderTableSettings = this.renderTableSettings.bind(this);
     // this.changeMax = this.changeMax.bind(this);
     // this.changeIncrement = this.changeIncrement.bind(this);
@@ -29,6 +30,7 @@ class MatchupTable extends React.Component {
       incrementValue: 25,
       max: 100,
       failedSave: false,
+      displayHelp: false
 		}
 	}
 
@@ -44,6 +46,10 @@ class MatchupTable extends React.Component {
 
   handleResize() {
     this.setState({windowWidth: window.innerWidth});
+  }
+
+  toggleHelp() {
+    this.setState({displayHelp: !this.state.displayHelp});
   }
 
   handleInput(e) {  
@@ -116,6 +122,20 @@ class MatchupTable extends React.Component {
 		})
 	}
 
+  renderHelpInfo() {
+    if (this.state.displayHelp) {
+      return (
+        <div className="callout primary">
+          <p>Each input below displays a number between -100 and 100, representing how well the row hero fares against the column hero. For instance, the input currently selected resides on Genji's row and McCree's column. A value of 100 woudl indicate that Genji counters McCree perfectly, a -25 would mean that McCree is a soft counter to Genji, and a 0 means they are equally matched.</p>
+          <p>Use the up and down arrows to score each matchup (or type in a number for a more percise value), and use tab and shift+tab to navigate between matchups.</p>
+          <p>If you want to start from scratch, hit the clear button below.</p>
+          <p>Click save to recieve a URL that links to the counter calculator for your matchup data.</p>
+          <button className="close-help-button alert button" onClick={this.toggleHelp}>Close</button>
+        </div>
+      );
+    }
+  }
+
   renderFailedSave() {
     if (this.state.failedSave) {
       return (
@@ -150,7 +170,7 @@ class MatchupTable extends React.Component {
 			<table>
 				<tbody>
 					<tr>
-						<td><button className="help-button"><span className="help-button-text">?</span></button></td>
+						<td><button className="help-button" onClick={this.toggleHelp}><span className="help-button-text">?</span></button></td>
 						{this.renderOpponentColumnLabel()}
 					</tr>
 					{this.heroSlugs.slice(0, 11).map((heroSlug, heroIndex) => this.renderHeroRow(heroSlug, heroIndex))}
@@ -226,15 +246,12 @@ class MatchupTable extends React.Component {
     }
   }
 
-  // renderModal() {
-    
-  // }
-
   // {this.renderTableSettings()}
   render() {
     return (
       <div className="side-margin">
         {this.renderSizeWarning()}
+        {this.renderHelpInfo()}
 				{this.renderTable()}
 				{this.renderUrl()}
         <div className="row">
