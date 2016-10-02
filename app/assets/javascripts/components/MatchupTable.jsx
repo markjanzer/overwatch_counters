@@ -23,7 +23,7 @@ class MatchupTable extends React.Component {
 		this.bsKey = 0;
 
 		this.state = {
-			url: undefined,
+			id: undefined,
       // saveState: "disabled",
       // incrementValue: this.props.matchupTable.increment_value,
       // max: this.props.matchupTable.max,
@@ -87,13 +87,13 @@ class MatchupTable extends React.Component {
 			matchups[matchupInputs[i].getAttribute('data-hero')][matchupInputs[i].getAttribute('data-opponent')] = parseFloat(matchupInputs[i].value);
 		}
     let splitUrl = window.location.href.split("/")
-    let originalHash = splitUrl[splitUrl.length - 1];
+    let originalId = splitUrl[splitUrl.length - 1];
 
     let data = {
       matchups: matchups,
       increment_value: this.state.incrementValue,
       max: this.state.max,
-      originalHash: originalHash
+      originalId: originalId
     }
     
 		this.putMatchupTable(data);
@@ -108,7 +108,7 @@ class MatchupTable extends React.Component {
 			success: (result) => {
 				console.log(result);
 				this.setState({
-          url: result.url,
+          id: result.id,
           failedSave: false
         })
 			}, 
@@ -236,11 +236,11 @@ class MatchupTable extends React.Component {
 
   // Change this before deployment
   renderUrl() {
-    if (this.state.url) {
+    if (this.state.id) {
       return (
         <div>
           <p className="create-matchups-link center-text">Your Counter Calculator:</p> 
-          <p className="create-matchups-link center-text"><a href={`/${this.state.url}`}>{"overwatchcounters.io/" + this.state.url}</a></p>
+          <p className="create-matchups-link center-text"><a href={`/${this.state.id}`}>{"overwatchcounters.io/" + this.state.id}</a></p>
         </div>
       );
     }

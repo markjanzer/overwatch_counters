@@ -70,8 +70,8 @@ class CounterCalculator extends React.Component {
     }
 
     let matchupTableLink = document.getElementsByClassName('create-matchups-link')[0];
-    if (this.props.matchupTable.url) {
-      matchupTableLink.href = `/matchup_tables/${this.props.matchupTable.url}`;
+    if (this.props.matchupTable.id) {
+      matchupTableLink.href = `/matchup_tables/${this.props.matchupTable.id}`;
     }
   }
 

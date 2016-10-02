@@ -5,7 +5,7 @@ class CounterCalculatorsController < ApplicationController
 	end
 
 	def show
-		@matchup_table = MatchupTable.find_by_url(params[:hash])
+		@matchup_table = MatchupTable.find(params[:id])
     @matchup_table.increment!(:visits)
 	end
 end

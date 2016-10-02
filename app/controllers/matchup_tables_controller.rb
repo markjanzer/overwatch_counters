@@ -1,29 +1,18 @@
 class MatchupTablesController < ApplicationController
 	def new
-    @matchup_table = MatchupTable.new()
-    matchups = {}
-    MatchupTable.heroes.each do |hero|
-      matchups[hero] = {}
-      MatchupTable.heroes.each do |opponent|
-        matchups[hero][opponent] = 0
-      end
-    end
-    @matchup_table.matchups = matchups
-    # @matchup_table.save()
+    @matchup_table = MatchupTable.new_matchup_table
 	end
 
   def edit
-    @matchup_table = MatchupTable.where(url: params[:hash])[0]
+    @matchup_table = MatchupTable.find(params[:id])
   end
 	
 	def create
-    if params[:matchup_table][:matchups] == MatchupTable.find_by(url: params[:matchup_table][:originalHash]).matchups
+    if params[:matchup_table][:matchups] == MatchupTable.find(params[:matchup_table][:originalId]).matchups
       head 406
     else
   		@matchup_table = MatchupTable.create(matchup_table_params)
-  		@matchup_table.update(url: @matchup_table.set_url)
-
-  		response = {url: @matchup_table.url}
+  		response = {id: @matchup_table.id}
       render json: response, status: :ok
     end
 	end
