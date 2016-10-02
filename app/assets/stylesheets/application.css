@@ -20,22 +20,47 @@
  	background-color: #FFFCF7;
  }
 
-.top-bar {
+.header {
+  margin: 0.25em 1em;
+}
+
+.logo {
+  font-size: 1.5em;
+  color: #0c4d78;
+  font-style: italic;
+}
+
+.create-matchups-link {
+  font-family: Futura,century gothic, arial, sans-serif;
+  font-size: 1.2em;
+}
+
+.footer {
+  /*margin-top: 2em;*/
+  margin-right: 1em;
+}
+
+.footer-link {
+  float: right;
+  margin-right: 0.5em;
+}
+
+/*.top-bar {
 	text-align: center;
 	background: #C8DBFF;
 }
 
 .top-bar-title-wrapper {
 	display: inline-block;
-}
+}*/
 
 .image {
 	width: 100%;
 }
 
-.github-favicon {
+/*.github-favicon {
 	width: 1.5em;
-}
+}*/
 
 .overwatch-font {
 	font-family: Big Noodle Too, impact, sans-serif;
@@ -68,6 +93,10 @@
 	display: inline-block;
 }
 
+.relative {
+	position: relative;
+}
+
 .button-wrapper {
 	display: inline-block;
 }
@@ -85,6 +114,31 @@
 	height: 0em;
 }
 
+/* Hero animation */
+.hero-animate {
+  animation: pulse 0.25s;
+}
+
+.hero-button {
+  border-radius: 25px;
+  outline: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  
+  50% {
+    transform: scale(0.7);
+  }
+  
+  100% {
+    transform: scale(1);
+  }
+}
+/* Hero animation */
+
 .hero-text {
 	margin: 0em;
 }
@@ -92,46 +146,6 @@
 .icon-wrapper {
 	width: 1em;
 }
-
-/*.offense-block {
-	width: calc((6% * 100 / 21) - 3%);
-	display: inline-block;
-	margin: 0% 1.5%;
-}
-
-.defense-block {
-	width: calc((6% * 100 / 21) - 3%);
-	display: inline-block;
-	margin: 0% 1.5%;
-}
-
-.tank-block {
-	width: calc((5% * 100 / 21) - 3%);
-	display: inline-block;
-	margin: 0% 1.5%;
-}
-
-.support-block {
-	width: calc((4% * 100 / 21) - 3%);
-	display: inline-block;
-	margin: 0% 1.5%;
-}*/
-
-/*.offense-hero {
-	width: calc(1% * 100 / 6);
-}
-
-.defense-hero {
-	width: calc(1% * 100 / 6);
-}
-
-.tank-hero {
-	width: calc(1% * 100 / 5);
-}
-
-.support-hero {
-	width: calc(1% * 100 / 4);
-}*/
 
 .offense-hero {
 	width: 16.50%;
@@ -148,7 +162,7 @@
 
 .support-hero {
 	width: 16.50%;
-	margin: 0% 4.25%;
+	margin: 0% 1.75%;
 }
 
 .no-hero-button {
@@ -158,6 +172,10 @@
 .category-icon {
 	width: 1em;
 	height: 1em;
+}
+
+.widowmaker {
+  font-size: 8em;
 }
 
 /* Render Opponents */
@@ -196,6 +214,17 @@
 
 .selected-counter {
 	text-align: center;
+}
+
+.switch-counter-render-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.counter-icon {
+	margin: auto;
+	padding-bottom: 0.5em;
 }
 
 .counter-button {
@@ -243,4 +272,67 @@
 .negative-counter-score {
 	position: absolute;
 	right: 1.5em;
+}
+
+.fl-right {
+  float: right;
+}
+
+.matchup {
+  width: 3.5em;
+  height: 3.5em;
+  text-align: center;
+  margin: 0.18em 0.18em;
+}
+
+td > p.matchup {
+  margin-bottom: 0;
+  padding-top: 1em;
+}
+
+.opponent-column-label {
+  text-align: center;
+}
+
+.hero-row-label {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.table-button {
+  margin-top: 1em;
+  border-radius: 10px;
+}
+
+.no-outline-button {
+  outline: none;
+}
+
+.help-button {
+  background-color: #F16211;
+  height: 2.5em;
+  width: 2.5em;
+  border-radius: 10px;
+  color: #FFFFFF;
+  outline: none;
+}
+
+.help-button-text {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.side-margin {
+  margin: 0em 0.5em;
+}
+
+.save-warning {
+  margin: 1em 0 0 0;
+}
+
+.close-help-button {
+  position: absolute;
+  bottom: 0.5em;
+  right: 1em;
+  border-radius: 10px;
 }

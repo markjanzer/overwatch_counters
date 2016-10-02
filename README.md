@@ -1,8 +1,14 @@
 # Overwatch Counters
 
-Overwatch Counters helps you pick the best heroes to play against an enemy team. When you select your opponents, a list of counters with their counter score will render below. Click on the icon of a counter for the individual matchups between that counter and every member of the enemy team.
+Overwatch Counters helps you pick the best heroes to play against an enemy team. When you select your opponents, a list of counters with their counter scores will render below. You can click on the "Sort By Category" button to sort the counters by role. Click on the icon of a counter to display the individual matchups between that counter and every member of the enemy team.
 
-All the data is scraped from [OverwatchFire](http://www.owfire.com/overwatch/counters). Votes for each matchup are added and then numbers are normalized so that every hero has a 50% winrate, and counter scores render on a scale from -100 to 100.
+You can create your own matchup data by selecting "Create Matchups". The matchup chart is 22 x 22, each hero belonging to a row and a column. At the intersection of these rows and columns there are numbers that range from -100 to 100. A positive number means that the row hero has an advantage against the column hero, and a negative number means that the column hero has an advantage against the row. All mirror matchups are automatically set to 0 (an even matchup).
+
+The chart starts populated with the matchup data of the page that you came from. You can hit "Clear All Table Data" at the bottom of the page to start fresh.
+
+It is recommended you input data on a computer. Starting on with the first counter (row: Genji, column: McCree), you can hit the up and down arrows to increment the value by 25, or type in numbers manually. Hit tab to move to the next cell. Tab will skip the cells below the diagonal line of mirror matchups, because they will be filled in automatically with the inverse value. This means that if you think Junkrat have a counter score of 75 into Mei, Mei will have a score of -75 into Junkrat.
+
+When you hit the save button, a unique URL will be generated to view a counter calculator with this matchup data.
 
 You can see it live at [www.overwatchcounters.io](http://www.overwatchcounters.io).
 

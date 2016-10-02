@@ -14,6 +14,8 @@ class OverwatchState extends React.Component {
 		this.getCounterScore = this.getCounterScore.bind(this);
 		this.clearOpponents = this.clearOpponents.bind(this);
 		this.renderSelectedCounter = this.renderSelectedCounter.bind(this);
+		this.switchCounterRender = this.switchCounterRender.bind(this);
+		this.renderSwitchCounterRenderButton = this.renderSwitchCounterRenderButton.bind(this);
 
 		this.state = {
 			opponents: [null, null, null, null, null, null],
@@ -21,28 +23,8 @@ class OverwatchState extends React.Component {
 			counters: this.props.initialCounters,
 			selectedCounter: null,
 			orderedHeroes: this.props.orderedHeroes,
+			countersByCategory: false
 		}
-	}
-
-	componentDidMount() {
-		this.iso = new Isotope( '.counters', {
-			itemSelector: '.counter',
-			layoutMode: 'vertical',
-			getSortData: {
-				counterScore: '.counterScore parseFloat',
-				name: '.name'
-			}
-		});
-		this.iso.arrange({
-			sortAscending: {
-				name: true,
-				counterScore: false
-			},
-			sortBy: ['counterScore', 'name']
-		});
-
-		$('.hero-text').fitText(10, { minFontSize: '10em' });
-		$('.opponent-text').fitText(0.5, { minFontSize: '0.5em', maxFontSize: '0.5em' });
 	}
 
 	getCounters(opponents) {
@@ -67,11 +49,6 @@ class OverwatchState extends React.Component {
 		});
 		this.setState({counters: counters});
 		return counters;
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		this.iso.reloadItems();
-		this.iso.arrange();
 	}
 
 	addOpponent(hero=null) {
@@ -116,6 +93,10 @@ class OverwatchState extends React.Component {
 		this.getCounters(opponents);
 	}
 
+	switchCounterRender() {
+		this.setState({countersByCategory: !this.state.countersByCategory});
+	}
+
 	renderHeroes() {
 		return (
 			<div className="expanded row heroes">	
@@ -128,7 +109,7 @@ class OverwatchState extends React.Component {
 				{this.renderHeroCategory("support")}
 				<div className="small-12 columns no-hero-container">
 					<button
-						className="secondary hollow button no-hero-button"
+						className="secondary hollow button no-hero-button small"
 						onClick={this.addOpponent.bind(this, null)}
 					>No Hero</button>
 				</div>
@@ -176,10 +157,25 @@ class OverwatchState extends React.Component {
 		return newArr
 	}
 
+	renderSwitchCounterRenderButton () {
+		let buttonText
+		if (this.state.countersByCategory) {
+			buttonText = "Sort as List";
+		} else {
+			buttonText = "Sort by Category";
+		}
+		return (
+			<button
+				className="switch-counter-render-button hollow button small"
+				onClick={this.switchCounterRender}
+			>{buttonText}</button>
+		);
+	}
+
 	renderSelectedCounter() {
 		if (this.state.selectedCounter !== null) {
 			return(
-				<div className="row">
+				<div className="row relative">
 					<div className="small-12 columns selected-counter">
 						<h5 className="overwatch-font">{this.getHero(this.state.selectedCounter).name}</h5>
 						<h5 className="overwatch-font">{this.getCounterScore(this.state.selectedCounter)}</h5>
@@ -202,38 +198,47 @@ class OverwatchState extends React.Component {
 							Deselect Counter
 						</button>
 					</div>
+					{this.renderSwitchCounterRenderButton()}
 				</div>
 			);
 		} else {
 			return (
-				<div className="row selected-counter">
+				<div className="row selected-counter relative">
 					<span className="label-font">No Counter Selected</span>
+					{this.renderSwitchCounterRenderButton()}
 				</div>
 			);
 		}
 	}
 
 	renderCounters() {
-		return (
-			<div className="row counters">
-				{this.state.counters.map((counter) => {
-					return (
-						<div key={counter[0]}>
-							<Counter
-								hero={this.getHero(counter[0])}
-								counterScore={counter[1]}
-								handleClick={this.selectCounter}
-							/>
-						</div>
-					);
-				})}
-			</div>
-		);
+		if (this.state.countersByCategory) {
+			return (
+				<div className="row counters">
+					<CategorizedCounters 
+						counters={this.state.counters}
+						orderedHeroes={this.props.orderedHeroes}
+						selectCounter={this.selectCounter}
+					/>
+				</div>
+			);
+		} else {
+			return (
+				<div className="row counters">
+					<CompiledCounters 
+						counters={this.state.counters}
+						orderedHeroes={this.props.orderedHeroes}
+						selectCounter={this.selectCounter}
+					/>
+				</div>
+			);
+		}
 	}
 
 	render() {
 		return (
 			<div>
+				<a href="/matchup_tables/new">Create your own matchups</a>
 				{this.renderHeroes()}
 				{this.renderOpponents()}
 				{this.renderSelectedCounter()}

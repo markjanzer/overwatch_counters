@@ -12,21 +12,21 @@
   </head>
 
   <body>
+    <header>
+      <div class="header">
+        <span class="logo overwatch-font"><a href="/">Overwatch Counters</a></span>
 
-    <div class="top-bar">
-      <div class="top-bar-left">
-        <a href="https://github.com/markjanzer/overwatch_counters">
-          <img src="/assets/GitHub-Mark-32px.png" class="github-favicon">
-        </a>
+        <% if !request.original_fullpath.include?("matchup_table") %>
+          <span class="fl-right"><a class="create-matchups-link" href="/matchup_tables/new">Create matchups</a></span>
+        <% end %>
       </div>
-      <div class="top-bar-title-wrapper">
-        <div class="top-bar-title">
-          <h1 class="overwatch-header">Overwatch Counters</h1>
-        </div>
-      </div>
-    </div>
+    </header>
 
     <%= yield %>
+
+    <footer>
+      <div class="footer"><a class="footer-link" href="https://github.com/markjanzer/overwatch_counters">Contribute</a></div>
+    </footer>
 
   </body>
 </html>
