@@ -17,7 +17,31 @@ class MatchupTable < ActiveRecord::Base
     return matchup_table
   end
 
-  # def self.
+  def self.create_average_table(array_of_matchups)
+    table_count = array_of_matchups.length
+    matchup_table = self.new()
+    matchups = {}
+    self.heroes.each do |hero|
+      matchups[hero] ||= {}
+      self.heroes.each do |opponent|
+        sum = 0
+        array_of_matchups.each do |matchup|
+          sum += matchup[hero][opponent].to_f
+        end
+        matchups[hero][opponent] = sum / table_count.to_f
+      end
+    end
+    matchup_table.matchups = matchups
+    return matchup_table
+  end
+
+  def self.ids_to_matchups(id_array)
+    matchups = []
+    id_array.each do |id|
+      matchups.push(MatchupTable.find(id).matchups)
+    end
+    matchups
+  end
 
 	# def create_matchups(matchup_table)
 	# 	matchup_table.keys.each do |hero|
